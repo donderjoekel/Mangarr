@@ -1,0 +1,35 @@
+﻿@using Mangarr.Shared.Models
+<div id="wrapper" class="overflow-auto p-4">
+    @if (!_initialized)
+    {
+        <Spinner/>
+    }
+    else
+    {
+        <form>
+            <input class="form-control" type="text" placeholder="eg: Boku No Hero" @oninput="SearchQueryChanged">
+        </form>
+        <hr>
+        @if (!_hasSearched)
+        {
+            <p class="lead">Use the search bar to look for manga</p>
+        }
+        else if (_isSearching)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status"></div>
+            </div>
+        }
+        else if (_searchResults.Count == 0)
+        {
+            <p class="lead">Uh oh, couldn't find anything, try searching for something else!</p>
+        }
+        else
+        {
+            foreach (SearchResultModel item in _searchResults)
+            {
+                <ContentItem Item="@item" AlreadyRequested="@(_existingMangaIds.Contains(item.Id))"/>
+            }
+        }
+    }
+</div>

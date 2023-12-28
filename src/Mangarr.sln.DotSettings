@@ -1,0 +1,101 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=CF04BE8368E06744A1B13557E8BD7529/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=CF04BE8368E06744A1B13557E8BD7529/EntryName/@EntryValue">Madara</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=CF04BE8368E06744A1B13557E8BD7529/Position/@EntryValue">11</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=567DCF4B487C244A9F6BB46E4E9F3B84/Position/@EntryValue">6</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=7F2A1BE8D0078241A9AE7802038BAD3C/Position/@EntryValue">7</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=C4795E57DDEC1C4F97BBC8C7173EBBCA/Position/@EntryValue">8</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=2CBD6971A7955044AD2624B84FB49E38/Position/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=B159465CD2AD3F4A99C7C899C617B326/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=B159465CD2AD3F4A99C7C899C617B326/Position/@EntryValue">10</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=B159465CD2AD3F4A99C7C899C617B326/EntryName/@EntryValue">&lt;No Name&gt;</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5621E0F8BC31BE408EE6AFCA1566DDBA/Text/@EntryValue">using Injectio.Attributes;
+using Mandarr.Sources.Clients;
+
+namespace $NAMESPACE$;
+
+[RegisterSingleton&lt;ISource&gt;(Duplicate = DuplicateStrategy.Append)]
+internal class $CLASS$ : MadaraSourceBase
+{
+    protected override string Id =&gt; "$ID$";
+    protected override string Name =&gt; "$NAME$";
+    protected override string Url =&gt; "$URL$";
+
+    public $CLASS$(GenericHttpClient genericHttpClient)
+        : base(genericHttpClient)
+    {$END$}
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Scope/=C040821D1CED82449253405557DCEA32/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Scope/=C040821D1CED82449253405557DCEA32/Type/@EntryValue">InAnyNetProject</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Text/@EntryValue">using Injectio.Attributes;
+using Mandarr.Sources.Clients;
+
+namespace $NAMESPACE$;
+
+[RegisterSingleton&lt;ISource&gt;(Duplicate = DuplicateStrategy.Append)]
+internal class $CLASS$ : MangaStreamSourceBase
+{
+
+    protected override string Id =&gt; "";
+    protected override string Name =&gt; "";
+    protected override string Url =&gt; "";
+
+    public $CLASS$(GenericHttpClient genericHttpClient)
+        : base(genericHttpClient)
+    {$END$}
+}</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/CustomProperties/=FileName/@EntryIndexedValue">MangaStreamSource</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/CustomProperties/=ValidateFileName/@EntryIndexedValue">True</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Field/=NAMESPACE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Field/=CLASS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Field/=CLASS/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/Description/@EntryValue">Manga Stream</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/UITag/@EntryValue">Mandarr</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/CustomProperties/=FileName/@EntryIndexedValue">MangaStreamSource</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/CustomProperties/=ValidateFileName/@EntryIndexedValue">True</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Description/@EntryValue">Manga Stream</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=CLASS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=CLASS/Expression/@EntryValue">getAlphaNumericFileNameWithoutExtension()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=CLASS/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=CLASS/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=ID/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=ID/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=NAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=NAME/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=NAMESPACE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=URL/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Field/=URL/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Text/@EntryValue">using Injectio.Attributes;
+using Mandarr.Sources.Clients;
+
+namespace $NAMESPACE$;
+
+[RegisterSingleton&lt;ISource&gt;(Duplicate = DuplicateStrategy.Append)]
+internal class $CLASS$ : MangaStreamSourceBase
+{
+    protected override string Id =&gt; "$ID$";
+    protected override string Name =&gt; "$NAME$";
+    protected override string Url =&gt; "$URL$";
+
+    public $CLASS$(GenericHttpClient genericHttpClient)
+        : base(genericHttpClient)
+    {$END$}
+}</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/UITag/@EntryValue">Mandarr Source</s:String></wpf:ResourceDictionary>

@@ -1,0 +1,36 @@
+﻿@using Mangarr.Shared.Models
+<div id="wrapper" class="overflow-auto p-4">
+    @if (_isRefreshing)
+    {
+        <Spinner/>
+    }
+    else if (_items.Count == 0)
+    {
+        <p class="lead">Nothing is being downloaded right now</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Manga</th>
+                    <th>Chapter</th>
+                    <th>Progress</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for (int i = 0; i < _items.Count; i++)
+                {
+                    int index = i;
+                    ChapterProgressModel item = _items[index];
+                    <ContentItem Item="@item" Index="@(index + 1)"/>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+
+
+</div>
