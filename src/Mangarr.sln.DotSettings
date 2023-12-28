@@ -11,7 +11,7 @@
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=B159465CD2AD3F4A99C7C899C617B326/Position/@EntryValue">10</s:Int64>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=F0CA621CDF5AB24282D8CDC11C520997/Entry/=B159465CD2AD3F4A99C7C899C617B326/EntryName/@EntryValue">&lt;No Name&gt;</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=5621E0F8BC31BE408EE6AFCA1566DDBA/Text/@EntryValue">using Injectio.Attributes;
-using Mandarr.Sources.Clients;
+using Mangarr.Sources.Clients;
 
 namespace $NAMESPACE$;
 
@@ -22,8 +22,8 @@ internal class $CLASS$ : MadaraSourceBase
     protected override string Name =&gt; "$NAME$";
     protected override string Url =&gt; "$URL$";
 
-    public $CLASS$(GenericHttpClient genericHttpClient)
-        : base(genericHttpClient)
+    public $CLASS$(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
+        : base(genericHttpClient, cloudflareHttpClient)
     {$END$}
 }</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=B159465CD2AD3F4A99C7C899C617B326/@KeyIndexDefined">True</s:Boolean>
@@ -83,7 +83,7 @@ internal class $CLASS$ : MangaStreamSourceBase
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/Text/@EntryValue">using Injectio.Attributes;
-using Mandarr.Sources.Clients;
+using Mangarr.Sources.Clients;
 
 namespace $NAMESPACE$;
 
@@ -94,8 +94,8 @@ internal class $CLASS$ : MangaStreamSourceBase
     protected override string Name =&gt; "$NAME$";
     protected override string Url =&gt; "$URL$";
 
-    public $CLASS$(GenericHttpClient genericHttpClient)
-        : base(genericHttpClient)
+    public $CLASS$(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
+        : base(genericHttpClient, cloudflareHttpClient)
     {$END$}
 }</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=CF04BE8368E06744A1B13557E8BD7529/UITag/@EntryValue">Mandarr Source</s:String></wpf:ResourceDictionary>
