@@ -18,36 +18,6 @@ internal abstract class NepNepSourceBase : SourceBase
     {
     }
 
-    protected sealed override async Task<Result<MangaDirectory>> GetDirectory()
-    {
-        Result<string> result = await GetHttpClient().Get($"{Url}/directory");
-
-        if (result.IsFailed)
-        {
-            return result.ToResult();
-        }
-
-        MangaData data;
-
-        try
-        {
-            string json = result.Value;
-            json = json[json.IndexOf("vm.FullDirectory = ", StringComparison.InvariantCultureIgnoreCase)..];
-            json = json[..json.IndexOf("};", StringComparison.InvariantCultureIgnoreCase)];
-            json = json.Replace("vm.FullDirectory = ", string.Empty) + "}";
-
-            data = JsonConvert.DeserializeObject<MangaData>(json)!;
-        }
-        catch (Exception e)
-        {
-            return Result.Fail(new ExceptionalError(e));
-        }
-
-        return Result.Ok(new MangaDirectory(data.Directory
-            .Select(x => new MangaDirectoryItem(x.Slug.ToBase64(), x.Title, $"{Url}/manga/{x.Slug}"))
-            .ToList()));
-    }
-
     protected sealed override async Task<Result<SearchResult>> Search(string query)
     {
         Result<string> result = await GetHttpClient().Get($"{Url}/search/");

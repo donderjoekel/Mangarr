@@ -20,8 +20,6 @@ internal abstract class MangaStreamSourceBase : SourceBase
     {
     }
 
-    protected override Task<Result<MangaDirectory>> GetDirectory() => throw new NotImplementedException();
-
     protected override async Task<Result<SearchResult>> Search(string query)
     {
         Result<SearchResponse> result = await GetHttpClient().PostAsForm<SearchResponse>(

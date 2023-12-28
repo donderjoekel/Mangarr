@@ -21,8 +21,6 @@ internal abstract class MadaraSourceBase : SourceBase
     {
     }
 
-    protected override Task<Result<MangaDirectory>> GetDirectory() => throw new NotImplementedException();
-
     protected override async Task<Result<SearchResult>> Search(string query)
     {
         Result<string> result = await GetHttpClient().Get(Url + $"?s={query}&post_type=wp-manga");
