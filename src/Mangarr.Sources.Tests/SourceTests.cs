@@ -48,6 +48,7 @@ namespace Mangarr.Sources.Tests;
 [TestFixture("voidscans")]
 [TestFixture("webtoon")]
 [TestFixture("xcalibr")]
+[TestFixture("zeroscans")]
 [TestFixture("zinmanga")]
 public class SourceTests
 {
