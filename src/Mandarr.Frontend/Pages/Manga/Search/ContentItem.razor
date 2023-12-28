@@ -1,0 +1,16 @@
+﻿<div class="card flex-row w-100 search-result" style="height: 250px;">
+    <img class="search-result-cover" src="@CoverImage" alt="cover">
+    <div class="card-body w-100 h-100 d-flex flex-column">
+        <p class="lead flex-grow-1">@Title</p>
+        <p class="flex-grow-1 overflow-auto d-none d-sm-flex flex-column">@((MarkupString)Description)</p>
+        @if (AlreadyRequested)
+        {
+            <a href="#" class="btn btn-primary disabled" type="button">Add</a>
+        }
+        else
+        {
+            <a href="/manga/@Id/link" class="btn btn-primary" type="button">Add</a>
+        }
+
+    </div>
+</div>

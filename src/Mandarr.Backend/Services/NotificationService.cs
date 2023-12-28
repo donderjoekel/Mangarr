@@ -1,0 +1,42 @@
+﻿using Mandarr.Backend.Database.Documents;
+
+namespace Mandarr.Backend.Services;
+
+public class NotificationService
+{
+    private readonly AniListService _aniListService;
+
+    public NotificationService(AniListService aniListService)
+    {
+        _aniListService = aniListService;
+    }
+
+    public Task NotifyNewManga(RequestedMangaDocument requestedMangaDocument)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task NotifyNewChapters(
+        RequestedMangaDocument requestedMangaDocument,
+        IEnumerable<RequestedChapterDocument> newChapters
+    )
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task NotifyChapterDownloadFailed(
+        RequestedMangaDocument requestedMangaDocument,
+        RequestedChapterDocument requestedChapterDocument
+    )
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task NotifyChapterDownloadSucceeded(
+        RequestedMangaDocument requestedMangaDocument,
+        RequestedChapterDocument requestedChapterDocument
+    )
+    {
+        return Task.CompletedTask;
+    }
+}

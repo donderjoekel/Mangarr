@@ -1,0 +1,21 @@
+﻿<tr class="@(IsActive ? "table-active" : "")">
+    <td>@Index</td>
+    <td>
+        <a href="manga/@MangaId">@MangaTitle</a>
+    </td>
+    <td>Chapter - @ChapterNumber</td>
+    <td class="align-middle">
+        @if (IsActive)
+        {
+            <div class="progress">
+                <div class="progress-bar" aria-valuenow="@Progress" aria-valuemin="0" aria-valuemax="100" style="width: @Progress%">
+                    <span>@Progress%</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <span class="spinner-border spinner-border-sm" role="status"></span>
+        }
+    </td>
+</tr>

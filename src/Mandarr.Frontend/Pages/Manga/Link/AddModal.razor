@@ -1,0 +1,22 @@
+﻿<div class="modal fade" id="add-manga-modal-@MangaId.Replace("=", string.Empty)" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add manga</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="add-manga-checkbox" @onchange="ToggleMonitorNewChaptersOnly">
+                    <label class="form-check-label" for="add-manga-checkbox">
+                        Only monitor new chapters
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" @onclick="OnAddClick">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@using Mandarr.Shared.Models
+<div id="wrapper" class="overflow-auto d-flex flex-column p-4">
+
+    @if (_isRefreshing)
+    {
+        <Spinner/>
+    }
+    else
+    {
+        <p class="lead">Sources</p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Website</th>
+                    <th>Enabled</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (ProviderModel item in _items)
+                {
+                    <ContentItem Item="@item"/>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</div>

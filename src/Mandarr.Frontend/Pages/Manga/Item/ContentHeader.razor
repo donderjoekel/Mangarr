@@ -1,0 +1,15 @@
+﻿<div id="manga-header" class="position-relative text-white">
+    <div id="manga-header-background-container" class="w-100 position-relative">
+        <img id="manga-header-background" class="w-100 h-100 object-fit-cover" src="@BannerImage" alt="banner">
+        <div id="manga-header-background-cover" class="w-100 h-100 position-absolute top-0 start-0 bg-dark opacity-75"></div>
+    </div>
+    <div id="manga-header-content-wrapper" class="position-absolute top-0 start-0 w-100 h-100">
+        <div id="manga-header-content" class="w-100 h-100 p-4 d-flex flex-row">
+            <img class="flex-shrink-0" src="@CoverImage" alt="cover">
+            <div class="h-100 flex-grow-1 ps-4 overflow-hidden">
+                <h1>@Title</h1>
+                <p>@((MarkupString)Description)</p>
+            </div>
+        </div>
+    </div>
+</div>

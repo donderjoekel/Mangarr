@@ -1,0 +1,16 @@
+﻿.content-item {
+    max-width: 193px;
+    padding: 8px;
+    margin: 4px;
+    transition: all 150ms ease-in;
+}
+
+.content-item:hover {
+    box-shadow: 0 0 12px #000;
+    transition: all 150ms ease-in;
+}
+
+.content-item .content-image {
+    max-width: 177px;
+    max-height: 250px;
+}

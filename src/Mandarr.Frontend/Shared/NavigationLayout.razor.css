@@ -1,0 +1,8 @@
+﻿#sidebar {
+    background-color: var(--bs-secondary);
+    width: 210px;
+}
+
+.nav-link {
+    color: var(--bs-white);
+}

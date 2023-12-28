@@ -1,0 +1,20 @@
+﻿@using Mandarr.Shared.Models
+<div id="wrapper" class="overflow-auto p-4">
+    @if (_isRefreshing)
+    {
+        <Spinner/>
+    }
+    else if (_items.Count == 0)
+    {
+        <p class="lead">Click 'Add New' in the menu bar to add manga!</p>
+    }
+    else
+    {
+        <div id="items" class="row row-cols-auto g-0">
+            @foreach (RequestedMangaModel item in _items)
+            {
+                <ContentItem Item="@item"/>
+            }
+        </div>
+    }
+</div>

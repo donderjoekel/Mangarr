@@ -1,0 +1,19 @@
+﻿<tr>
+    <td>@Title</td>
+    <td>
+        <a href="@Url" target="_blank">@Url</a>
+    </td>
+    <td>
+        @if (_isUpdating)
+        {
+            <Spinner/>
+        }
+        else
+        {
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-input" role="switch" checked="@Enabled" @onchange="args => ToggleEnabledAsync()">
+            </div>
+        }
+
+    </td>
+</tr>

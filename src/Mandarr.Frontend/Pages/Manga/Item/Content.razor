@@ -1,0 +1,13 @@
+﻿@if (_isRefreshing || _mangaDetails == null || _mangaChapters == null)
+{
+    <div class="p-4">
+        <Spinner/>
+    </div>
+}
+else
+{
+    <div id="wrapper" class="overflow-auto d-flex flex-column">
+        <ContentHeader Item="@_mangaDetails"/>
+        <ContentList Items="@_mangaChapters"/>
+    </div>
+}

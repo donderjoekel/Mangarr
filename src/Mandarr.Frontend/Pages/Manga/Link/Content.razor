@@ -1,0 +1,18 @@
+﻿@using Mandarr.Shared.Models
+<div id="wrapper" class="overflow-auto p-4">
+    @if (_isSearching)
+    {
+        <Spinner/>
+    }
+    else if (_items.Count == 0)
+    {
+        <p class="lead">Please enable at least one source in the settings</p>
+    }
+    else
+    {
+        @foreach (ProviderModel item in _items)
+        {
+            <ContentSource Item="@item" Id="@Id"/>
+        }
+    }
+</div>
