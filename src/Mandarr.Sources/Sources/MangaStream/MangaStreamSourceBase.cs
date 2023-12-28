@@ -78,7 +78,10 @@ internal abstract class MangaStreamSourceBase : SourceBase
             double chapterNumber = GetChapterNumber(anchor);
             string title = anchor.QuerySelector<IHtmlSpanElement>("span.chapternum")?.TextContent ??
                            "Chapter - " + chapterNumber;
-            items.Add(new ChapterListItem(anchor.Href.ToBase64(), title, chapterNumber, anchor.Href));
+            items.Add(new ChapterListItem(anchor.Href.ToBase64(),
+                title.Trim().Replace("\n", string.Empty).Replace("\t", string.Empty),
+                chapterNumber,
+                anchor.Href));
         }
 
         return Result.Ok(new ChapterList(items));
