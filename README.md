@@ -1,2 +1,2 @@
-# Mandarr
-A *arr inspired approach to downloading manga using individual sources
+# Mangarr
+An *arr inspired approach to downloading manga using individual sources
