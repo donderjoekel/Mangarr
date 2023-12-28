@@ -1,5 +1,4 @@
 ﻿using FluentResults;
-
 using Mandarr.Backend.Database.Documents;
 
 namespace Mandarr.Backend.Services;
@@ -8,10 +7,7 @@ public class CoverImageService
 {
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public CoverImageService(IHttpClientFactory httpClientFactory)
-    {
-        _httpClientFactory = httpClientFactory;
-    }
+    public CoverImageService(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
     public async Task<Result<byte[]>> DownloadCoverImage(RequestedMangaDocument requestedMangaDocument)
     {

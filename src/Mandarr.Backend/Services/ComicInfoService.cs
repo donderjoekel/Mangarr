@@ -11,10 +11,7 @@ public class ComicInfoService
 {
     private readonly AniListService _aniListService;
 
-    public ComicInfoService(AniListService aniListService)
-    {
-        _aniListService = aniListService;
-    }
+    public ComicInfoService(AniListService aniListService) => _aniListService = aniListService;
 
     public async Task<Result<ComicInfo>> Create(int aniListId, double chapterNumber, int pageCount)
     {

@@ -15,10 +15,7 @@ public partial class Add
     [Inject] public BackendApi BackendApi { get; set; } = null!;
     [Inject] public NavigationManager NavigationManager { get; set; } = null!;
 
-    protected override void OnInitialized()
-    {
-        AddAsync();
-    }
+    protected override void OnInitialized() => AddAsync();
 
     private async void AddAsync()
     {

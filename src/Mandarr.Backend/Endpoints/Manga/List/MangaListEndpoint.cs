@@ -31,10 +31,7 @@ public partial class MangaListEndpoint : Endpoint<MangaListRequest, MangaListRes
             .ToListAsync(ct);
 
         await SendOkAsync(
-            new MangaListResponse
-            {
-                Data = requests.Select(x => _mapper.Map<RequestedMangaModel>(x)).ToList()
-            },
+            new MangaListResponse { Data = requests.Select(x => _mapper.Map<RequestedMangaModel>(x)).ToList() },
             ct);
     }
 }

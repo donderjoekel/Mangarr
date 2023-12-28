@@ -15,10 +15,7 @@ public partial class Content
 
     private bool _isSearching;
 
-    protected override void OnInitialized()
-    {
-        SearchAsync();
-    }
+    protected override void OnInitialized() => SearchAsync();
 
     private async void SearchAsync()
     {

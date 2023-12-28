@@ -46,10 +46,7 @@ public class ProviderEnableEndpoint : Endpoint<ProviderEnableRequest, ProviderEn
 
         // TODO: Check result
 
-        await SendOkAsync(new ProviderEnableResponse()
-            {
-                Data = _mapper.Map<ProviderModel>(providerDocument)
-            },
+        await SendOkAsync(new ProviderEnableResponse() { Data = _mapper.Map<ProviderModel>(providerDocument) },
             ct);
     }
 }

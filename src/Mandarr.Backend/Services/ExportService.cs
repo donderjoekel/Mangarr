@@ -10,10 +10,7 @@ public class ExportService
 {
     private readonly ExportOptions _exportOptions;
 
-    public ExportService(IOptions<ExportOptions> exportOptions)
-    {
-        _exportOptions = exportOptions.Value;
-    }
+    public ExportService(IOptions<ExportOptions> exportOptions) => _exportOptions = exportOptions.Value;
 
     public async Task<Result> Export(
         RequestedMangaDocument requestedMangaDocument,

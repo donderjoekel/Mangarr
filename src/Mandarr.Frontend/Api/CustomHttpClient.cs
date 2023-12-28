@@ -10,15 +10,9 @@ public abstract class CustomHttpClient
 
     protected abstract string ClientName { get; }
 
-    public CustomHttpClient(IHttpClientFactory httpClientFactory)
-    {
-        this.httpClientFactory = httpClientFactory;
-    }
+    public CustomHttpClient(IHttpClientFactory httpClientFactory) => this.httpClientFactory = httpClientFactory;
 
-    private HttpClient CreateClient()
-    {
-        return httpClientFactory.CreateClient(ClientName);
-    }
+    private HttpClient CreateClient() => httpClientFactory.CreateClient(ClientName);
 
     public async Task<Result<string>> Get(string requestUri, CancellationToken ct = default)
     {

@@ -12,10 +12,7 @@ public partial class Delete
     [Inject] public BackendApi BackendApi { get; set; } = null!;
     [Inject] public NavigationManager NavigationManager { get; set; } = null!;
 
-    protected override void OnInitialized()
-    {
-        DeleteAsync();
-    }
+    protected override void OnInitialized() => DeleteAsync();
 
     private async void DeleteAsync()
     {

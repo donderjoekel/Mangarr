@@ -84,10 +84,8 @@ public partial class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaR
         await SendOkAsync(new MangaRequestResponse() { Id = requestedMangaDocument.Id }, ct);
     }
 
-    private static bool AreEqual(RequestedMangaDocument requestedMangaDocument, MangaRequestRequest requestModel)
-    {
-        return requestedMangaDocument.SearchId == requestModel.SearchId &&
-               requestedMangaDocument.ProviderId == requestModel.ProviderId &&
-               requestedMangaDocument.MangaId == requestModel.MangaId;
-    }
+    private static bool AreEqual(RequestedMangaDocument requestedMangaDocument, MangaRequestRequest requestModel) =>
+        requestedMangaDocument.SearchId == requestModel.SearchId &&
+        requestedMangaDocument.ProviderId == requestModel.ProviderId &&
+        requestedMangaDocument.MangaId == requestModel.MangaId;
 }

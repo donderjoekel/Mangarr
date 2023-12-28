@@ -100,7 +100,9 @@ public class MangaProcessor
             await _requestedChapterCollection.InsertOneAsync(requestedChapterDocument, null, ct);
 
             if (!markedForDownload)
+            {
                 continue;
+            }
 
             ChapterProgressDocument chapterProgressDocument = new()
             {

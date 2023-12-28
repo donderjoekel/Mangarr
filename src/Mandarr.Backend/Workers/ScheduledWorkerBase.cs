@@ -5,10 +5,7 @@ public abstract class ScheduledWorkerBase : BackgroundService
     private readonly ManualResetEvent _manualResetEvent = new(false);
     private readonly ILogger<ScheduledWorkerBase> _logger;
 
-    protected ScheduledWorkerBase(ILogger<ScheduledWorkerBase> logger)
-    {
-        _logger = logger;
-    }
+    protected ScheduledWorkerBase(ILogger<ScheduledWorkerBase> logger) => _logger = logger;
 
     protected abstract TimeSpan Interval { get; }
 

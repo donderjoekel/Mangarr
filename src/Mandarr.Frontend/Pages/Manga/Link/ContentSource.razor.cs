@@ -19,10 +19,7 @@ public partial class ContentSource
     private string Identifier => Item.Identifier;
     private string Title => Item.Name;
 
-    protected override void OnInitialized()
-    {
-        SearchAsync();
-    }
+    protected override void OnInitialized() => SearchAsync();
 
     private async void SearchAsync()
     {

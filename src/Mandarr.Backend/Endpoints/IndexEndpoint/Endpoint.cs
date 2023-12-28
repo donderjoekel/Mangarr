@@ -13,8 +13,6 @@ public class IndexEndpoint : EndpointWithoutRequest<IndexResponse>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CancellationToken ct)
-    {
+    public override async Task HandleAsync(CancellationToken ct) =>
         await SendOkAsync(new IndexResponse { Message = "Hello Fast Endpoints" }, ct);
-    }
 }

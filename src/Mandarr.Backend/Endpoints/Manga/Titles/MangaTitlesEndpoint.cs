@@ -11,10 +11,7 @@ public class MangaTitlesEndpoint : Endpoint<MangaTitlesRequest, MangaTitlesRespo
 {
     private readonly AniListService _aniListService;
 
-    public MangaTitlesEndpoint(AniListService aniListService)
-    {
-        _aniListService = aniListService;
-    }
+    public MangaTitlesEndpoint(AniListService aniListService) => _aniListService = aniListService;
 
     public override void Configure()
     {
@@ -44,9 +41,7 @@ public class MangaTitlesEndpoint : Endpoint<MangaTitlesRequest, MangaTitlesRespo
                 {
                     Titles = new[]
                     {
-                        result.Value.EnglishTitle,
-                        result.Value.RomajiTitle,
-                        result.Value.NativeTitle
+                        result.Value.EnglishTitle, result.Value.RomajiTitle, result.Value.NativeTitle
                     }
                 }
             },

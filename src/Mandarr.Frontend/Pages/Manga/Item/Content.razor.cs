@@ -15,10 +15,7 @@ public partial class Content
     private MangaDetailsModel? _mangaDetails;
     private List<MangaChapterModel>? _mangaChapters;
 
-    protected override void OnInitialized()
-    {
-        RefreshAsync();
-    }
+    protected override void OnInitialized() => RefreshAsync();
 
     private async void RefreshAsync()
     {

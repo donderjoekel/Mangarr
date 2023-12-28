@@ -171,8 +171,7 @@ public class ChapterProcessor
         RequestedChapterDocument requestedChapterDocument,
         int progress,
         CancellationToken ct
-    )
-    {
+    ) =>
         await _chapterProgressCollection.UpdateOneAsync(
             ChapterProgressDocument.Filter.Eq(x => x.ChapterId, requestedChapterDocument.Id),
             ChapterProgressDocument.Update.Combine(
@@ -180,7 +179,6 @@ public class ChapterProcessor
                 ChapterProgressDocument.Update.Set(x => x.IsActive, true)),
             null,
             ct);
-    }
 
     private async Task MarkChapterDownloadFailed(
         RequestedMangaDocument requestedMangaDocument,

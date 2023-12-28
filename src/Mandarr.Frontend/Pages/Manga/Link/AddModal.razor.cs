@@ -12,13 +12,8 @@ public partial class AddModal
 
     private bool _monitorNewChaptersOnly;
 
-    private void ToggleMonitorNewChaptersOnly()
-    {
-        _monitorNewChaptersOnly = !_monitorNewChaptersOnly;
-    }
+    private void ToggleMonitorNewChaptersOnly() => _monitorNewChaptersOnly = !_monitorNewChaptersOnly;
 
-    private void OnAddClick()
-    {
+    private void OnAddClick() =>
         NavigationManager.NavigateTo($"/manga/{Id}/add/{Identifier}/{MangaId}/{_monitorNewChaptersOnly}");
-    }
 }

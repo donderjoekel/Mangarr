@@ -39,10 +39,7 @@ public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchRespo
 
         if (searchResult.Value == null)
         {
-            await SendOkAsync(new MangaSearchResponse()
-                {
-                    Data = []
-                },
+            await SendOkAsync(new MangaSearchResponse() { Data = [] },
                 ct);
             return;
         }
@@ -60,10 +57,7 @@ public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchRespo
             ct);
     }
 
-    private bool FilterAdult(Media media)
-    {
-        return _aniListOptions.AllowAdult || !media.IsAdult;
-    }
+    private bool FilterAdult(Media media) => _aniListOptions.AllowAdult || !media.IsAdult;
 
     private SearchResultModel CreateSearchResult(Media media)
     {

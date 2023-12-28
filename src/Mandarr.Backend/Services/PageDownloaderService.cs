@@ -34,7 +34,9 @@ public class PageDownloaderService
             await Task.Delay(100);
 
             if (progressCallback == null)
+            {
                 continue;
+            }
 
             int progress = (int)Math.Round(i / total * 100);
             await progressCallback(progress);

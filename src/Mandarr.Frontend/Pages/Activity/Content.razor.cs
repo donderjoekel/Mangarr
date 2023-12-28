@@ -14,10 +14,7 @@ public partial class Content
 
     [Inject] public BackendApi BackendApi { get; set; }
 
-    protected override void OnInitialized()
-    {
-        RefreshAsync();
-    }
+    protected override void OnInitialized() => RefreshAsync();
 
     private async void RefreshAsync()
     {

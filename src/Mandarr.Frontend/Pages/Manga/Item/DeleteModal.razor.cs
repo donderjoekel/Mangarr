@@ -10,13 +10,7 @@ public partial class DeleteModal
 
     private bool _deleteChaptersFromDisk;
 
-    private void ToggleDeleteChaptersFromDisk()
-    {
-        _deleteChaptersFromDisk = !_deleteChaptersFromDisk;
-    }
+    private void ToggleDeleteChaptersFromDisk() => _deleteChaptersFromDisk = !_deleteChaptersFromDisk;
 
-    private void OnDeleteClick()
-    {
-        NavigationManager.NavigateTo($"/manga/{Id}/delete/{_deleteChaptersFromDisk}");
-    }
+    private void OnDeleteClick() => NavigationManager.NavigateTo($"/manga/{Id}/delete/{_deleteChaptersFromDisk}");
 }

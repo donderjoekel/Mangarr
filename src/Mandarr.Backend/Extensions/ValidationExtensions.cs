@@ -12,7 +12,7 @@ public static class ValidationExtensions
 {
     public static List<ValidationResponse> ToResponse(this IEnumerable<ValidationFailure> errors)
     {
-        List<ValidationResponse> list = new List<ValidationResponse>();
+        List<ValidationResponse> list = new();
 
         foreach (ValidationFailure error in errors)
         {
