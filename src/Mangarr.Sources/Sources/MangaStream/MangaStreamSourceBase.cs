@@ -168,7 +168,7 @@ internal abstract class MangaStreamSourceBase : SourceBase
             return result.ToResult();
         }
 
-        Match match = Regex.Match(result.Value, "ts_reader.run\\(({.+?})\\);");
+        Match match = Regex.Match(result.Value, "ts_reader.run\\(({.+?})\\)");
 
         if (!match.Success)
         {
@@ -186,7 +186,8 @@ internal abstract class MangaStreamSourceBase : SourceBase
 
         try
         {
-            loaderData = JsonConvert.DeserializeObject<LoaderData>(group.Value)!;
+            string fixedJson = group.Value.Replace(":!", ":");
+            loaderData = JsonConvert.DeserializeObject<LoaderData>(fixedJson)!;
         }
         catch (Exception e)
         {
