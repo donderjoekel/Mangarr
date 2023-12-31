@@ -42,11 +42,23 @@ builder.Services.AddQuartz(options =>
 {
     options.UseDefaultThreadPool(3);
 
+    options.AddJob<CacheSourceSchedulerJob>(CacheSourceSchedulerJob.JobKey);
+    options.AddJob<CacheSourceJob>(CacheSourceJob.JobKey, configure => configure.StoreDurably());
+
     options.AddJob<IndexMangaSchedulerJob>(IndexMangaSchedulerJob.JobKey);
     options.AddJob<IndexMangaJob>(IndexMangaJob.JobKey, configure => configure.StoreDurably());
 
     options.AddJob<DownloadChapterSchedulerJob>(DownloadChapterSchedulerJob.JobKey);
     options.AddJob<DownloadChapterJob>(DownloadChapterJob.JobKey, configure => configure.StoreDurably());
+
+    options.AddTrigger(configure =>
+    {
+        configure
+            .WithIdentity("CacheSourceSchedulerJob")
+            .ForJob(CacheSourceSchedulerJob.JobKey)
+            .StartNow()
+            .WithCronSchedule("0 0/30 0 ? * * *");
+    });
 
     options.AddTrigger(configure =>
     {
@@ -99,6 +111,7 @@ builder.Services.AddFastEndpoints(options =>
 });
 builder.Services.AddSwaggerDoc(addJwtBearerAuth: false);
 builder.Services.AddIdGen(0);
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(provider =>
 {
     RedisOptions redisOptions = provider.GetRequiredService<IOptions<RedisOptions>>().Value;
@@ -132,7 +145,7 @@ if (app.Environment.IsDevelopment())
 }
 
 {
-    // Update sources in DB
+    // Initialize sources and update DB
     List<ISource> sources = app.Services.GetRequiredService<IEnumerable<ISource>>().ToList();
     IMongoCollection<SourceDocument> sourceCollection =
         app.Services.GetRequiredService<IMongoCollection<SourceDocument>>();
@@ -141,6 +154,8 @@ if (app.Environment.IsDevelopment())
 
     foreach (ISource source in sources)
     {
+        await source.Initialize();
+
         if (existingSources.Any(x => x.Identifier == source.Identifier))
         {
             continue;
