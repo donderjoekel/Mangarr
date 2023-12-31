@@ -2,10 +2,10 @@
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
-using Mangarr.Sources;
-using Mangarr.Sources.Models.Search;
 using MongoDB.Driver;
 using IMapper = AutoMapper.IMapper;
+using ISource = Mangarr.Backend.Sources.ISource;
+using SearchResult = Mangarr.Backend.Sources.Models.Search.SearchResult;
 
 namespace Mangarr.Backend.Endpoints.Provider.Search;
 

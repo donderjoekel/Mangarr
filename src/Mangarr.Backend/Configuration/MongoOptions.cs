@@ -1,4 +1,4 @@
-﻿namespace Mangarr.Backend.Database;
+﻿namespace Mangarr.Backend.Configuration;
 
 public class MongoOptions
 {

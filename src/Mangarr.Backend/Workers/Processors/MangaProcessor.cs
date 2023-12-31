@@ -1,7 +1,7 @@
 ﻿// using FluentResults;
 // using Mangarr.Backend.Services;
-// using Mangarr.Sources;
-// using Mangarr.Sources.Models.Chapter;
+// using Mangarr.Implementations;
+// using Mangarr.Implementations.Models.Chapter;
 // using MongoDB.Driver;
 // using ChapterProgressDocument = Mangarr.Backend.Database.Documents.ChapterProgressDocument;
 // using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;

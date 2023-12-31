@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Mangarr.Backend.Configuration;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Mangarr.Backend.Database;

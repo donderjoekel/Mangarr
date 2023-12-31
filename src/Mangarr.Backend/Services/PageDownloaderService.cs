@@ -1,6 +1,7 @@
 ﻿using FluentResults;
-using Mangarr.Sources;
-using Mangarr.Sources.Models.Page;
+using ISource = Mangarr.Backend.Sources.ISource;
+using PageList = Mangarr.Backend.Sources.Models.Page.PageList;
+using PageListItem = Mangarr.Backend.Sources.Models.Page.PageListItem;
 
 namespace Mangarr.Backend.Services;
 

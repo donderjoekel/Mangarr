@@ -1,12 +1,13 @@
 using FluentResults;
-using Mangarr.Sources.Clients;
-using Mangarr.Sources.Cloudflare;
-using Mangarr.Sources.Models.Chapter;
-using Mangarr.Sources.Models.Page;
-using Mangarr.Sources.Models.Search;
+using Mangarr.Backend.Sources;
+using Mangarr.Backend.Sources.Clients;
+using Mangarr.Backend.Sources.Cloudflare;
+using Mangarr.Backend.Sources.Models.Chapter;
+using Mangarr.Backend.Sources.Models.Page;
+using Mangarr.Backend.Sources.Models.Search;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mangarr.Sources.Tests;
+namespace Mangarr.Backend.Tests;
 
 [TestFixture("anigliscans")]
 [TestFixture("aquamanga")]
@@ -76,7 +77,7 @@ public class SourceTests
         serviceCollection.AddHttpClient("Cloudflare")
             .AddHttpMessageHandler<CustomClearanceHandler>()
             .AddRetryPolicy();
-        serviceCollection.AddMangarrSources();
+        serviceCollection.AddMangarrBackend();
         _provider = serviceCollection.BuildServiceProvider();
     }
 

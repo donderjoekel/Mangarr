@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mangarr.Sources\Mangarr.Sources.csproj"/>
+    <ProjectReference Include="..\Mangarr.Backend\Mangarr.Backend.csproj"/>
   </ItemGroup>
 
 </Project>

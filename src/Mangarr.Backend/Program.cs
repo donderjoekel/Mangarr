@@ -5,14 +5,14 @@ using Mangarr.Backend.Configuration;
 using Mangarr.Backend.Extensions;
 using Mangarr.Backend.Jobs;
 using Mangarr.Backend.Services;
-using Mangarr.Sources;
-using Mangarr.Sources.Extensions;
+using Mangarr.Backend.Sources.Extensions;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Quartz;
 using Serilog;
 using StackExchange.Redis;
 using ExportOptions = Mangarr.Backend.Configuration.ExportOptions;
+using ISource = Mangarr.Backend.Sources.ISource;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,9 @@
 ﻿using FluentResults;
-using Mangarr.Sources;
-using Mangarr.Sources.Models.Chapter;
 using MongoDB.Driver;
 using Quartz;
+using ChapterList = Mangarr.Backend.Sources.Models.Chapter.ChapterList;
+using ChapterListItem = Mangarr.Backend.Sources.Models.Chapter.ChapterListItem;
+using ISource = Mangarr.Backend.Sources.ISource;
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 

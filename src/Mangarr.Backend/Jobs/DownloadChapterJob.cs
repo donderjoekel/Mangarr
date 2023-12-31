@@ -1,10 +1,10 @@
 ﻿using FluentResults;
 using Mangarr.Backend.Data;
 using Mangarr.Backend.Services;
-using Mangarr.Sources;
-using Mangarr.Sources.Models.Page;
 using MongoDB.Driver;
 using Quartz;
+using ISource = Mangarr.Backend.Sources.ISource;
+using PageList = Mangarr.Backend.Sources.Models.Page.PageList;
 
 namespace Mangarr.Backend.Jobs;
 

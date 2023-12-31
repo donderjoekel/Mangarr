@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Mangarr.Shared.Models;
-using Mangarr.Sources.Models.Search;
 using ChapterProgressDocument = Mangarr.Backend.Database.Documents.ChapterProgressDocument;
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
+using SearchResultItem = Mangarr.Backend.Sources.Models.Search.SearchResultItem;
 
 namespace Mangarr.Backend.Profiles;
 
