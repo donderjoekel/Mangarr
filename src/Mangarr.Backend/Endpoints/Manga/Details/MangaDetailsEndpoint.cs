@@ -1,11 +1,11 @@
 ﻿using Anilist4Net;
 using FluentResults;
-using Mangarr.Backend.Database.Documents;
 using Mangarr.Backend.Services;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
+using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
 namespace Mangarr.Backend.Endpoints.Manga.Details;
 

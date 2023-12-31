@@ -31,7 +31,7 @@ public partial class Content
         else
         {
             _items.Clear();
-            _items.AddRange(result.Value.Data.Where(x => x.Enabled));
+            _items.AddRange(result.Value.Data.Where(x => x.Enabled).OrderBy(x => x.Name));
         }
 
         _isSearching = false;

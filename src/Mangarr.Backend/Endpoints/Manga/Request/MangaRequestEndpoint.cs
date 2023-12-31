@@ -1,10 +1,12 @@
 ﻿using Anilist4Net;
 using FluentResults;
-using Mangarr.Backend.Database.Documents;
+using Mangarr.Backend.Drone.Jobs;
 using Mangarr.Backend.Services;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
+using Quartz;
+using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
 namespace Mangarr.Backend.Endpoints.Manga.Request;
 
@@ -13,16 +15,19 @@ public partial class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaR
     private readonly IMongoCollection<RequestedMangaDocument> _collection;
     private readonly AniListService _aniListService;
     private readonly NotificationService _notificationService;
+    private readonly ISchedulerFactory _schedulerFactory;
 
     public MangaRequestEndpoint(
         IMongoCollection<RequestedMangaDocument> collection,
         AniListService aniListService,
-        NotificationService notificationService
+        NotificationService notificationService,
+        ISchedulerFactory schedulerFactory
     )
     {
         _collection = collection;
         _aniListService = aniListService;
         _notificationService = notificationService;
+        _schedulerFactory = schedulerFactory;
     }
 
     public override void Configure()
@@ -72,7 +77,7 @@ public partial class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaR
         RequestedMangaDocument requestedMangaDocument = new()
         {
             MangaId = req.MangaId,
-            ProviderId = req.ProviderId,
+            SourceId = req.ProviderId,
             SearchId = req.SearchId,
             Title = title,
             CoverUrl = media.CoverImage.ExtraLarge,
@@ -81,11 +86,21 @@ public partial class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaR
 
         await _collection.InsertOneAsync(requestedMangaDocument, null, ct);
         await _notificationService.NotifyNewManga(requestedMangaDocument);
+
+        ITrigger trigger = TriggerBuilder.Create()
+            .WithIdentity("IndexMangaJob-" + requestedMangaDocument.Id)
+            .ForJob(IndexMangaJob.JobKey)
+            .UsingJobData(IndexMangaJob.IdDataKey, requestedMangaDocument.Id)
+            .Build();
+
+        IScheduler scheduler = await _schedulerFactory.GetScheduler(ct);
+        await scheduler.ScheduleJob(trigger, ct);
+
         await SendOkAsync(new MangaRequestResponse() { Id = requestedMangaDocument.Id }, ct);
     }
 
     private static bool AreEqual(RequestedMangaDocument requestedMangaDocument, MangaRequestRequest requestModel) =>
         requestedMangaDocument.SearchId == requestModel.SearchId &&
-        requestedMangaDocument.ProviderId == requestModel.ProviderId &&
+        requestedMangaDocument.SourceId == requestModel.ProviderId &&
         requestedMangaDocument.MangaId == requestModel.MangaId;
 }

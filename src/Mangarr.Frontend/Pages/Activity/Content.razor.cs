@@ -31,6 +31,22 @@ public partial class Content
         {
             _items.Clear();
             _items.AddRange(result.Value.Data);
+            _items.Sort((lhs, rhs) =>
+            {
+                int comparison = rhs.IsActive.CompareTo(lhs.IsActive);
+                if (comparison != 0)
+                {
+                    return comparison;
+                }
+
+                comparison = string.Compare(lhs.MangaTitle, rhs.MangaTitle, StringComparison.Ordinal);
+                if (comparison != 0)
+                {
+                    return comparison;
+                }
+
+                return lhs.ChapterNumber.CompareTo(rhs.ChapterNumber);
+            });
         }
 
         _isRefreshing = false;

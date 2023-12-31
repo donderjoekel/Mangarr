@@ -9,10 +9,10 @@ namespace Mangarr.Backend.Endpoints.Provider.Disable;
 
 public class ProviderDisableEndpoint : Endpoint<ProviderDisableRequest, ProviderDisableResponse>
 {
-    private readonly IMongoCollection<ProviderDocument> _providerCollection;
+    private readonly IMongoCollection<SourceDocument> _providerCollection;
     private readonly IMapper _mapper;
 
-    public ProviderDisableEndpoint(IMongoCollection<ProviderDocument> providerCollection, IMapper mapper)
+    public ProviderDisableEndpoint(IMongoCollection<SourceDocument> providerCollection, IMapper mapper)
     {
         _providerCollection = providerCollection;
         _mapper = mapper;
@@ -26,7 +26,7 @@ public class ProviderDisableEndpoint : Endpoint<ProviderDisableRequest, Provider
 
     public override async Task HandleAsync(ProviderDisableRequest req, CancellationToken ct)
     {
-        ProviderDocument? providerDocument = await _providerCollection
+        SourceDocument? providerDocument = await _providerCollection
             .Find(x => x.Identifier == req.Provider)
             .FirstOrDefaultAsync(ct);
 
@@ -39,8 +39,8 @@ public class ProviderDisableEndpoint : Endpoint<ProviderDisableRequest, Provider
         providerDocument.Enabled = false;
 
         UpdateResult result = await _providerCollection.UpdateOneAsync(
-            ProviderDocument.Filter.Eq(x => x.Identifier, req.Provider),
-            ProviderDocument.Update.Set(x => x.Enabled, false),
+            SourceDocument.Filter.Eq(x => x.Identifier, req.Provider),
+            SourceDocument.Update.Set(x => x.Enabled, false),
             null,
             ct);
 

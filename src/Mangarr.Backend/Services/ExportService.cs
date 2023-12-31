@@ -1,8 +1,9 @@
 ﻿using System.Globalization;
 using FluentResults;
 using Mangarr.Backend.Configuration;
-using Mangarr.Backend.Database.Documents;
 using Microsoft.Extensions.Options;
+using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
+using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
 namespace Mangarr.Backend.Services;
 

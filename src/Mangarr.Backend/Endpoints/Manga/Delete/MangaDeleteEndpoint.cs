@@ -1,6 +1,7 @@
-﻿using Mangarr.Backend.Database.Documents;
-using Mangarr.Shared.Requests;
+﻿using Mangarr.Shared.Requests;
 using MongoDB.Driver;
+using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
+using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
 namespace Mangarr.Backend.Endpoints.Manga.Delete;
 

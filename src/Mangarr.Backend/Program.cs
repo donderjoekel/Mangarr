@@ -4,15 +4,14 @@ using IdGen.DependencyInjection;
 using Mangarr.Backend.Configuration;
 using Mangarr.Backend.Database;
 using Mangarr.Backend.Database.Documents;
+using Mangarr.Backend.Drone.Jobs;
 using Mangarr.Backend.Extensions;
 using Mangarr.Backend.Services;
-using Mangarr.Backend.Workers;
-using Mangarr.Backend.Workers.Processors;
 using Mangarr.Sources;
-using Mangarr.Sources.Clients;
-using Mangarr.Sources.Cloudflare;
+using Mangarr.Sources.Extensions;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Quartz;
 using Serilog;
 using StackExchange.Redis;
 using ExportOptions = Mangarr.Backend.Configuration.ExportOptions;
@@ -34,14 +33,55 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Host.UseConsoleLifetime(options => options.SuppressStatusMessages = true);
 
-builder.Services.AddHostedService<MainWorker>();
+// builder.Services.AddHostedService<MainWorker>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.Configure<AniListOptions>(builder.Configuration.GetSection(AniListOptions.SECTION));
 builder.Services.Configure<ExportOptions>(builder.Configuration.GetSection(ExportOptions.SECTION));
-builder.Services.Configure<FlareSolverrOptions>(builder.Configuration.GetSection(FlareSolverrOptions.SECTION));
-builder.Services.Configure<MongoOptions>(builder.Configuration.GetSection(MongoOptions.SECTION));
 builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection(RedisOptions.SECTION));
+
+builder.Services.AddQuartz(options =>
+{
+    options.UseDefaultThreadPool(3);
+
+    options.AddJob<IndexMangaSchedulerJob>(IndexMangaSchedulerJob.JobKey);
+    options.AddJob<IndexMangaJob>(IndexMangaJob.JobKey, configure => configure.StoreDurably());
+
+    options.AddJob<DownloadChapterSchedulerJob>(DownloadChapterSchedulerJob.JobKey);
+    options.AddJob<DownloadChapterJob>(DownloadChapterJob.JobKey, configure => configure.StoreDurably());
+
+    options.AddTrigger(configure =>
+    {
+        configure
+            .WithIdentity("IndexMangaSchedulerJob")
+            .ForJob(IndexMangaSchedulerJob.JobKey)
+            // .StartNow();
+            .WithCronSchedule("0 0 * ? * * *");
+    });
+
+    options.AddTrigger(configure =>
+    {
+        configure
+            .WithIdentity("DownloadChapterSchedulerJob")
+            .ForJob(DownloadChapterSchedulerJob.JobKey)
+            // .StartNow();
+            .WithCronSchedule("0 0/20 * ? * * *");
+    });
+});
+
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.AwaitApplicationStarted = true;
+    options.WaitForJobsToComplete = true;
+});
+
+builder.Services.ConfigureMongo(builder.Configuration);
+builder.Services.AddMongo();
+
+builder.Services.ConfigureSources(builder.Configuration);
+builder.Services.AddSources();
+
+builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<AniListService>();
 builder.Services.AddSingleton<ArchiveService>();
@@ -50,17 +90,9 @@ builder.Services.AddSingleton<ComicInfoService>();
 builder.Services.AddSingleton<CoverImageService>();
 builder.Services.AddSingleton<ExportService>();
 builder.Services.AddSingleton<PageDownloaderService>();
-builder.Services.AddSingleton<MangaProcessor>();
+// builder.Services.AddSingleton<MangaProcessor>();
 builder.Services.AddSingleton<NotificationService>();
-builder.Services.AddSingleton<ChapterProcessor>();
-builder.Services.AddHttpClient("Generic").AddRetryPolicy();
-builder.Services.AddTransient<CustomClearanceHandler>(provider =>
-{
-    FlareSolverrOptions flareSolverrOptions = provider.GetRequiredService<IOptions<FlareSolverrOptions>>().Value;
-    return new CustomClearanceHandler(flareSolverrOptions.Host);
-});
-builder.Services.AddHttpClient("Cloudflare").AddHttpMessageHandler<CustomClearanceHandler>().AddRetryPolicy();
-builder.Services.AddMangarrSources();
+// builder.Services.AddSingleton<ChapterProcessor>();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddFastEndpoints(options =>
@@ -69,14 +101,6 @@ builder.Services.AddFastEndpoints(options =>
 });
 builder.Services.AddSwaggerDoc(addJwtBearerAuth: false);
 builder.Services.AddIdGen(0);
-builder.Services.AddTransient<IMongoClient>(provider =>
-{
-    MongoOptions mongoOptions = provider.GetRequiredService<IOptions<MongoOptions>>().Value;
-    return new MongoClient($"mongodb://{mongoOptions.Username}:{mongoOptions.Password}@{mongoOptions.Host}");
-});
-// new MongoClient("mongodb://password:admin@localhost:27017")); // TODO: Should come from configuration
-builder.Services.AddSingleton<CollectionFactory>();
-builder.Services.AddSingleton(typeof(IMongoCollection<>), typeof(MongoCollection<>));
 builder.Services.AddSingleton<IConnectionMultiplexer>(provider =>
 {
     RedisOptions redisOptions = provider.GetRequiredService<IOptions<RedisOptions>>().Value;
@@ -110,33 +134,29 @@ if (app.Environment.IsDevelopment())
 }
 
 {
-    // Update providers in DB
-    List<ISource> providers = app.Services.GetRequiredService<IEnumerable<ISource>>().ToList();
-    IMongoCollection<ProviderDocument> providerCollection =
-        app.Services.GetRequiredService<IMongoCollection<ProviderDocument>>();
+    // Update sources in DB
+    List<ISource> sources = app.Services.GetRequiredService<IEnumerable<ISource>>().ToList();
+    IMongoCollection<SourceDocument> sourceCollection =
+        app.Services.GetRequiredService<IMongoCollection<SourceDocument>>();
 
-    List<ProviderDocument> existingProviders = await providerCollection.Find(x => true).ToListAsync();
+    List<SourceDocument> existingSources = await sourceCollection.Find(x => true).ToListAsync();
 
-    foreach (ISource provider in providers)
+    foreach (ISource source in sources)
     {
-        if (existingProviders.Any(x => x.Identifier == provider.Identifier))
+        if (existingSources.Any(x => x.Identifier == source.Identifier))
         {
             continue;
         }
 
-        ProviderDocument document = new()
-        {
-            Identifier = provider.Identifier, Name = provider.Name, Url = provider.Url
-        };
-
-        await providerCollection.InsertOneAsync(document);
+        SourceDocument document = new() { Identifier = source.Identifier, Name = source.Name, Url = source.Url };
+        await sourceCollection.InsertOneAsync(document);
     }
 
-    foreach (ProviderDocument existingProvider in existingProviders)
+    foreach (SourceDocument existingSource in existingSources)
     {
-        if (providers.All(x => x.Identifier != existingProvider.Identifier))
+        if (sources.All(x => x.Identifier != existingSource.Identifier))
         {
-            await providerCollection.DeleteOneAsync(x => x.Identifier == existingProvider.Identifier);
+            await sourceCollection.DeleteOneAsync(x => x.Identifier == existingSource.Identifier);
         }
     }
 }

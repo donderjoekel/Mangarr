@@ -1,4 +1,5 @@
-﻿using Mangarr.Backend.Database.Documents;
+﻿using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
+using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
 namespace Mangarr.Backend.Services;
 

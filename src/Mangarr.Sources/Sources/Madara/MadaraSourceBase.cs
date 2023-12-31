@@ -39,11 +39,12 @@ internal abstract class MadaraSourceBase : SourceBase
         {
             IHtmlAnchorElement? anchor = element.FindDescendant<IHtmlAnchorElement>();
             IHtmlImageElement? image = element.FindDescendant<IHtmlImageElement>();
+            string coverUrl = image.GetAttribute("data-src") ?? image.Source;
 
             items.Add(new SearchResultItem(anchor.Href.ToBase64(),
                 anchor.GetAttribute("title"),
                 anchor.Href,
-                image.Source));
+                coverUrl));
         }
 
         return Result.Ok(new SearchResult(items));

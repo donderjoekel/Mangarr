@@ -1,9 +1,9 @@
-﻿using Mangarr.Backend.Database.Documents;
-using Mangarr.Shared.Models;
+﻿using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
 using IMapper = AutoMapper.IMapper;
+using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 
 namespace Mangarr.Backend.Endpoints.Manga.Chapters;
 

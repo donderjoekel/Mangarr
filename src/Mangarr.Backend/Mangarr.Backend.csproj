@@ -22,6 +22,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0"/>
     <PackageReference Include="MongoDB.Driver" Version="2.23.1"/>
     <PackageReference Include="NRedisStack" Version="0.11.0"/>
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0"/>
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0"/>
   </ItemGroup>
 

@@ -1,6 +1,6 @@
 ﻿namespace Mangarr.Backend.Database.Documents;
 
-public class ProviderDocument : DocumentBase<ProviderDocument>
+public class SourceDocument : DocumentBase<SourceDocument>
 {
     public required string Identifier { get; set; }
     public required string Name { get; set; }

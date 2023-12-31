@@ -13,12 +13,12 @@ namespace Mangarr.Backend.Endpoints.Provider.Search;
 public class ProviderSearchEndpoint : Endpoint<ProviderSearchRequest, ProviderSearchResponse>
 {
     private readonly IEnumerable<ISource> _providers;
-    private readonly IMongoCollection<ProviderDocument> _providerCollection;
+    private readonly IMongoCollection<SourceDocument> _providerCollection;
     private readonly IMapper _mapper;
 
     public ProviderSearchEndpoint(
         IEnumerable<ISource> providers,
-        IMongoCollection<ProviderDocument> providerCollection,
+        IMongoCollection<SourceDocument> providerCollection,
         IMapper mapper
     )
     {
@@ -35,17 +35,17 @@ public class ProviderSearchEndpoint : Endpoint<ProviderSearchRequest, ProviderSe
 
     public override async Task HandleAsync(ProviderSearchRequest req, CancellationToken ct)
     {
-        ProviderDocument providerDocument = await _providerCollection
+        SourceDocument sourceDocument = await _providerCollection
             .Find(x => x.Identifier == req.Provider)
             .FirstOrDefaultAsync(ct);
 
-        if (providerDocument == null)
+        if (sourceDocument == null)
         {
             await SendNotFoundAsync(ct);
             return;
         }
 
-        if (!providerDocument.Enabled)
+        if (!sourceDocument.Enabled)
         {
             await SendNoContentAsync(ct);
             return;

@@ -56,4 +56,6 @@ public class BackendApi
     public Task<Result> DeleteManga(string id, bool deleteChaptersFromDisk) =>
         _httpClient.Post($"manga/{id}/delete",
             new MangaDeleteRequest() { Id = id, DeleteChaptersFromDisk = deleteChaptersFromDisk });
+
+    public Task<Result<string>> RefreshManga(string id) => _httpClient.Get($"manga/{id}/refresh");
 }

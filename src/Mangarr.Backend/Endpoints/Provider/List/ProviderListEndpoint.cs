@@ -9,10 +9,10 @@ namespace Mangarr.Backend.Endpoints.Provider.List;
 
 public class ProviderListEndpoint : Endpoint<ProviderListRequest, ProviderListResponse>
 {
-    private readonly IMongoCollection<ProviderDocument> _providerCollection;
+    private readonly IMongoCollection<SourceDocument> _providerCollection;
     private readonly IMapper _mapper;
 
-    public ProviderListEndpoint(IMongoCollection<ProviderDocument> providerCollection, IMapper mapper)
+    public ProviderListEndpoint(IMongoCollection<SourceDocument> providerCollection, IMapper mapper)
     {
         _providerCollection = providerCollection;
         _mapper = mapper;
@@ -26,7 +26,7 @@ public class ProviderListEndpoint : Endpoint<ProviderListRequest, ProviderListRe
 
     public override async Task HandleAsync(ProviderListRequest req, CancellationToken ct)
     {
-        List<ProviderDocument> providerDocuments = await _providerCollection.Find(x => true).ToListAsync(ct);
+        List<SourceDocument> providerDocuments = await _providerCollection.Find(x => true).ToListAsync(ct);
 
         await SendOkAsync(new ProviderListResponse()
             {
