@@ -20,7 +20,7 @@ internal abstract class MadaraSourceBase : SourceBase
     {
     }
 
-    protected override Task Initialize() => Task.CompletedTask;
+    protected override Task<Result> Initialize() => Task.FromResult(Result.Ok());
 
     protected override Task<Result> Cache() => Task.FromResult(Result.Ok());
 

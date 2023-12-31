@@ -11,7 +11,7 @@ public interface ISource
     string Name { get; }
     string Url { get; }
 
-    Task Initialize();
+    Task<Result> Initialize();
     Task<Result> Cache();
     Task<Result<string>> Status();
     Task<Result<SearchResult>> Search(string query);

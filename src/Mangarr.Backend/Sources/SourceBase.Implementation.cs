@@ -11,7 +11,7 @@ internal abstract partial class SourceBase
     string ISource.Name => Name;
     string ISource.Url => Url;
 
-    Task ISource.Initialize()
+    Task<Result> ISource.Initialize()
     {
         try
         {
@@ -19,7 +19,7 @@ internal abstract partial class SourceBase
         }
         catch (Exception e)
         {
-            return Task.FromException(e);
+            return Task.FromResult(Result.Fail(new ExceptionalError(e)));
         }
     }
 
