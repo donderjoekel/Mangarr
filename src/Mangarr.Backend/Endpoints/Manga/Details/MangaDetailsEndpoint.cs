@@ -11,8 +11,8 @@ namespace Mangarr.Backend.Endpoints.Manga.Details;
 
 public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsResponse>
 {
-    private readonly IMongoCollection<RequestedMangaDocument> _collection;
     private readonly AniListService _aniListService;
+    private readonly IMongoCollection<RequestedMangaDocument> _collection;
 
     public MangaDetailsEndpoint(IMongoCollection<RequestedMangaDocument> collection, AniListService aniListService)
     {
@@ -53,9 +53,9 @@ public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsRe
             return;
         }
 
-        await SendOkAsync(new MangaDetailsResponse()
+        await SendOkAsync(new MangaDetailsResponse
             {
-                Data = new MangaDetailsModel()
+                Data = new MangaDetailsModel
                 {
                     Title = result.Value.Title.English,
                     Description = result.Value.DescriptionHtml,

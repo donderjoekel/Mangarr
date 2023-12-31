@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Mangarr.Backend.Database.Documents;
 using Mangarr.Shared.Models;
 using Mangarr.Sources.Models.Search;
 using ChapterProgressDocument = Mangarr.Backend.Database.Documents.ChapterProgressDocument;

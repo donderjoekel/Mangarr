@@ -1,13 +1,12 @@
 ﻿using FluentResults;
 using Mangarr.Backend.Data;
-using Mangarr.Backend.Database.Documents;
 using Mangarr.Backend.Services;
 using Mangarr.Sources;
 using Mangarr.Sources.Models.Page;
 using MongoDB.Driver;
 using Quartz;
 
-namespace Mangarr.Backend.Drone.Jobs;
+namespace Mangarr.Backend.Jobs;
 
 public class DownloadChapterJob : IJob
 {
@@ -15,18 +14,16 @@ public class DownloadChapterJob : IJob
 
     public static readonly JobKey JobKey = new("DownloadChapterJob");
 
-    private readonly ILogger<DownloadChapterJob> _logger;
-    private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
-    private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
-    private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
-
-    private readonly IEnumerable<ISource> _sources;
-
     private readonly ArchiveService _archiveService;
+    private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
     private readonly ComicInfoService _comicInfoService;
     private readonly CoverImageService _coverImageService;
     private readonly ExportService _exportService;
+    private readonly ILogger<DownloadChapterJob> _logger;
+    private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
     private readonly PageDownloaderService _pageDownloaderService;
+    private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
+    private readonly IEnumerable<ISource> _sources;
 
     public DownloadChapterJob(
         ILogger<DownloadChapterJob> logger,

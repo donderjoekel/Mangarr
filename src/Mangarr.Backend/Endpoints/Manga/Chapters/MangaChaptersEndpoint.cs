@@ -30,7 +30,7 @@ public class MangaChaptersEndpoint : Endpoint<MangaChaptersRequest, MangaChapter
             .Find(x => x.RequestedMangaId == req.Id)
             .ToListAsync(ct);
 
-        await SendOkAsync(new MangaChaptersResponse()
+        await SendOkAsync(new MangaChaptersResponse
             {
                 Data = documents.Select(x => _mapper.Map<MangaChapterModel>(x)).ToList()
             },

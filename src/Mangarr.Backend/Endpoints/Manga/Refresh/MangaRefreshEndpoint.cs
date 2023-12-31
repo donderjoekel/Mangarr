@@ -1,4 +1,4 @@
-﻿using Mangarr.Backend.Drone.Jobs;
+﻿using Mangarr.Backend.Jobs;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using Quartz;

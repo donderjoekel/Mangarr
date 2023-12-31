@@ -2,15 +2,14 @@
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
-using ChapterProgressDocument = Mangarr.Backend.Database.Documents.ChapterProgressDocument;
 using IMapper = AutoMapper.IMapper;
 
 namespace Mangarr.Backend.Endpoints.Chapter;
 
 public class ChapterProgressEndpoint : Endpoint<ChapterProgressRequest, ChapterProgressResponse>
 {
-    private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
     private readonly IMapper _mapper;
+    private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
 
     public ChapterProgressEndpoint(IMongoCollection<ChapterProgressDocument> progressCollection, IMapper mapper)
     {
@@ -30,7 +29,7 @@ public class ChapterProgressEndpoint : Endpoint<ChapterProgressRequest, ChapterP
             .Find(x => true)
             .ToListAsync(ct);
 
-        await SendOkAsync(new ChapterProgressResponse()
+        await SendOkAsync(new ChapterProgressResponse
             {
                 Data = chapterProgressDocuments.Select(x => _mapper.Map<ChapterProgressModel>(x)).ToList()
             },

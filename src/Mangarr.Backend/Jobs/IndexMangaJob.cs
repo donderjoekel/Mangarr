@@ -6,17 +6,17 @@ using Quartz;
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
-namespace Mangarr.Backend.Drone.Jobs;
+namespace Mangarr.Backend.Jobs;
 
 public class IndexMangaJob : IJob
 {
     public const string IdDataKey = "Id";
 
     public static readonly JobKey JobKey = new("IndexMangaJob");
+    private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
 
     private readonly ILogger<IndexMangaJob> _logger;
     private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
-    private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
     private readonly IEnumerable<ISource> _sources;
 
     public IndexMangaJob(

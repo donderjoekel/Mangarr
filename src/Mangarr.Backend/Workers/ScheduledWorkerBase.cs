@@ -2,12 +2,12 @@
 
 public abstract class ScheduledWorkerBase : BackgroundService
 {
-    private readonly ManualResetEvent _manualResetEvent = new(false);
     private readonly ILogger<ScheduledWorkerBase> _logger;
-
-    protected ScheduledWorkerBase(ILogger<ScheduledWorkerBase> logger) => _logger = logger;
+    private readonly ManualResetEvent _manualResetEvent = new(false);
 
     protected abstract TimeSpan Interval { get; }
+
+    protected ScheduledWorkerBase(ILogger<ScheduledWorkerBase> logger) => _logger = logger;
 
     protected sealed override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

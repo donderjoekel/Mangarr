@@ -7,7 +7,7 @@ using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedManga
 
 namespace Mangarr.Backend.Endpoints.Manga.List;
 
-public partial class MangaListEndpoint : Endpoint<MangaListRequest, MangaListResponse>
+public class MangaListEndpoint : Endpoint<MangaListRequest, MangaListResponse>
 {
     private readonly IMongoCollection<RequestedMangaDocument> _collection;
     private readonly IMapper _mapper;

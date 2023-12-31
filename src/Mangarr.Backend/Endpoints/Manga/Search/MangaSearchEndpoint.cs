@@ -12,8 +12,8 @@ namespace Mangarr.Backend.Endpoints.Manga.Search;
 
 public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchResponse>
 {
-    private readonly AniListService _aniListService;
     private readonly AniListOptions _aniListOptions;
+    private readonly AniListService _aniListService;
 
     public MangaSearchEndpoint(AniListService aniListService, IOptions<AniListOptions> aniListOptions)
     {
@@ -39,14 +39,14 @@ public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchRespo
 
         if (searchResult.Value == null)
         {
-            await SendOkAsync(new MangaSearchResponse() { Data = [] },
+            await SendOkAsync(new MangaSearchResponse { Data = [] },
                 ct);
             return;
         }
 
         Page? mediaPage = searchResult.Value;
 
-        await SendOkAsync(new MangaSearchResponse()
+        await SendOkAsync(new MangaSearchResponse
             {
                 Data = mediaPage.Media
                     .Where(x => x.Format == MediaFormats.MANGA)
@@ -73,7 +73,7 @@ public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchRespo
         alternativeTitles = alternativeTitles.Distinct().ToList();
         alternativeTitles.Remove(mainTitle);
 
-        return new SearchResultModel()
+        return new SearchResultModel
         {
             Id = media.Id,
             Title = mainTitle,

@@ -1,5 +1,4 @@
-﻿using Mangarr.Backend.Database.Documents;
-using Mangarr.Shared.Models;
+﻿using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
@@ -9,8 +8,8 @@ namespace Mangarr.Backend.Endpoints.Provider.List;
 
 public class ProviderListEndpoint : Endpoint<ProviderListRequest, ProviderListResponse>
 {
-    private readonly IMongoCollection<SourceDocument> _providerCollection;
     private readonly IMapper _mapper;
+    private readonly IMongoCollection<SourceDocument> _providerCollection;
 
     public ProviderListEndpoint(IMongoCollection<SourceDocument> providerCollection, IMapper mapper)
     {
@@ -28,7 +27,7 @@ public class ProviderListEndpoint : Endpoint<ProviderListRequest, ProviderListRe
     {
         List<SourceDocument> providerDocuments = await _providerCollection.Find(x => true).ToListAsync(ct);
 
-        await SendOkAsync(new ProviderListResponse()
+        await SendOkAsync(new ProviderListResponse
             {
                 Data = providerDocuments.Select(x => _mapper.Map<ProviderModel>(x)).ToList()
             },

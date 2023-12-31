@@ -4,15 +4,15 @@ using ChapterProgressDocument = Mangarr.Backend.Database.Documents.ChapterProgre
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
-namespace Mangarr.Backend.Drone.Jobs;
+namespace Mangarr.Backend.Jobs;
 
 public class DownloadChapterSchedulerJob : IJob
 {
     public static readonly JobKey JobKey = new("DownloadChapterSchedulerJob");
+    private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
 
     private readonly ILogger<DownloadChapterSchedulerJob> _logger;
     private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
-    private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
     private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
 
     public DownloadChapterSchedulerJob(

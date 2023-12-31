@@ -1,5 +1,4 @@
 ﻿using FluentResults;
-using Mangarr.Backend.Database.Documents;
 
 namespace Mangarr.Backend.Services;
 

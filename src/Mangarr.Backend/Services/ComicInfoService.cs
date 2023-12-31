@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using Anilist4Net;
-using Anilist4Net.Connections;
 using FluentResults;
 using Mangarr.Backend.Data;
 using Mangarr.Backend.Extensions;

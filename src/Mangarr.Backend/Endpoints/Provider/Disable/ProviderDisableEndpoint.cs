@@ -1,5 +1,4 @@
-﻿using Mangarr.Backend.Database.Documents;
-using Mangarr.Shared.Models;
+﻿using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
@@ -9,8 +8,8 @@ namespace Mangarr.Backend.Endpoints.Provider.Disable;
 
 public class ProviderDisableEndpoint : Endpoint<ProviderDisableRequest, ProviderDisableResponse>
 {
-    private readonly IMongoCollection<SourceDocument> _providerCollection;
     private readonly IMapper _mapper;
+    private readonly IMongoCollection<SourceDocument> _providerCollection;
 
     public ProviderDisableEndpoint(IMongoCollection<SourceDocument> providerCollection, IMapper mapper)
     {
@@ -46,7 +45,7 @@ public class ProviderDisableEndpoint : Endpoint<ProviderDisableRequest, Provider
 
         // TODO: Check result
 
-        await SendOkAsync(new ProviderDisableResponse() { Data = _mapper.Map<ProviderModel>(providerDocument) },
+        await SendOkAsync(new ProviderDisableResponse { Data = _mapper.Map<ProviderModel>(providerDocument) },
             ct);
     }
 }

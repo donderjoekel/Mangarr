@@ -7,8 +7,8 @@ namespace Mangarr.Backend.Endpoints.Manga.Delete;
 
 public class MangaDeleteEndpoint : Endpoint<MangaDeleteRequest>
 {
-    private readonly IMongoCollection<RequestedMangaDocument> _requestedMangaCollection;
     private readonly IMongoCollection<RequestedChapterDocument> _requestedChapterCollection;
+    private readonly IMongoCollection<RequestedMangaDocument> _requestedMangaCollection;
 
     public MangaDeleteEndpoint(
         IMongoCollection<RequestedMangaDocument> requestedMangaCollection,

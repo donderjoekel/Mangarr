@@ -1,6 +1,6 @@
 ﻿using Anilist4Net;
 using FluentResults;
-using Mangarr.Backend.Drone.Jobs;
+using Mangarr.Backend.Jobs;
 using Mangarr.Backend.Services;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
@@ -10,10 +10,10 @@ using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedManga
 
 namespace Mangarr.Backend.Endpoints.Manga.Request;
 
-public partial class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaRequestResponse>
+public class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaRequestResponse>
 {
-    private readonly IMongoCollection<RequestedMangaDocument> _collection;
     private readonly AniListService _aniListService;
+    private readonly IMongoCollection<RequestedMangaDocument> _collection;
     private readonly NotificationService _notificationService;
     private readonly ISchedulerFactory _schedulerFactory;
 
@@ -96,7 +96,7 @@ public partial class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaR
         IScheduler scheduler = await _schedulerFactory.GetScheduler(ct);
         await scheduler.ScheduleJob(trigger, ct);
 
-        await SendOkAsync(new MangaRequestResponse() { Id = requestedMangaDocument.Id }, ct);
+        await SendOkAsync(new MangaRequestResponse { Id = requestedMangaDocument.Id }, ct);
     }
 
     private static bool AreEqual(RequestedMangaDocument requestedMangaDocument, MangaRequestRequest requestModel) =>

@@ -1,9 +1,6 @@
 ﻿using Anilist4Net;
 using Anilist4Net.Enums;
 using FluentResults;
-using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
-using StackExchange.Redis;
 
 namespace Mangarr.Backend.Services;
 

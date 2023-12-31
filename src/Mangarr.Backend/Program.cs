@@ -2,10 +2,8 @@ using System.Text.Json;
 using FastEndpoints.Swagger;
 using IdGen.DependencyInjection;
 using Mangarr.Backend.Configuration;
-using Mangarr.Backend.Database;
-using Mangarr.Backend.Database.Documents;
-using Mangarr.Backend.Drone.Jobs;
 using Mangarr.Backend.Extensions;
+using Mangarr.Backend.Jobs;
 using Mangarr.Backend.Services;
 using Mangarr.Sources;
 using Mangarr.Sources.Extensions;
@@ -165,7 +163,7 @@ await app.RunAsync();
 
 namespace Mangarr.Backend
 {
-    public partial class Program
+    public class Program
     {
     }
 }

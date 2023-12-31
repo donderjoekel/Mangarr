@@ -1,5 +1,4 @@
 ﻿using FluentResults;
-using Mangarr.Backend.Database.Documents;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
@@ -12,9 +11,9 @@ namespace Mangarr.Backend.Endpoints.Provider.Search;
 
 public class ProviderSearchEndpoint : Endpoint<ProviderSearchRequest, ProviderSearchResponse>
 {
-    private readonly IEnumerable<ISource> _providers;
-    private readonly IMongoCollection<SourceDocument> _providerCollection;
     private readonly IMapper _mapper;
+    private readonly IMongoCollection<SourceDocument> _providerCollection;
+    private readonly IEnumerable<ISource> _providers;
 
     public ProviderSearchEndpoint(
         IEnumerable<ISource> providers,
@@ -69,7 +68,7 @@ public class ProviderSearchEndpoint : Endpoint<ProviderSearchRequest, ProviderSe
             ThrowError("Unable to search provider", 500);
         }
 
-        await SendOkAsync(new ProviderSearchResponse()
+        await SendOkAsync(new ProviderSearchResponse
             {
                 Data = result.Value.Items.Select(x => _mapper.Map<ProviderMangaModel>(x)).ToList()
             },

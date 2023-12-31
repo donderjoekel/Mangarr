@@ -2,7 +2,7 @@
 using Quartz;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
-namespace Mangarr.Backend.Drone.Jobs;
+namespace Mangarr.Backend.Jobs;
 
 public class IndexMangaSchedulerJob : IJob
 {
