@@ -20,6 +20,12 @@ internal abstract class MangaStreamSourceBase : SourceBase
     {
     }
 
+    protected override Task Initialize() => Task.CompletedTask;
+
+    protected override Task<Result> Cache() => Task.FromResult(Result.Ok());
+
+    protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
+
     protected override async Task<Result<SearchResult>> Search(string query)
     {
         Result<SearchResponse> result = await GetHttpClient().PostAsForm<SearchResponse>(

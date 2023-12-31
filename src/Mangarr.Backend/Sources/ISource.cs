@@ -11,7 +11,9 @@ public interface ISource
     string Name { get; }
     string Url { get; }
 
-    // Task<Result<MangaDirectory>> GetDirectory();
+    Task Initialize();
+    Task<Result> Cache();
+    Task<Result<string>> Status();
     Task<Result<SearchResult>> Search(string query);
     Task<Result<ChapterList>> GetChapterList(string mangaId);
     Task<Result<PageList>> GetPageList(string chapterId);

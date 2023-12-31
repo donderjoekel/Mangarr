@@ -11,17 +11,41 @@ internal abstract partial class SourceBase
     string ISource.Name => Name;
     string ISource.Url => Url;
 
-    // Task<Result<MangaDirectory>> ISource.GetDirectory()
-    // {
-    //     try
-    //     {
-    //         return GetDirectory();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return Task.FromResult(Result.Fail<MangaDirectory>(new ExceptionalError(e)));
-    //     }
-    // }
+    Task ISource.Initialize()
+    {
+        try
+        {
+            return Initialize();
+        }
+        catch (Exception e)
+        {
+            return Task.FromException(e);
+        }
+    }
+
+    Task<Result> ISource.Cache()
+    {
+        try
+        {
+            return Cache();
+        }
+        catch (Exception e)
+        {
+            return Task.FromResult(Result.Fail(new ExceptionalError(e)));
+        }
+    }
+
+    Task<Result<string>> ISource.Status()
+    {
+        try
+        {
+            return Status();
+        }
+        catch (Exception e)
+        {
+            return Task.FromResult(Result.Fail<string>(new ExceptionalError(e)));
+        }
+    }
 
     Task<Result<SearchResult>> ISource.Search(string query)
     {

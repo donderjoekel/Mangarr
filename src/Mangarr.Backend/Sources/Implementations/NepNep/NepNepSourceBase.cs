@@ -18,6 +18,12 @@ internal abstract class NepNepSourceBase : SourceBase
     {
     }
 
+    protected override Task Initialize() => Task.CompletedTask;
+
+    protected override Task<Result> Cache() => Task.FromResult(Result.Ok());
+
+    protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
+
     protected sealed override async Task<Result<SearchResult>> Search(string query)
     {
         Result<string> result = await GetHttpClient().Get($"{Url}/search/");
