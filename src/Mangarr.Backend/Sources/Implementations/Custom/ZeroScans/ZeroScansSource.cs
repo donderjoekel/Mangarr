@@ -158,7 +158,7 @@ internal class ZeroScansSource : SourceBase
 
         foreach (string image in images)
         {
-            items.Add(new PageListItem(image.ToBase64(), string.Empty, image));
+            items.Add(new PageListItem(image.ToBase64(), image));
         }
 
         return Result.Ok(new PageList(items));

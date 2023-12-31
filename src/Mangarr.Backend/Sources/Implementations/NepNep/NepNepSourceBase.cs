@@ -201,7 +201,7 @@ internal abstract class NepNepSourceBase : SourceBase
             string page = s[^3..];
             string url = $"https://{pathName}/manga/{mangaId}/{directory}{chapterString}-{page}.png";
 
-            items.Add(new PageListItem(url.ToBase64(), $"Page {page}", url));
+            items.Add(new PageListItem(url.ToBase64(), url));
         }
 
         return Result.Ok(new PageList(items));

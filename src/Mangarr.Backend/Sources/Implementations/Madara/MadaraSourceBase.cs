@@ -20,7 +20,11 @@ internal abstract class MadaraSourceBase : SourceBase
     {
     }
 
-    protected override Task<Result> Initialize() => Task.FromResult(Result.Ok());
+    protected override Task<Result> Initialize()
+    {
+        Task<Result> fromResult = Task.FromResult(Result.Ok());
+        return fromResult;
+    }
 
     protected override Task<Result> Cache() => Task.FromResult(Result.Ok());
 
@@ -173,7 +177,7 @@ internal abstract class MadaraSourceBase : SourceBase
                             element.GetAttribute("src")?.Trim() ??
                             string.Empty;
 
-            items.Add(new PageListItem(source.ToBase64(), element.Id ?? string.Empty, source));
+            items.Add(new PageListItem(source.ToBase64(), source));
         }
 
         return Result.Ok(new PageList(items));

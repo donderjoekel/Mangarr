@@ -208,11 +208,7 @@ internal abstract class MangaStreamSourceBase : SourceBase
         }
 
         List<PageListItem> items = [];
-        items.AddRange(source.images.Select((image, i) =>
-            new PageListItem(
-                image.ToBase64(),
-                "Page " + (i + 1),
-                image)));
+        items.AddRange(source.images.Select(image => new PageListItem(image.ToBase64(), image)));
 
         return Result.Ok(new PageList(items));
     }
