@@ -40,6 +40,7 @@ namespace Mangarr.Backend.Tests;
 [TestFixture("pianmanga")]
 [TestFixture("platinumscans")]
 [TestFixture("rawkuma")]
+[TestFixture("reaper-scans")]
 [TestFixture("reaperscans")]
 [TestFixture("resetscans")]
 [TestFixture("setsuscans")]
@@ -53,19 +54,6 @@ namespace Mangarr.Backend.Tests;
 [TestFixture("zinmanga")]
 public class SourceTests
 {
-    private readonly string _source;
-    private readonly List<SearchResultItem> _searchResultItems = new();
-    private readonly List<ChapterListItem> _chapterListItems = new();
-    private readonly List<PageListItem> _pageListItems = new();
-
-    private IServiceProvider? _provider;
-
-    private ISource? Source => _provider?
-        .GetRequiredService<IEnumerable<ISource>>()
-        .FirstOrDefault(x => x.Identifier == _source);
-
-    public SourceTests(string source) => _source = source;
-
     [SetUp]
     public void Setup()
     {
@@ -80,6 +68,19 @@ public class SourceTests
         serviceCollection.AddMangarrBackend();
         _provider = serviceCollection.BuildServiceProvider();
     }
+
+    private readonly string _source;
+    private readonly List<SearchResultItem> _searchResultItems = new();
+    private readonly List<ChapterListItem> _chapterListItems = new();
+    private readonly List<PageListItem> _pageListItems = new();
+
+    private IServiceProvider? _provider;
+
+    private ISource? Source => _provider?
+        .GetRequiredService<IEnumerable<ISource>>()
+        .FirstOrDefault(x => x.Identifier == _source);
+
+    public SourceTests(string source) => _source = source;
 
     [Test]
     [TestCase("a")]
