@@ -77,7 +77,7 @@ public class IndexMangaJob : IJob
             .Find(x => x.RequestedMangaId == manga.Id)
             .ToListAsync(ct);
 
-        List<RequestedChapterDocument> newChapters = [];
+        List<RequestedChapterDocument> newChapters = new();
 
         foreach (ChapterListItem chapterListItem in chapterListResult.Value.Items)
         {

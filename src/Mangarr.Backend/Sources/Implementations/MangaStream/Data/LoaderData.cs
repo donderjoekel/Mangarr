@@ -2,11 +2,11 @@
 
 public class LoaderData
 {
+    public Source[] sources { get; set; }
+
     public class Source
     {
         public string source { get; set; }
         public string[] images { get; set; }
     }
-
-    public Source[] sources { get; set; }
 }

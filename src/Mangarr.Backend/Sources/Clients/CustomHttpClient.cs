@@ -9,8 +9,9 @@ public abstract partial class CustomHttpClient
         FormUrlEncoded
     }
 
-    private readonly IHttpClientFactory httpClientFactory;
     private readonly Dictionary<string, string> headers = new();
+
+    private readonly IHttpClientFactory httpClientFactory;
 
     protected abstract string ClientName { get; }
 

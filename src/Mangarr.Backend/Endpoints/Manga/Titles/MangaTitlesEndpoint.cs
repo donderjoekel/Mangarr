@@ -35,9 +35,9 @@ public class MangaTitlesEndpoint : Endpoint<MangaTitlesRequest, MangaTitlesRespo
             return;
         }
 
-        string[] titles =
-            [result.Value.EnglishTitle, result.Value.RomajiTitle, result.Value.NativeTitle, .. result.Value.Synonyms];
+        List<string> titles = new() { result.Value.EnglishTitle, result.Value.RomajiTitle, result.Value.NativeTitle };
+        titles.AddRange(result.Value.Synonyms);
 
-        await SendOkAsync(new MangaTitlesResponse { Data = new MangaTitlesModel { Titles = titles } }, ct);
+        await SendOkAsync(new MangaTitlesResponse { Data = new MangaTitlesModel { Titles = titles.ToArray() } }, ct);
     }
 }

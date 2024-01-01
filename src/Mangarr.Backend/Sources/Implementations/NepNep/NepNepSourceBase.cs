@@ -124,7 +124,7 @@ internal abstract class NepNepSourceBase : SourceBase
             return Result.Fail(new ExceptionalError(e));
         }
 
-        List<ChapterListItem> items = [];
+        List<ChapterListItem> items = new();
 
         foreach (ChapterData chapter in data)
         {
@@ -189,7 +189,7 @@ internal abstract class NepNepSourceBase : SourceBase
             return Result.Fail("Unable to parse page count");
         }
 
-        List<PageListItem> items = [];
+        List<PageListItem> items = new();
 
         string chapterString = GetChapterString(data);
         string pathName = GetPathName(result.Value);

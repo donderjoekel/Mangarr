@@ -44,7 +44,7 @@ internal class ZeroScansSource : SourceBase
             return Result.Fail("Website says request failed");
         }
 
-        List<SearchResultItem> items = [];
+        List<SearchResultItem> items = new();
 
         foreach (DirectoryResult.Data.Comic comic in result.Value.data.comics)
         {
@@ -69,7 +69,7 @@ internal class ZeroScansSource : SourceBase
         string slug = splits[0];
         string id = splits[1];
 
-        List<ChapterListItem> items = [];
+        List<ChapterListItem> items = new();
 
         int page = 1;
         int maxPage = 1;
@@ -154,7 +154,7 @@ internal class ZeroScansSource : SourceBase
             ? currentChapterData.high_quality
             : currentChapterData.good_quality;
 
-        List<PageListItem> items = [];
+        List<PageListItem> items = new();
 
         foreach (string image in images)
         {

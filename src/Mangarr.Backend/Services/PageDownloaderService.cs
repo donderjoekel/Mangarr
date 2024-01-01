@@ -13,8 +13,8 @@ public class PageDownloaderService
         Func<int, Task>? progressCallback = null
     )
     {
-        List<byte[]> pages = [];
-        List<IError> errors = [];
+        List<byte[]> pages = new();
+        List<IError> errors = new();
 
         float total = pageList.Items.Count;
 

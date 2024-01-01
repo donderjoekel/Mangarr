@@ -9,7 +9,7 @@ using Cookie = System.Net.Cookie;
 namespace Mangarr.Backend.Sources.Cloudflare;
 
 /// <summary>
-/// A HTTP handler that transparently manages CloudFlare's protection bypass.
+///     A HTTP handler that transparently manages CloudFlare's protection bypass.
 /// </summary>
 public class CustomClearanceHandler : DelegatingHandler
 {
@@ -19,23 +19,25 @@ public class CustomClearanceHandler : DelegatingHandler
     private string _userAgent;
 
     /// <summary>
-    /// Max timeout to solve the challenge.
+    ///     Max timeout to solve the challenge.
     /// </summary>
     public int MaxTimeout = 60000;
 
     /// <summary>
-    /// HTTP Proxy URL.
-    /// Example: http://127.0.0.1:8888
+    ///     HTTP Proxy URL.
+    ///     Example: http://127.0.0.1:8888
     /// </summary>
     public string ProxyUrl = "";
 
     private HttpClientHandler HttpClientHandler => InnerHandler.GetMostInnerHandler() as HttpClientHandler;
 
     /// <summary>
-    /// Creates a new instance of the <see cref="ClearanceHandler"/>.
+    ///     Creates a new instance of the <see cref="ClearanceHandler" />.
     /// </summary>
-    /// <param name="flareSolverrApiUrl">FlareSolverr API URL. If null or empty it will detect the challenges, but
-    /// they will not be solved. Example: "http://localhost:8191/"</param>
+    /// <param name="flareSolverrApiUrl">
+    ///     FlareSolverr API URL. If null or empty it will detect the challenges, but
+    ///     they will not be solved. Example: "http://localhost:8191/"
+    /// </param>
     public CustomClearanceHandler(string flareSolverrApiUrl)
     {
         // Validate URI
@@ -56,7 +58,7 @@ public class CustomClearanceHandler : DelegatingHandler
     }
 
     /// <summary>
-    /// Sends an HTTP request to the inner handler to send to the server as an asynchronous operation.
+    ///     Sends an HTTP request to the inner handler to send to the server as an asynchronous operation.
     /// </summary>
     /// <param name="request">The HTTP request message to send to the server.</param>
     /// <param name="cancellationToken">A cancellation token to cancel operation.</param>

@@ -39,7 +39,7 @@ public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchRespo
 
         if (searchResult.Value == null)
         {
-            await SendOkAsync(new MangaSearchResponse { Data = [] },
+            await SendOkAsync(new MangaSearchResponse { Data = new List<SearchResultModel>() },
                 ct);
             return;
         }
@@ -64,11 +64,7 @@ public class MangaSearchEndpoint : Endpoint<MangaSearchRequest, MangaSearchRespo
         string mainTitle = media.Title.English ?? media.Title.Romaji;
 
         List<string> alternativeTitles =
-        [
-            media.Title.English,
-            media.Title.Native,
-            media.Title.Romaji
-        ];
+            new() { media.Title.English, media.Title.Native, media.Title.Romaji };
 
         alternativeTitles = alternativeTitles.Distinct().ToList();
         alternativeTitles.Remove(mainTitle);

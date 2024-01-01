@@ -39,10 +39,10 @@ internal abstract class MangaStreamSourceBase : SourceBase
 
         if (result.Value.series.Length == 0)
         {
-            return Result.Ok(new SearchResult([]));
+            return Result.Ok(new SearchResult(new List<SearchResultItem>()));
         }
 
-        List<SearchResultItem> items = [];
+        List<SearchResultItem> items = new();
 
         foreach (SearchResponse.Series series in result.Value.series)
         {
@@ -77,7 +77,7 @@ internal abstract class MangaStreamSourceBase : SourceBase
             anchors = document.QuerySelectorAll<IHtmlAnchorElement>("div.eplister li a");
         }
 
-        List<ChapterListItem> items = [];
+        List<ChapterListItem> items = new();
 
         foreach (IHtmlAnchorElement anchor in anchors)
         {
@@ -207,7 +207,7 @@ internal abstract class MangaStreamSourceBase : SourceBase
             return Result.Fail("Unable to find source");
         }
 
-        List<PageListItem> items = [];
+        List<PageListItem> items = new();
         items.AddRange(source.images.Select(image => new PageListItem(image.ToBase64(), image)));
 
         return Result.Ok(new PageList(items));

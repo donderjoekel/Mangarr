@@ -39,7 +39,7 @@ internal abstract class MadaraSourceBase : SourceBase
             return result.ToResult();
         }
 
-        List<SearchResultItem> items = [];
+        List<SearchResultItem> items = new();
 
         IDocument document = CreateDocument(result.Value);
         IEnumerable<IHtmlDivElement> elements = document.QuerySelectorAll<IHtmlDivElement>("div.c-tabs-item__content");
@@ -118,7 +118,7 @@ internal abstract class MadaraSourceBase : SourceBase
             return result.ToResult();
         }
 
-        List<ChapterListItem> items = [];
+        List<ChapterListItem> items = new();
 
         IDocument document = CreateDocument(result.Value);
         List<IHtmlListItemElement> elements = document
@@ -166,7 +166,7 @@ internal abstract class MadaraSourceBase : SourceBase
             return result.ToResult();
         }
 
-        List<PageListItem> items = [];
+        List<PageListItem> items = new();
 
         IDocument document = CreateDocument(result.Value);
         IEnumerable<IHtmlImageElement> elements = document.QuerySelectorAll<IHtmlImageElement>(".wp-manga-chapter-img");

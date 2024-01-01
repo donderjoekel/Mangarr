@@ -108,7 +108,7 @@ internal class ReaperScansSource : SourceBase
         IDocument document1 = CreateDocument(html);
         IEnumerable<IHtmlImageElement> elements = document1.QuerySelectorAll<IHtmlImageElement>("ul li a img");
 
-        List<SearchResultItem> items = [];
+        List<SearchResultItem> items = new();
 
         foreach (IHtmlImageElement element in elements)
         {
@@ -163,7 +163,7 @@ internal class ReaperScansSource : SourceBase
             return Result.Fail("Unable to acquire request info");
         }
 
-        List<ChapterListItem> items = [];
+        List<ChapterListItem> items = new();
         items.AddRange(GetChaptersFromPage(document));
 
         int page = 2;
@@ -225,7 +225,7 @@ internal class ReaperScansSource : SourceBase
 
     private static List<ChapterListItem> GetChaptersFromPage(IDocument document)
     {
-        List<ChapterListItem> items = [];
+        List<ChapterListItem> items = new();
 
         List<IHtmlAnchorElement> elements = document
             .QuerySelectorAll<IHtmlAnchorElement>("ul[role=list] li a")
@@ -267,7 +267,7 @@ internal class ReaperScansSource : SourceBase
 
         IDocument document = CreateDocument(result.Value);
 
-        List<PageListItem> items = [];
+        List<PageListItem> items = new();
 
         IEnumerable<IHtmlImageElement> elements = document.QuerySelectorAll<IHtmlImageElement>("main noscript img");
 
