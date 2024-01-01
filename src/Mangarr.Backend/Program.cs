@@ -56,7 +56,6 @@ builder.Services.AddQuartz(options =>
         configure
             .WithIdentity("CacheSourceSchedulerJob")
             .ForJob(CacheSourceSchedulerJob.JobKey)
-            .StartNow()
             .WithCronSchedule("0 0/30 0 ? * * *");
     });
 
@@ -65,7 +64,6 @@ builder.Services.AddQuartz(options =>
         configure
             .WithIdentity("IndexMangaSchedulerJob")
             .ForJob(IndexMangaSchedulerJob.JobKey)
-            .StartNow()
             .WithCronSchedule("0 0 * ? * * *");
     });
 
@@ -172,6 +170,27 @@ if (app.Environment.IsDevelopment())
             await sourceCollection.DeleteOneAsync(x => x.Identifier == existingSource.Identifier);
         }
     }
+}
+
+{
+    ISchedulerFactory schedulerFactory = app.Services.GetRequiredService<ISchedulerFactory>();
+    IScheduler scheduler = await schedulerFactory.GetScheduler();
+
+    ITrigger indexMangaTrigger = TriggerBuilder.Create()
+        .WithIdentity("LaunchIndexMangaSchedulerJob")
+        .ForJob(IndexMangaSchedulerJob.JobKey)
+        .StartAt(DateTimeOffset.UtcNow.AddSeconds(15))
+        .Build();
+
+    await scheduler.ScheduleJob(indexMangaTrigger);
+
+    ITrigger downloadChapterTrigger = TriggerBuilder.Create()
+        .WithIdentity("LaunchDownloadChapterSchedulerJob")
+        .ForJob(DownloadChapterSchedulerJob.JobKey)
+        .StartAt(DateTimeOffset.UtcNow.AddSeconds(30))
+        .Build();
+
+    await scheduler.ScheduleJob(downloadChapterTrigger);
 }
 
 await app.RunAsync();
