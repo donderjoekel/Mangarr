@@ -10,8 +10,12 @@ internal class CosmicScansSource : MangaStreamSourceBase
     protected override string Name => "Cosmic Scans";
     protected override string Url => "https://cosmic-scans.com";
 
-    public CosmicScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public CosmicScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

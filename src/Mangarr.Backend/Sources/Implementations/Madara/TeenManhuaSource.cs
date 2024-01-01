@@ -10,8 +10,12 @@ internal class TeenManhuaSource : MadaraSourceBase
     protected override string Name => "Teen Manhua";
     protected override string Url => "https://teenmanhua.io";
 
-    public TeenManhuaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public TeenManhuaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

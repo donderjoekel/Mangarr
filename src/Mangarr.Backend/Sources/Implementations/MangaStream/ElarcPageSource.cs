@@ -10,8 +10,12 @@ internal class ElarcPageSource : MangaStreamSourceBase
     protected override string Name => "Elarc Toon";
     protected override string Url => "https://elarctoon.com";
 
-    public ElarcPageSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ElarcPageSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

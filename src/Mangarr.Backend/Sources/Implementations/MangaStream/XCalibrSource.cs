@@ -10,8 +10,12 @@ internal class XCalibrSource : MangaStreamSourceBase
     protected override string Name => "X Calibr Scans";
     protected override string Url => "https://xcalibrscans.com";
 
-    public XCalibrSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public XCalibrSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

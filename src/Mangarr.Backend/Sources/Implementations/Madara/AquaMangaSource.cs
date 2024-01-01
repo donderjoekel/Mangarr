@@ -10,8 +10,14 @@ internal class AquaMangaSource : MadaraSourceBase
     protected override string Name => "Aqua Manga";
     protected override string Url => "https://aquamanga.org";
 
-    public AquaMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    protected override bool UseAjaxChapterListMethod => true;
+
+    public AquaMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

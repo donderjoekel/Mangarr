@@ -11,8 +11,12 @@ internal class CoffeeMangaSource : MadaraSourceBase
     protected override string Url => "https://coffeemanga.io";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public CoffeeMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public CoffeeMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

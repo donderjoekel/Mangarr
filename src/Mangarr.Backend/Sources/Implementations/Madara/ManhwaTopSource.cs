@@ -11,8 +11,12 @@ internal class ManhwaTopSource : MadaraSourceBase
     protected override string Url => "https://manhwatop.com";
     protected override bool UseIdChapterListMethod => true;
 
-    public ManhwaTopSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ManhwaTopSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

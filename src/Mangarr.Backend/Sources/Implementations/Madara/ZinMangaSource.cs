@@ -10,8 +10,12 @@ internal class ZinMangaSource : MadaraSourceBase
     protected override string Name => "Zin Manga";
     protected override string Url => "https://zinmanga.com";
 
-    public ZinMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ZinMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

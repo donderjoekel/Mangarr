@@ -11,8 +11,12 @@ internal class ArthurScanSource : MadaraSourceBase
     protected override string Url => "https://arthurscan.xyz";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public ArthurScanSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ArthurScanSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

@@ -11,8 +11,12 @@ internal class NovelMicSource : MadaraSourceBase
     protected override string Url => "https://novelmic.com";
     protected override bool UseIdChapterListMethod => true;
 
-    public NovelMicSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public NovelMicSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

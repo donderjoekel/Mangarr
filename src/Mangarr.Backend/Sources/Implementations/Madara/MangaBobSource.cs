@@ -11,8 +11,12 @@ internal class MangaBobSource : MadaraSourceBase
     protected override string Url => "https://mangabob.com";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public MangaBobSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public MangaBobSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

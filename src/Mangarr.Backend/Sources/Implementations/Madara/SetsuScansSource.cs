@@ -11,8 +11,12 @@ internal class SetsuScansSource : MadaraSourceBase
     protected override string Url => "https://setsuscans.com";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public SetsuScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public SetsuScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

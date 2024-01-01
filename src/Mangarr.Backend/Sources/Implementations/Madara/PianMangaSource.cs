@@ -10,8 +10,12 @@ internal class PianMangaSource : MadaraSourceBase
     protected override string Name => "Pian Manga";
     protected override string Url => "https://pianmanga.com";
 
-    public PianMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public PianMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

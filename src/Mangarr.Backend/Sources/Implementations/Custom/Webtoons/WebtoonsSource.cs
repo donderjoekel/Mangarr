@@ -18,8 +18,12 @@ internal class WebtoonsSource : SourceBase
     protected override string Name => "LINE Webtoon";
     protected override string Url => "https://www.webtoons.com/en/";
 
-    public WebtoonsSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public WebtoonsSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 
@@ -49,10 +53,11 @@ internal class WebtoonsSource : SourceBase
         {
             string url = "https://webtoons.com/episodeList?titleNo=" + item.titleNo;
 
-            items.Add(new SearchResultItem(url.ToBase64(),
-                item.title,
-                url,
-                "https://webtoon-phinf.pstatic.net" + item.thumbnailMobile));
+            items.Add(
+                new SearchResultItem(
+                    ConstructId(url),
+                    item.title,
+                    "https://webtoon-phinf.pstatic.net" + item.thumbnailMobile));
         }
 
         return Result.Ok(new SearchResult(items));
@@ -60,7 +65,8 @@ internal class WebtoonsSource : SourceBase
 
     protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
-        Result<string> result = await GetHttpClient().Get(mangaId.FromBase64());
+        DeconstructId(mangaId, out string url, out _);
+        Result<string> result = await GetHttpClient().Get(url);
 
         if (result.IsFailed)
         {
@@ -111,7 +117,7 @@ internal class WebtoonsSource : SourceBase
 
                 items.Add(
                     new ChapterListItem(
-                        anchor.Href.ToBase64(),
+                        ConstructId(anchor.Href),
                         titleElement.TextContent,
                         chapterNumber,
                         DateTime.Parse(dateElement.TextContent).Date,
@@ -131,7 +137,8 @@ internal class WebtoonsSource : SourceBase
 
     protected override async Task<Result<PageList>> GetPageList(string chapterId)
     {
-        Result<string> result = await GetHttpClient().Get(chapterId.FromBase64());
+        DeconstructId(chapterId, out string chapterUrl, out _);
+        Result<string> result = await GetHttpClient().Get(chapterUrl);
 
         if (result.IsFailed)
         {

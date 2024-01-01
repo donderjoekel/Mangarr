@@ -13,8 +13,12 @@ namespace Mangarr.Backend.Sources.Implementations.NepNep;
 
 internal abstract class NepNepSourceBase : SourceBase
 {
-    protected NepNepSourceBase(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    protected NepNepSourceBase(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 
@@ -89,19 +93,22 @@ internal abstract class NepNepSourceBase : SourceBase
             throw;
         }
 
-        return Result.Ok(new SearchResult(
-            items.Select(x => new SearchResultItem(x.Slug.ToBase64(),
-                    x.Title,
-                    $"{Url}/manga/{x.Slug}",
-                    coverUrl.Replace("{{Series.i}}", x.Slug)))
-                .ToList()));
+        return Result.Ok(
+            new SearchResult(
+                items.Select(x =>
+                        new SearchResultItem(
+                            ConstructId($"{Url}/manga/{x.Slug}", x.Slug),
+                            x.Title,
+                            coverUrl.Replace("{{Series.i}}", x.Slug)))
+                    .ToList()));
     }
 
     protected sealed override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
-        mangaId = mangaId.FromBase64();
+        DeconstructId(mangaId, out string mangaUrl, out string[] args);
+        string slug = args[0];
 
-        Result<string> result = await GetHttpClient().Get($"{Url}/manga/{mangaId}");
+        Result<string> result = await GetHttpClient().Get(mangaUrl);
 
         if (result.IsFailed)
         {
@@ -145,24 +152,24 @@ internal abstract class NepNepSourceBase : SourceBase
                 fullChapterNumber = -1;
             }
 
-            items.Add(new ChapterListItem((mangaId + "|" + chapterString).ToBase64(),
-                chapter.Type + " - " + chapterString,
-                fullChapterNumber,
-                DateTime.Parse(chapter.Date).Date,
-                $"{Url}/read-online/{mangaId}-chapter-{chapterString}.html"));
+            items.Add(
+                new ChapterListItem(
+                    ConstructId($"{Url}/read-online/{slug}-chapter-{chapterString}.html", slug),
+                    chapter.Type + " - " + chapterString,
+                    fullChapterNumber,
+                    DateTime.Parse(chapter.Date).Date,
+                    $"{Url}/read-online/{slug}-chapter-{chapterString}.html"));
         }
 
-        items.Reverse();
         return Result.Ok(new ChapterList(items));
     }
 
     protected sealed override async Task<Result<PageList>> GetPageList(string chapterId)
     {
-        string[] splits = chapterId.FromBase64().Split('|');
-        string mangaId = splits[0];
-        string chapterNumber = splits[1];
+        DeconstructId(chapterId, out string chapterUrl, out string[] args);
+        string slug = args[0];
 
-        Result<string> result = await GetHttpClient().Get($"{Url}/read-online/{mangaId}-chapter-{chapterNumber}.html");
+        Result<string> result = await GetHttpClient().Get(chapterUrl);
 
         if (result.IsFailed)
         {
@@ -200,9 +207,9 @@ internal abstract class NepNepSourceBase : SourceBase
         {
             string s = "000" + (i + 1);
             string page = s[^3..];
-            string url = $"https://{pathName}/manga/{mangaId}/{directory}{chapterString}-{page}.png";
+            string url = $"https://{pathName}/manga/{slug}/{directory}{chapterString}-{page}.png";
 
-            items.Add(new PageListItem(url.ToBase64(), url));
+            items.Add(new PageListItem(ConstructId(url), url));
         }
 
         return Result.Ok(new PageList(items));

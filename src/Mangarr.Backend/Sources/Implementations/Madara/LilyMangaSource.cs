@@ -12,8 +12,12 @@ internal class LilyMangaSource : MadaraSourceBase
     protected override bool UseAjaxChapterListMethod => true;
     protected override bool HasCloudflareProtection => true;
 
-    public LilyMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public LilyMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

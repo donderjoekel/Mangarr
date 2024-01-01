@@ -11,8 +11,12 @@ internal class ResetScansSource : MadaraSourceBase
     protected override string Url => "https://reset-scans.us";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public ResetScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ResetScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

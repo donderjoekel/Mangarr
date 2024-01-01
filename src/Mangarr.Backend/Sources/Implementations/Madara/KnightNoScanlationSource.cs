@@ -10,8 +10,12 @@ internal class KnightNoScanlationSource : MadaraSourceBase
     protected override string Name => "Knight No Scanlation";
     protected override string Url => "https://knightnoscanlation.com";
 
-    public KnightNoScanlationSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public KnightNoScanlationSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

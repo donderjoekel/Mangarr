@@ -11,8 +11,12 @@ internal class AsuraScansSource : MangaStreamSourceBase
     protected override string Url => "https://asuratoon.com";
     protected override bool HasCloudflareProtection => true;
 
-    public AsuraScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public AsuraScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

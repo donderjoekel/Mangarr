@@ -10,8 +10,12 @@ internal class ManhuausSource : MadaraSourceBase
     protected override string Name => "Manhuaus";
     protected override string Url => "https://manhuaus.com";
 
-    public ManhuausSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ManhuausSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

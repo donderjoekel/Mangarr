@@ -1,5 +1,6 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
+using Mangarr.Backend.Sources.Extensions;
 
 namespace Mangarr.Backend.Sources;
 
@@ -7,13 +8,14 @@ internal abstract partial class SourceBase
 {
     protected IDocument CreateDocument(string html) => new HtmlParser().ParseDocument(html);
 
-    protected DateTime ParseRelativeDate(string input)
+    protected bool TryParseRelativeDate(string input, out DateTime result)
     {
         string[] parts = input.Split(' ');
 
         if (!int.TryParse(parts[0], out int number))
         {
-            throw new ArgumentException("Invalid input");
+            result = default;
+            return false;
         }
 
         string unit = parts[1].ToLower();
@@ -22,27 +24,55 @@ internal abstract partial class SourceBase
         {
             case "second":
             case "seconds":
-                return DateTime.Now.AddSeconds(-number);
+                result = DateTime.Now.AddSeconds(-number);
+                break;
             case "minute":
             case "minutes":
-                return DateTime.Now.AddMinutes(-number);
+                result = DateTime.Now.AddMinutes(-number);
+                break;
             case "hour":
             case "hours":
-                return DateTime.Now.AddHours(-number);
+                result = DateTime.Now.AddHours(-number);
+                break;
             case "day":
             case "days":
-                return DateTime.Now.AddDays(-number);
+                result = DateTime.Now.AddDays(-number);
+                break;
             case "week":
             case "weeks":
-                return DateTime.Now.AddDays(-number * 7);
+                result = DateTime.Now.AddDays(-number * 7);
+                break;
             case "month":
             case "months":
-                return DateTime.Now.AddMonths(-number);
+                result = DateTime.Now.AddMonths(-number);
+                break;
             case "year":
             case "years":
-                return DateTime.Now.AddYears(-number);
+                result = DateTime.Now.AddYears(-number);
+                break;
             default:
-                throw new ArgumentException("Invalid time unit");
+                result = default;
+                return false;
         }
+
+        return true;
+    }
+
+    protected string ConstructId(string url, params string[] args)
+    {
+        if (args.Length == 0)
+        {
+            return url.ToBase64();
+        }
+
+        string[] segments = { url, string.Join("|", args) };
+        return string.Join("|", segments).ToBase64();
+    }
+
+    protected void DeconstructId(string id, out string url, out string[] args)
+    {
+        string[] splits = id.FromBase64().Split('|', StringSplitOptions.RemoveEmptyEntries);
+        url = splits[0];
+        args = splits.Skip(1).ToArray();
     }
 }

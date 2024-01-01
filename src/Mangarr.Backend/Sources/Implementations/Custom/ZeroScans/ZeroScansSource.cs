@@ -19,8 +19,12 @@ internal class ZeroScansSource : SourceBase
     protected override string Name => "Zero Scans";
     protected override string Url => "https://zeroscans.com";
 
-    public ZeroScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ZeroScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 
@@ -54,9 +58,8 @@ internal class ZeroScansSource : SourceBase
             }
 
             items.Add(new SearchResultItem(
-                (comic.slug + "|" + comic.id).ToBase64(),
+                (Url + "/comics/" + comic.slug + "|" + comic.slug + "|" + comic.id).ToBase64(),
                 comic.name,
-                Url + "/comics/" + comic.slug,
                 comic.cover.horizontal ?? comic.cover.vertical ?? string.Empty));
         }
 
@@ -66,8 +69,9 @@ internal class ZeroScansSource : SourceBase
     protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
         string[] splits = mangaId.FromBase64().Split('|');
-        string slug = splits[0];
-        string id = splits[1];
+        string chapterUrl = splits[0];
+        string slug = splits[1];
+        string id = splits[2];
 
         List<ChapterListItem> items = new();
 
@@ -92,11 +96,16 @@ internal class ZeroScansSource : SourceBase
 
             foreach (ChapterResult.Data.Item item in result.Value.data.data)
             {
+                if (!TryParseRelativeDate(item.created_at, out DateTime dateTime))
+                {
+                    dateTime = DateTime.MinValue;
+                }
+
                 items.Add(new ChapterListItem(
                     (slug + "/" + item.id).ToBase64(),
                     "Chapter " + item.name,
                     item.name,
-                    ParseRelativeDate(item.created_at).Date,
+                    dateTime.Date,
                     Url + "/comics/" + slug + "/" + item.id));
             }
 

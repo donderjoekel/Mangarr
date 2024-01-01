@@ -20,8 +20,12 @@ internal class ReaperScansSource : SourceBase
     protected override string Url => "https://reaperscans.com";
     protected override bool HasCloudflareProtection => true;
 
-    public ReaperScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ReaperScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 
@@ -128,7 +132,11 @@ internal class ReaperScansSource : SourceBase
                 continue;
             }
 
-            items.Add(new SearchResultItem(url.ToBase64(), title, url, cover));
+            items.Add(
+                new SearchResultItem(
+                    ConstructId(url),
+                    title,
+                    cover));
         }
 
         return Result.Ok(new SearchResult(items));
@@ -136,7 +144,7 @@ internal class ReaperScansSource : SourceBase
 
     protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
-        string url = mangaId.FromBase64();
+        DeconstructId(mangaId, out string url, out _);
 
         CustomHttpClient httpClient = GetHttpClient();
         httpClient.AddHeader(CachingHandler.BypassCacheKey, "true");
@@ -253,12 +261,17 @@ internal class ReaperScansSource : SourceBase
             string chapterDate = element.QuerySelector<IHtmlParagraphElement>("div.mt-2 div p")?.TextContent.Trim()
                 .Replace("released", string.Empty) ?? string.Empty;
 
+            if (!TryParseRelativeDate(chapterDate, out DateTime dateTime))
+            {
+                dateTime = DateTime.MinValue;
+            }
+
             items.Add(
                 new ChapterListItem(
-                    url.ToBase64(),
+                    ConstructId(url),
                     "Chapter " + number,
                     chapterNumber,
-                    ParseRelativeDate(chapterDate),
+                    dateTime.Date,
                     url));
         }
 
@@ -267,7 +280,8 @@ internal class ReaperScansSource : SourceBase
 
     protected override async Task<Result<PageList>> GetPageList(string chapterId)
     {
-        Result<string> result = await GetHttpClient().Get(chapterId.FromBase64());
+        DeconstructId(chapterId, out string url, out _);
+        Result<string> result = await GetHttpClient().Get(url);
 
         if (result.IsFailed)
         {

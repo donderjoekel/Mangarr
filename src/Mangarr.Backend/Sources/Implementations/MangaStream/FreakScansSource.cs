@@ -10,8 +10,12 @@ internal class FreakScansSource : MangaStreamSourceBase
     protected override string Name => "Freak Scans";
     protected override string Url => "https://freakscans.com";
 
-    public FreakScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public FreakScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

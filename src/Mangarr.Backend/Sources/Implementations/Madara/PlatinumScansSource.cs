@@ -11,8 +11,12 @@ internal class PlatinumScansSource : MadaraSourceBase
     protected override string Url => "https://platinumscans.com";
     protected override bool UseIdChapterListMethod => true;
 
-    public PlatinumScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public PlatinumScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

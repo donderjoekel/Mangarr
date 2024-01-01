@@ -11,8 +11,12 @@ internal class HiperDexSource : MadaraSourceBase
     protected override string Url => "https://hiperdex.com";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public HiperDexSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public HiperDexSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

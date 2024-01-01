@@ -15,8 +15,12 @@ internal abstract class MadaraSourceBase : SourceBase
     protected virtual bool UseAjaxChapterListMethod => false;
     protected virtual bool UseIdChapterListMethod => false;
 
-    protected MadaraSourceBase(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    protected MadaraSourceBase(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 
@@ -50,44 +54,19 @@ internal abstract class MadaraSourceBase : SourceBase
             IHtmlImageElement? image = element.FindDescendant<IHtmlImageElement>();
             string coverUrl = image.GetAttribute("data-src") ?? image.Source;
 
-            items.Add(new SearchResultItem(anchor.Href.ToBase64(),
-                anchor.GetAttribute("title"),
-                anchor.Href,
-                coverUrl));
+            items.Add(
+                new SearchResultItem(
+                    ConstructId(anchor.Href),
+                    anchor.GetAttribute("title"),
+                    coverUrl));
         }
 
         return Result.Ok(new SearchResult(items));
     }
 
-    private async Task<Result<string>> GetChapterId(string url)
-    {
-        Result<string> result = await GetHttpClient().Get(url);
-
-        if (result.IsFailed)
-        {
-            return result.ToResult();
-        }
-
-        IDocument idDocument = CreateDocument(result.Value);
-
-        IHtmlDivElement? element = idDocument.QuerySelector<IHtmlDivElement>("#manga-chapters-holder");
-        if (element == null)
-        {
-            return Result.Fail("Unable to find chapters holder");
-        }
-
-        string? dataId = element.GetAttribute("data-id");
-        if (string.IsNullOrEmpty(dataId))
-        {
-            return Result.Fail("Unable to get data-id");
-        }
-
-        return Result.Ok(dataId);
-    }
-
     protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
-        string url = mangaId.FromBase64();
+        DeconstructId(mangaId, out string url, out _);
         Result<string> result = await GetPageContent(url);
 
         if (result.IsFailed)
@@ -112,7 +91,7 @@ internal abstract class MadaraSourceBase : SourceBase
 
             items.Add(
                 new ChapterListItem(
-                    chapterUrl.ToBase64(),
+                    ConstructId(chapterUrl),
                     anchorElement.TextContent.Trim(),
                     chapterNumber,
                     dateTime.Date,
@@ -150,15 +129,42 @@ internal abstract class MadaraSourceBase : SourceBase
 
     private DateTime GetPostDateOfChapter(IHtmlListItemElement element)
     {
-        IHtmlSpanElement? dateElement = element.QuerySelector<IHtmlSpanElement>(".chapter-release-date");
-        string? dateText = dateElement?.TextContent.Trim();
+        IHtmlAnchorElement? releaseDateAnchorElement = element.QuerySelector<IHtmlAnchorElement>(
+            "span.chapter-release-date > a, span.chapter-release-date > span.c-new-tag > a");
 
-        if (!DateTime.TryParse(dateText, out DateTime dateTime))
+        string? attribute = releaseDateAnchorElement?.GetAttribute("title");
+
+        if (!string.IsNullOrEmpty(attribute))
         {
-            dateTime = ParseRelativeDate(dateText);
-        }
+            if (DateTime.TryParse(attribute, out DateTime dateTime))
+            {
+                return dateTime;
+            }
 
-        return dateTime;
+            if (TryParseRelativeDate(attribute, out dateTime))
+            {
+                return dateTime;
+            }
+
+            return DateTime.MinValue;
+        }
+        else
+        {
+            IHtmlSpanElement? dateElement = element.QuerySelector<IHtmlSpanElement>(".chapter-release-date");
+            string? dateText = dateElement?.TextContent.Trim();
+
+            if (DateTime.TryParse(dateText, out DateTime dateTime))
+            {
+                return dateTime;
+            }
+
+            if (TryParseRelativeDate(dateText, out dateTime))
+            {
+                return dateTime;
+            }
+
+            return DateTime.MinValue;
+        }
     }
 
     private async Task<Result<string>> GetPageContent(string url)
@@ -191,9 +197,36 @@ internal abstract class MadaraSourceBase : SourceBase
         return result;
     }
 
+    private async Task<Result<string>> GetChapterId(string url)
+    {
+        Result<string> result = await GetHttpClient().Get(url);
+
+        if (result.IsFailed)
+        {
+            return result.ToResult();
+        }
+
+        IDocument idDocument = CreateDocument(result.Value);
+
+        IHtmlDivElement? element = idDocument.QuerySelector<IHtmlDivElement>("#manga-chapters-holder");
+        if (element == null)
+        {
+            return Result.Fail("Unable to find chapters holder");
+        }
+
+        string? dataId = element.GetAttribute("data-id");
+        if (string.IsNullOrEmpty(dataId))
+        {
+            return Result.Fail("Unable to get data-id");
+        }
+
+        return Result.Ok(dataId);
+    }
+
     protected override async Task<Result<PageList>> GetPageList(string chapterId)
     {
-        Result<string> result = await GetHttpClient().Get(chapterId.FromBase64());
+        DeconstructId(chapterId, out string url, out _);
+        Result<string> result = await GetHttpClient().Get(url);
 
         if (result.IsFailed)
         {

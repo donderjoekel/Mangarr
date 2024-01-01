@@ -10,8 +10,12 @@ internal class ManwhaXSource : MangaStreamSourceBase
     protected override string Name => "Manhwa X";
     protected override string Url => "https://manhwax.org";
 
-    public ManwhaXSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ManwhaXSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

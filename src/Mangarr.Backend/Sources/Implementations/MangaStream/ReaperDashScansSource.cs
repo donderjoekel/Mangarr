@@ -10,8 +10,12 @@ internal class ReaperDashScansSource : MangaStreamSourceBase
     protected override string Name => "Reaper-Scans";
     protected override string Url => "https://reaper-scans.com";
 
-    public ReaperDashScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ReaperDashScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

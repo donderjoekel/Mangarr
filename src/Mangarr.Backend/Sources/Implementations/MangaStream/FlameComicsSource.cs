@@ -10,8 +10,12 @@ internal class FlameComicsSource : MangaStreamSourceBase
     protected override string Name => "Flame Comics";
     protected override string Url => "https://flamecomics.com";
 
-    public FlameComicsSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public FlameComicsSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

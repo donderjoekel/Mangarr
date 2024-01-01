@@ -10,8 +10,12 @@ internal class LuminousScansSource : MangaStreamSourceBase
     protected override string Name => "Luminous Scans";
     protected override string Url => "https://luminousscans.net";
 
-    public LuminousScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public LuminousScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

@@ -10,8 +10,12 @@ internal class BibiMangaSource : MadaraSourceBase
     protected override string Name => "Bibi Manga";
     protected override string Url => "https://bibimanga.com";
 
-    public BibiMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public BibiMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

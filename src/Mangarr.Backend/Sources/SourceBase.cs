@@ -13,7 +13,13 @@ internal abstract partial class SourceBase : ISource
 
     protected virtual bool HasCloudflareProtection => false;
 
-    protected SourceBase(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
+    protected ILogger Logger { get; }
+
+    protected SourceBase(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
     {
         _genericHttpClient = genericHttpClient;
         _genericHttpClient.AddHeader("Referer", Url);
@@ -22,6 +28,11 @@ internal abstract partial class SourceBase : ISource
         _cloudflareHttpClient = cloudflareHttpClient;
         _cloudflareHttpClient.AddHeader("Referer", Url);
         _cloudflareHttpClient.AddHeader("User-Agent", USER_AGENT);
+
+        Type loggerType = typeof(Logger<>);
+        Type[] typeArguments = { GetType() };
+        Type constructedType = loggerType.MakeGenericType(typeArguments);
+        Logger = (ILogger)Activator.CreateInstance(constructedType, loggerFactory)!;
     }
 
     protected CustomHttpClient GetHttpClient() => HasCloudflareProtection ? _cloudflareHttpClient : _genericHttpClient;

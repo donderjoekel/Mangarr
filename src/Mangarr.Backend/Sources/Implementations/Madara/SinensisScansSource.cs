@@ -11,8 +11,12 @@ internal class SinensisScansSource : MadaraSourceBase
     protected override string Url => "https://sinensisscans.com";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public SinensisScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public SinensisScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

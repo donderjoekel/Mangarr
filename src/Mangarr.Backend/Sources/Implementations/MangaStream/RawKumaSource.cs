@@ -10,8 +10,12 @@ internal class RawKumaSource : MangaStreamSourceBase
     protected override string Name => "Raw Kuma";
     protected override string Url => "https://rawkuma.com";
 
-    public RawKumaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public RawKumaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

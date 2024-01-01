@@ -10,8 +10,12 @@ internal class MangaSeeSource : NepNepSourceBase
     protected override string Name => "MangaSee";
     protected override string Url => "https://mangasee123.com";
 
-    public MangaSeeSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public MangaSeeSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

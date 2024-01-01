@@ -11,8 +11,12 @@ internal class MadaraDexSource : MadaraSourceBase
     protected override string Url => "https://madaradex.org";
     protected override bool HasCloudflareProtection => true;
 
-    public MadaraDexSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public MadaraDexSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

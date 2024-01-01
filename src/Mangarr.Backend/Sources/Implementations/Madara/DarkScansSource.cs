@@ -11,8 +11,12 @@ internal class DarkScansSource : MadaraSourceBase
     protected override string Url => "https://darkscans.com";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public DarkScansSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public DarkScansSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

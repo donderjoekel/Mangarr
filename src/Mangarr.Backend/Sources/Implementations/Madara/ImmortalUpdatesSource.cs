@@ -10,8 +10,12 @@ internal class ImmortalUpdatesSource : MadaraSourceBase
     protected override string Name => "Immortal Updates";
     protected override string Url => "https://immortalupdates.com";
 
-    public ImmortalUpdatesSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ImmortalUpdatesSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

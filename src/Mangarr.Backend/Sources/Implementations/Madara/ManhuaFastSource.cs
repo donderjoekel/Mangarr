@@ -11,8 +11,12 @@ internal class ManhuaFastSource : MadaraSourceBase
     protected override string Url => "https://manhuafast.com";
     protected override bool UseAjaxChapterListMethod => true;
 
-    public ManhuaFastSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public ManhuaFastSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }

@@ -10,8 +10,12 @@ internal class KunMangaSource : MadaraSourceBase
     protected override string Name => "Kun Manga";
     protected override string Url => "https://kunmanga.com";
 
-    public KunMangaSource(GenericHttpClient genericHttpClient, CloudflareHttpClient cloudflareHttpClient)
-        : base(genericHttpClient, cloudflareHttpClient)
+    public KunMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
     {
     }
 }
