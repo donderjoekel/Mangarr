@@ -10,6 +10,7 @@ namespace Mangarr.Frontend.Pages.Activity;
 public partial class Content : IDisposable
 {
     private readonly List<ChapterProgressModel> _items = new();
+    private bool _isAutoRefreshing;
 
     private bool _isRefreshing;
 
@@ -26,13 +27,13 @@ public partial class Content : IDisposable
     protected override void OnInitialized()
     {
         _timer = new Timer(2500);
-        _timer.Elapsed += (_, _) => RefreshAsync(false);
+        _timer.Elapsed += (_, _) => AutoRefreshAsync();
         _timer.Start();
 
-        RefreshAsync(true);
+        RefreshAsync();
     }
 
-    private async void RefreshAsync(bool updateInitialStateChange)
+    private async void RefreshAsync()
     {
         if (_isRefreshing)
         {
@@ -40,12 +41,30 @@ public partial class Content : IDisposable
         }
 
         _isRefreshing = true;
+        await InvokeAsync(StateHasChanged);
 
-        if (updateInitialStateChange)
+        await RefreshChapterProgress();
+
+        _isRefreshing = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async void AutoRefreshAsync()
+    {
+        if (_isRefreshing || _isAutoRefreshing)
         {
-            await InvokeAsync(StateHasChanged);
+            return;
         }
 
+        _isAutoRefreshing = true;
+        await RefreshChapterProgress();
+        _isAutoRefreshing = false;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task RefreshChapterProgress()
+    {
         Result<ChapterProgressResponse> result = await BackendApi.GetChapterProgress();
 
         if (result.IsFailed)
@@ -73,8 +92,5 @@ public partial class Content : IDisposable
             //     return lhs.ChapterNumber.CompareTo(rhs.ChapterNumber);
             // });
         }
-
-        _isRefreshing = false;
-        await InvokeAsync(StateHasChanged);
     }
 }
