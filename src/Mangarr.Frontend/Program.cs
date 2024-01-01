@@ -1,10 +1,18 @@
 using Mangarr.Frontend.Api;
+using Mangarr.Frontend.Configuration;
+using Microsoft.Extensions.Options;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<BackendOptions>(builder.Configuration.GetSection(BackendOptions.SECTION));
+
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient("backend",
-    client => { client.BaseAddress = new Uri("https://localhost:7030"); }); // TODO: Configure properly
+    (provider, client) =>
+    {
+        BackendOptions backendOptions = provider.GetRequiredService<IOptions<BackendOptions>>().Value;
+        client.BaseAddress = new Uri(backendOptions.Host);
+    });
 
 builder.Services.AddSingleton<BackendHttpClient>();
 builder.Services.AddSingleton<BackendApi>();
