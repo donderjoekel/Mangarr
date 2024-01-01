@@ -1,0 +1,64 @@
+﻿version: '3'
+services:
+  mangarr.db:
+    container_name: mangarr.db
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  mangarr.cache:
+    container_name: mangarr.cache
+    image: redis/redis-stack # This is using the redis-stack image, consider switching to the regular redis image
+    restart: always
+    ports:
+      - 6379:6379
+      - 8001:8001 # If you switch to the regular image, remove this port
+    environment:
+      REDIS_PASSWORD: password
+
+  mangarr.flaresolverr:
+    container_name: mangarr.flaresolverr
+    image: flaresolverr/flaresolverr
+    restart: always
+    ports:
+      - 8189:8189
+
+  mangarr.backend:
+    container_name: mangarr.backend
+    image: mangarr.backend:latest
+    ports:
+      - 6565:80
+      - 6566:443
+    volumes:
+      - ./data/comics:/mnt/comics
+    environment:
+      # AniList
+      - ANILIST__ALLOWADULT=false # Whether you want to allow hentai content or not
+      # Exporting
+      - EXPORT__PATH=/mnt/comics/ # Where to export the comics to
+      # Flarsolverr
+      - FLARESOLVERR__HOST=mangarr.flaresolverr # The host of the flaresolverr instance
+      # Mongo
+      - MONGO__HOST=mangarr.db # The host of the mongo instance
+      - MONGO__USERNAME=admin # The username of the mongo instance
+      - MONGO__PASSWORD=password # The password of the mongo instance
+      # Redis
+      - REDIS__HOST=mangarr.cache # The host of the redis instance
+      - REDIS__PASSWORD=password # The password of the redis instance
+
+  mangarr.frontend:
+    container_name: mangarr.frontend
+    image: mangarr.frontend
+    ports:
+      - 6665:80
+      - 6666:443
+    environment:
+      # Backend
+      - BACKEND__HOST=http://mangarr.backend # The host of the backend instance
+
