@@ -31,7 +31,7 @@ services:
 
   mangarr.backend:
     container_name: mangarr.backend
-    image: mangarr.backend:latest
+    image: tnrd/mangarr.backend:latest
     ports:
       - 6565:80
       - 6566:443
@@ -54,7 +54,7 @@ services:
 
   mangarr.frontend:
     container_name: mangarr.frontend
-    image: mangarr.frontend
+    image: tnrd/mangarr.frontend
     ports:
       - 6665:80
       - 6666:443
