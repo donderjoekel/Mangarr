@@ -26,13 +26,13 @@ public partial class Content : IDisposable
     protected override void OnInitialized()
     {
         _timer = new Timer(2500);
-        _timer.Elapsed += (_, _) => RefreshAsync();
+        _timer.Elapsed += (_, _) => RefreshAsync(false);
         _timer.Start();
 
-        RefreshAsync();
+        RefreshAsync(true);
     }
 
-    private async void RefreshAsync()
+    private async void RefreshAsync(bool updateInitialStateChange)
     {
         if (_isRefreshing)
         {
@@ -40,7 +40,11 @@ public partial class Content : IDisposable
         }
 
         _isRefreshing = true;
-        await InvokeAsync(StateHasChanged);
+
+        if (updateInitialStateChange)
+        {
+            await InvokeAsync(StateHasChanged);
+        }
 
         Result<ChapterProgressResponse> result = await BackendApi.GetChapterProgress();
 
