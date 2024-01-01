@@ -112,17 +112,6 @@ public class IndexMangaJob : IJob
                 continue;
             }
 
-            // ChapterProgressDocument chapterProgressDocument = new()
-            // {
-            //     MangaId = manga.Id,
-            //     MangaTitle = manga.Title,
-            //     ChapterId = requestedChapterDocument.Id,
-            //     ChapterNumber = requestedChapterDocument.ChapterNumber,
-            //     Progress = 0
-            // };
-            //
-            // await _chapterProgressCollection.InsertOneAsync(chapterProgressDocument, null, ct);
-
             newChapters.Add(requestedChapterDocument);
         }
 
