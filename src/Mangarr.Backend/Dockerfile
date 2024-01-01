@@ -7,13 +7,13 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY . .
 RUN ls -R
-RUN dotnet restore "/src/Mangarr.Backend/Mangarr.Backend.csproj"
+RUN dotnet restore "./Mangarr.Backend/Mangarr.Backend.csproj"
 COPY . .
-RUN dotnet build "/src/Mangarr.Backend/Mangarr.Backend.csproj" -c Release -o /app/build
+RUN dotnet build "./Mangarr.Backend/Mangarr.Backend.csproj" -c Release -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "/src/Mangarr.Backend/Mangarr.Backend.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Mangarr.Backend/Mangarr.Backend.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
