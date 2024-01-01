@@ -25,7 +25,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./src
-          file: ./Mangarr.Frontend/Dockerfile
+          context: .
+          file: ./src/Mangarr.Frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/mangarr.frontend:latest
