@@ -3,18 +3,34 @@ using Mangarr.Frontend.Api;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Responses;
 using Microsoft.AspNetCore.Components;
+using Timer = System.Timers.Timer;
 
 namespace Mangarr.Frontend.Pages.Activity;
 
-public partial class Content
+public partial class Content : IDisposable
 {
     private readonly List<ChapterProgressModel> _items = new();
 
     private bool _isRefreshing;
 
+    private Timer? _timer;
+
     [Inject] public BackendApi BackendApi { get; set; }
 
-    protected override void OnInitialized() => RefreshAsync();
+    public void Dispose()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+    }
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(2500);
+        _timer.Elapsed += (_, _) => RefreshAsync();
+        _timer.Start();
+
+        RefreshAsync();
+    }
 
     private async void RefreshAsync()
     {
