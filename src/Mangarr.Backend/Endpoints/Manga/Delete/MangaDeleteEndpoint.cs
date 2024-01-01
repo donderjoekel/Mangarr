@@ -7,16 +7,19 @@ namespace Mangarr.Backend.Endpoints.Manga.Delete;
 
 public class MangaDeleteEndpoint : Endpoint<MangaDeleteRequest>
 {
+    private readonly IMongoCollection<ChapterProgressDocument> _chapterProgressCollection;
     private readonly IMongoCollection<RequestedChapterDocument> _requestedChapterCollection;
     private readonly IMongoCollection<RequestedMangaDocument> _requestedMangaCollection;
 
     public MangaDeleteEndpoint(
         IMongoCollection<RequestedMangaDocument> requestedMangaCollection,
-        IMongoCollection<RequestedChapterDocument> requestedChapterCollection
+        IMongoCollection<RequestedChapterDocument> requestedChapterCollection,
+        IMongoCollection<ChapterProgressDocument> chapterProgressCollection
     )
     {
         _requestedMangaCollection = requestedMangaCollection;
         _requestedChapterCollection = requestedChapterCollection;
+        _chapterProgressCollection = chapterProgressCollection;
     }
 
     public override void Configure()
@@ -30,6 +33,15 @@ public class MangaDeleteEndpoint : Endpoint<MangaDeleteRequest>
         if (req.DeleteChaptersFromDisk)
         {
             // TODO: Implement
+        }
+
+        DeleteResult deleteProgressResult = await _chapterProgressCollection.DeleteManyAsync(
+            ChapterProgressDocument.Filter.Eq(x => x.MangaId, req.Id),
+            ct);
+
+        if (!deleteProgressResult.IsAcknowledged)
+        {
+            ThrowError("Unable to delete progress");
         }
 
         DeleteResult deleteChaptersResult = await _requestedChapterCollection.DeleteManyAsync(
