@@ -7,7 +7,7 @@ namespace Mangarr.Backend.Sources.Implementations.MangaStream;
 internal class AsuraScansSource : MangaStreamSourceBase
 {
     protected override string Id => "asurascans";
-    protected override string Name => "Asura Toons";
+    protected override string Name => "Asura Scans";
     protected override string Url => "https://asuratoon.com";
     protected override bool HasCloudflareProtection => true;
 
