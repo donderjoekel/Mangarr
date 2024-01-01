@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - "main"
+    paths:
+      - "src/Mangarr.Frontend/**"
+      - "src/Mangarr.Shared/**"
+      - ".github/workflows/publish-frontend.yml"
 
 jobs:
   build:
