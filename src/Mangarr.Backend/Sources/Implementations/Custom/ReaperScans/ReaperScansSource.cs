@@ -164,7 +164,7 @@ internal class ReaperScansSource : SourceBase
         }
 
         List<ChapterListItem> items = [];
-        items.AddRange(GetChaptersInitialPage(document));
+        items.AddRange(GetChaptersFromPage(document));
 
         int page = 2;
         while (true)
@@ -209,7 +209,7 @@ internal class ReaperScansSource : SourceBase
                 return Result.Fail("Unable to acquire HTML");
             }
 
-            List<ChapterListItem> chapterListItems = GetChaptersOtherPage(CreateDocument(html));
+            List<ChapterListItem> chapterListItems = GetChaptersFromPage(CreateDocument(html));
             items.AddRange(chapterListItems);
 
             if (chapterListItems.Count < 32)
@@ -223,50 +223,33 @@ internal class ReaperScansSource : SourceBase
         return Result.Ok(new ChapterList(items));
     }
 
-    private static List<ChapterListItem> GetChaptersInitialPage(IDocument document)
+    private static List<ChapterListItem> GetChaptersFromPage(IDocument document)
     {
         List<ChapterListItem> items = [];
 
-        List<IHtmlImageElement> elements = document
-            .QuerySelectorAll<IHtmlImageElement>("main div div div div ul li a noscript img")
+        List<IHtmlAnchorElement> elements = document
+            .QuerySelectorAll<IHtmlAnchorElement>("ul[role=list] li a")
             .ToList();
 
-        foreach (IHtmlImageElement element in elements)
+        foreach (IHtmlAnchorElement element in elements)
         {
-            string number = element.AlternativeText!;
-            double chapterNumber = double.Parse(number);
-
-            if (!element.TryGetParentElement(out IHtmlAnchorElement? anchor))
+            string url = element.Href;
+            if (string.IsNullOrEmpty(url))
             {
-                // TODO: Handle properly
                 continue;
             }
 
-            string url = anchor.Href;
-            items.Add(new ChapterListItem(url.ToBase64(), "Chapter " + number, chapterNumber, url));
-        }
-
-        return items;
-    }
-
-    private static List<ChapterListItem> GetChaptersOtherPage(IDocument document)
-    {
-        List<ChapterListItem> items = [];
-
-        List<IHtmlImageElement> elements = document.QuerySelectorAll<IHtmlImageElement>("ul li a img").ToList();
-
-        foreach (IHtmlImageElement element in elements)
-        {
-            string number = element.AlternativeText!;
-            double chapterNumber = double.Parse(number);
-
-            if (!element.TryGetParentElement(out IHtmlAnchorElement? anchor))
+            if (!url.Contains("-chapter-"))
             {
-                // TODO: Handle properly
                 continue;
             }
 
-            string url = anchor.Href;
+            string name = element.QuerySelector<IHtmlParagraphElement>(".font-medium")?.TextContent.Trim() ??
+                          string.Empty;
+
+            string number = name.Split(' ').ElementAtOrDefault(1) ?? "-1";
+            double chapterNumber = double.Parse(number);
+
             items.Add(new ChapterListItem(url.ToBase64(), "Chapter " + number, chapterNumber, url));
         }
 
