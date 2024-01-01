@@ -34,6 +34,11 @@ public partial class Content : IDisposable
 
     private async void RefreshAsync()
     {
+        if (_isRefreshing)
+        {
+            return;
+        }
+
         _isRefreshing = true;
         await InvokeAsync(StateHasChanged);
 
