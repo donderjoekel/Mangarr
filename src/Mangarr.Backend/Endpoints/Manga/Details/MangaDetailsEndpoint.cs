@@ -1,6 +1,7 @@
 ﻿using Anilist4Net;
 using FluentResults;
 using Mangarr.Backend.Services;
+using Mangarr.Backend.Sources;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
@@ -69,12 +70,15 @@ public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsRe
             return;
         }
 
+        SourceBase.DeconstructId(document.MangaId, out string url, out _);
+
         await SendOkAsync(new MangaDetailsResponse
             {
                 Data = new MangaDetailsModel
                 {
                     Title = result.Value.Title.English,
                     SourceName = source.Name,
+                    SourceUrl = url,
                     Description = result.Value.DescriptionHtml,
                     CoverImage = result.Value.CoverImage.Large,
                     BannerImage = result.Value.BannerImage

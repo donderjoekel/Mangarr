@@ -6,9 +6,9 @@ namespace Mangarr.Backend.Sources;
 
 internal abstract partial class SourceBase
 {
-    protected IDocument CreateDocument(string html) => new HtmlParser().ParseDocument(html);
+    protected static IDocument CreateDocument(string html) => new HtmlParser().ParseDocument(html);
 
-    protected bool TryParseRelativeDate(string input, out DateTime result)
+    protected static bool TryParseRelativeDate(string input, out DateTime result)
     {
         string[] parts = input.Split(' ');
 
@@ -58,7 +58,7 @@ internal abstract partial class SourceBase
         return true;
     }
 
-    protected string ConstructId(string url, params string[] args)
+    internal static string ConstructId(string url, params string[] args)
     {
         if (args.Length == 0)
         {
@@ -69,7 +69,7 @@ internal abstract partial class SourceBase
         return string.Join("|", segments).ToBase64();
     }
 
-    protected void DeconstructId(string id, out string url, out string[] args)
+    internal static void DeconstructId(string id, out string url, out string[] args)
     {
         string[] splits = id.FromBase64().Split('|', StringSplitOptions.RemoveEmptyEntries);
         url = splits[0];

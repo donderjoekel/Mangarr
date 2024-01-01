@@ -1,8 +1,8 @@
-﻿using Mangarr.Shared.Models;
+﻿using Mangarr.Backend.Sources;
+using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
-using IMapper = AutoMapper.IMapper;
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 
 namespace Mangarr.Backend.Endpoints.Manga.Chapters;
@@ -10,13 +10,9 @@ namespace Mangarr.Backend.Endpoints.Manga.Chapters;
 public class MangaChaptersEndpoint : Endpoint<MangaChaptersRequest, MangaChaptersResponse>
 {
     private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
-    private readonly IMapper _mapper;
 
-    public MangaChaptersEndpoint(IMongoCollection<RequestedChapterDocument> chapterCollection, IMapper mapper)
-    {
+    public MangaChaptersEndpoint(IMongoCollection<RequestedChapterDocument> chapterCollection) =>
         _chapterCollection = chapterCollection;
-        _mapper = mapper;
-    }
 
     public override void Configure()
     {
@@ -34,9 +30,25 @@ public class MangaChaptersEndpoint : Endpoint<MangaChaptersRequest, MangaChapter
             {
                 Data = documents
                     .OrderByDescending(x => x.ChapterNumber)
-                    .Select(x => _mapper.Map<MangaChapterModel>(x))
+                    .Select(Map)
                     .ToList()
             },
             ct);
+    }
+
+    private MangaChapterModel Map(RequestedChapterDocument document)
+    {
+        SourceBase.DeconstructId(document.ChapterId, out string url, out _);
+
+        return new MangaChapterModel
+        {
+            Id = document.Id,
+            ChapterUrl = url,
+            ChapterName = document.ChapterName,
+            ChapterNumber = document.ChapterNumber,
+            ReleaseDate = document.ReleaseDate,
+            MarkedForDownload = document.MarkedForDownload,
+            Downloaded = document.Downloaded
+        };
     }
 }

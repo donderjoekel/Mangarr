@@ -9,6 +9,7 @@ public partial class ContentHeader
 
     private string Title => Item!.Title;
     private string SourceName => Item!.SourceName;
+    private string SourceUrl => Item!.SourceUrl;
     private string Description => Item!.Description;
     private string CoverImage => Item!.CoverImage;
     private string BannerImage => Item!.BannerImage;

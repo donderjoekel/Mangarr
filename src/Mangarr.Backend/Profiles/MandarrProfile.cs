@@ -15,6 +15,5 @@ public class MangarrProfile : Profile
         CreateMap<ChapterProgressDocument, ChapterProgressModel>();
         CreateMap<SourceDocument, ProviderModel>();
         CreateMap<SearchResultItem, ProviderMangaModel>();
-        CreateMap<RequestedChapterDocument, MangaChapterModel>();
     }
 }

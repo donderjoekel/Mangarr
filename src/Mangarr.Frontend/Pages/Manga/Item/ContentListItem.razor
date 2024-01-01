@@ -14,7 +14,10 @@
         }
     </td>
     <td>@Index</td>
-    <td>@ChapterName</td>
+    <td>
+        <a href="@ChapterUrl">@ChapterName</a>
+    </td>
+    <td>@ReleaseDate.ToShortDateString()</td>
     <td>
         @if (Downloaded)
         {
