@@ -146,8 +146,9 @@ internal abstract class NepNepSourceBase : SourceBase
             }
 
             items.Add(new ChapterListItem((mangaId + "|" + chapterString).ToBase64(),
-                "Chapter " + chapterString,
+                chapter.Type + " - " + chapterString,
                 fullChapterNumber,
+                DateTime.Parse(chapter.Date).Date,
                 $"{Url}/read-online/{mangaId}-chapter-{chapterString}.html"));
         }
 

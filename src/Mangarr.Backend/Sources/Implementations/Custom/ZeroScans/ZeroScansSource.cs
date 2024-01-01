@@ -96,6 +96,7 @@ internal class ZeroScansSource : SourceBase
                     (slug + "/" + item.id).ToBase64(),
                     "Chapter " + item.name,
                     item.name,
+                    ParseRelativeDate(item.created_at).Date,
                     Url + "/comics/" + slug + "/" + item.id));
             }
 

@@ -88,6 +88,81 @@ internal abstract class MadaraSourceBase : SourceBase
     protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
         string url = mangaId.FromBase64();
+        Result<string> result = await GetPageContent(url);
+
+        if (result.IsFailed)
+        {
+            return result.ToResult();
+        }
+
+        List<ChapterListItem> items = new();
+
+        IDocument document = CreateDocument(result.Value);
+        List<IHtmlListItemElement> elements = document
+            .QuerySelectorAll<IHtmlListItemElement>(".wp-manga-chapter")
+            .ToList();
+
+        foreach (IHtmlListItemElement element in elements)
+        {
+            IHtmlAnchorElement? anchorElement = element.FindDescendant<IHtmlAnchorElement>();
+            string chapterUrl = anchorElement.Href;
+            string chapterId = chapterUrl.Trim(' ', '/', '\\').Split('/').Last();
+            double chapterNumber = GetNumberOfChapter(chapterId);
+            DateTime dateTime = GetPostDateOfChapter(element);
+
+            items.Add(
+                new ChapterListItem(
+                    chapterUrl.ToBase64(),
+                    anchorElement.TextContent.Trim(),
+                    chapterNumber,
+                    dateTime.Date,
+                    chapterUrl));
+        }
+
+        return Result.Ok(new ChapterList(items));
+    }
+
+    private static double GetNumberOfChapter(string chapterId)
+    {
+        Regex chapNumRegex = new("(?:chapter|ch.*?)(\\d+\\.?\\d?(?:[-_]\\d+)?)|(\\d+\\.?\\d?(?:[-_]\\d+)?)$");
+        Match chapNumMatch = chapNumRegex.Match(chapterId);
+        string chapNum = "0";
+
+        if (chapNumMatch.Success)
+        {
+            if (!string.IsNullOrEmpty(chapNumMatch.Groups[1].Value))
+            {
+                chapNum = chapNumMatch.Groups[1].Value.Replace("-", ".").Replace("_", ".");
+            }
+            else if (!string.IsNullOrEmpty(chapNumMatch.Groups[2].Value))
+            {
+                chapNum = chapNumMatch.Groups[2].Value;
+            }
+        }
+
+        if (double.TryParse(chapNum, out double chapterNumber))
+        {
+            return chapterNumber;
+        }
+
+        return 0;
+    }
+
+    private DateTime GetPostDateOfChapter(IHtmlListItemElement element)
+    {
+        IHtmlSpanElement? dateElement = element.QuerySelector<IHtmlSpanElement>(".chapter-release-date");
+        string? dateText = dateElement?.TextContent.Trim();
+
+        if (!DateTime.TryParse(dateText, out DateTime dateTime))
+        {
+            dateTime = ParseRelativeDate(dateText);
+        }
+
+        return dateTime;
+    }
+
+    private async Task<Result<string>> GetPageContent(string url)
+    {
         Result<string> result;
 
         if (UseIdChapterListMethod)
@@ -113,48 +188,7 @@ internal abstract class MadaraSourceBase : SourceBase
             result = await GetHttpClient().Get(url);
         }
 
-        if (result.IsFailed)
-        {
-            return result.ToResult();
-        }
-
-        List<ChapterListItem> items = new();
-
-        IDocument document = CreateDocument(result.Value);
-        List<IHtmlListItemElement> elements = document
-            .QuerySelectorAll<IHtmlListItemElement>(".wp-manga-chapter")
-            .ToList();
-
-        for (int i = 0; i < elements.Count; i++)
-        {
-            int index = elements.Count;
-            IHtmlListItemElement element = elements[i];
-            IHtmlAnchorElement? anchor = element.FindDescendant<IHtmlAnchorElement>();
-
-            string text = anchor.TextContent.Trim();
-            double chapterNumber = index;
-
-            Match match = Regex.Match(text, "([Cc]hapter\\s*\\d+(?:\\.\\d+)?)");
-
-            if (match.Success)
-            {
-                string number = match.Groups.Values.FirstOrDefault()?.Value.Replace("chapter",
-                    string.Empty,
-                    StringComparison.InvariantCultureIgnoreCase) ?? string.Empty;
-                if (double.TryParse(number, out double tempChapterNumber))
-                {
-                    chapterNumber = tempChapterNumber;
-                }
-            }
-
-            items.Add(new ChapterListItem(
-                anchor.Href.ToBase64(),
-                text,
-                chapterNumber,
-                anchor.Href));
-        }
-
-        return Result.Ok(new ChapterList(items));
+        return result;
     }
 
     protected override async Task<Result<PageList>> GetPageList(string chapterId)

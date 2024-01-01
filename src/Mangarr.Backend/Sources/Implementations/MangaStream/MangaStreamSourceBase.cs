@@ -67,27 +67,25 @@ internal abstract class MangaStreamSourceBase : SourceBase
             return result.ToResult();
         }
 
+        List<ChapterListItem> items = new();
         IDocument document = CreateDocument(result.Value);
 
-        IEnumerable<IHtmlAnchorElement> anchors =
-            document.QuerySelectorAll<IHtmlAnchorElement>("div.eplister li div.eph-num a");
+        IEnumerable<IHtmlListItemElement> elements = document.QuerySelectorAll<IHtmlListItemElement>("#chapterlist li");
 
-        if (!anchors.Any())
+        foreach (IHtmlListItemElement element in elements)
         {
-            anchors = document.QuerySelectorAll<IHtmlAnchorElement>("div.eplister li a");
-        }
+            string? number = element.GetAttribute("data-num");
+            double chapterNumber = double.Parse(number);
+            IHtmlAnchorElement? anchorElement = element.FindDescendant<IHtmlAnchorElement>();
+            IHtmlSpanElement? titleElement = element.QuerySelector<IHtmlSpanElement>(".chapternum");
+            IHtmlSpanElement? dateElement = element.QuerySelector<IHtmlSpanElement>(".chapterdate");
 
-        List<ChapterListItem> items = new();
-
-        foreach (IHtmlAnchorElement anchor in anchors)
-        {
-            double chapterNumber = GetChapterNumber(anchor);
-            string title = anchor.QuerySelector<IHtmlSpanElement>("span.chapternum")?.TextContent ??
-                           "Chapter - " + chapterNumber;
-            items.Add(new ChapterListItem(anchor.Href.ToBase64(),
-                title.Trim().Replace("\n", string.Empty).Replace("\t", string.Empty),
+            items.Add(new ChapterListItem(
+                anchorElement.Href.ToBase64(),
+                titleElement.TextContent,
                 chapterNumber,
-                anchor.Href));
+                DateTime.Parse(dateElement.TextContent).Date,
+                anchorElement.Href));
         }
 
         return Result.Ok(new ChapterList(items));

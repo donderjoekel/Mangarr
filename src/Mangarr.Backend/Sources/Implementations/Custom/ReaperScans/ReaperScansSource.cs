@@ -223,7 +223,7 @@ internal class ReaperScansSource : SourceBase
         return Result.Ok(new ChapterList(items));
     }
 
-    private static List<ChapterListItem> GetChaptersFromPage(IDocument document)
+    private List<ChapterListItem> GetChaptersFromPage(IDocument document)
     {
         List<ChapterListItem> items = new();
 
@@ -250,7 +250,16 @@ internal class ReaperScansSource : SourceBase
             string number = name.Split(' ').ElementAtOrDefault(1) ?? "-1";
             double chapterNumber = double.Parse(number);
 
-            items.Add(new ChapterListItem(url.ToBase64(), "Chapter " + number, chapterNumber, url));
+            string chapterDate = element.QuerySelector<IHtmlParagraphElement>("div.mt-2 div p")?.TextContent.Trim()
+                .Replace("released", string.Empty) ?? string.Empty;
+
+            items.Add(
+                new ChapterListItem(
+                    url.ToBase64(),
+                    "Chapter " + number,
+                    chapterNumber,
+                    ParseRelativeDate(chapterDate),
+                    url));
         }
 
         return items;

@@ -114,6 +114,7 @@ internal class WebtoonsSource : SourceBase
                         anchor.Href.ToBase64(),
                         titleElement.TextContent,
                         chapterNumber,
+                        DateTime.Parse(dateElement.TextContent).Date,
                         anchor.Href));
             }
 

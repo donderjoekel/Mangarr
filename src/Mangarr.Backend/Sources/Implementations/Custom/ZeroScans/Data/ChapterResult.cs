@@ -15,6 +15,7 @@ internal class ChapterResult
         {
             public int id { get; set; }
             public int name { get; set; }
+            public string created_at { get; set; }
         }
     }
 }
