@@ -65,7 +65,7 @@ builder.Services.AddQuartz(options =>
         configure
             .WithIdentity("IndexMangaSchedulerJob")
             .ForJob(IndexMangaSchedulerJob.JobKey)
-            // .StartNow();
+            .StartNow()
             .WithCronSchedule("0 0 * ? * * *");
     });
 
@@ -74,7 +74,7 @@ builder.Services.AddQuartz(options =>
         configure
             .WithIdentity("DownloadChapterSchedulerJob")
             .ForJob(DownloadChapterSchedulerJob.JobKey)
-            // .StartNow();
+            .StartNow()
             .WithCronSchedule("0 0/20 * ? * * *");
     });
 });
