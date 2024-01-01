@@ -61,6 +61,7 @@ public class DownloadChapterSchedulerJob : IJob
                     MangaId = manga.Id,
                     MangaTitle = manga.Title,
                     ChapterId = chapter.Id,
+                    ChapterTitle = chapter.ChapterName,
                     ChapterNumber = chapter.ChapterNumber,
                     Progress = 0
                 };

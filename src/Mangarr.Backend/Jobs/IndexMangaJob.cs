@@ -78,8 +78,8 @@ public class IndexMangaJob : IJob
             .ToListAsync(ct);
 
         List<RequestedChapterDocument> newChapters = new();
-
-        foreach (ChapterListItem chapterListItem in chapterListResult.Value.Items)
+        List<ChapterListItem> chapterListItems = chapterListResult.Value.Items.OrderBy(x => x.Number).ToList();
+        foreach (ChapterListItem chapterListItem in chapterListItems)
         {
             RequestedChapterDocument? existingChapter = requestedChapterDocuments
                 .FirstOrDefault(x => x.ChapterId == chapterListItem.Id);
@@ -100,9 +100,12 @@ public class IndexMangaJob : IJob
             {
                 RequestedMangaId = manga.Id,
                 ChapterId = chapterListItem.Id,
+                ChapterName = chapterListItem.Name,
                 ChapterNumber = chapterListItem.Number,
+                ReleaseDate = chapterListItem.Date,
                 MarkedForDownload = markedForDownload,
-                Downloaded = false
+                Downloaded = false,
+                CreationDate = DateTime.UtcNow
             };
 
             await _chapterCollection.InsertOneAsync(requestedChapterDocument, null, ct);

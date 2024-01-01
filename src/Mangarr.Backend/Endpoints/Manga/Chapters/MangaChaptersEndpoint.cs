@@ -32,7 +32,10 @@ public class MangaChaptersEndpoint : Endpoint<MangaChaptersRequest, MangaChapter
 
         await SendOkAsync(new MangaChaptersResponse
             {
-                Data = documents.Select(x => _mapper.Map<MangaChapterModel>(x)).ToList()
+                Data = documents
+                    .OrderByDescending(x => x.ChapterNumber)
+                    .Select(x => _mapper.Map<MangaChapterModel>(x))
+                    .ToList()
             },
             ct);
     }

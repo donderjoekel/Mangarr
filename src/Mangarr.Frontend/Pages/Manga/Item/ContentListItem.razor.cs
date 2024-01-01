@@ -8,6 +8,7 @@ public partial class ContentListItem
     [Parameter] public MangaChapterModel? Item { get; set; }
     [Parameter] public int Index { get; set; }
 
+    private string ChapterName => Item!.ChapterName;
     private double ChapterNumber => Item!.ChapterNumber;
     private bool MarkedForDownload => Item!.MarkedForDownload;
     private bool Downloaded => Item!.Downloaded;

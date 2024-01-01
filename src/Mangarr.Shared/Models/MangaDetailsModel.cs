@@ -2,8 +2,9 @@
 
 public class MangaDetailsModel
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string CoverImage { get; set; }
-    public string BannerImage { get; set; }
+    public required string Title { get; set; }
+    public required string SourceName { get; set; }
+    public required string Description { get; set; }
+    public required string CoverImage { get; set; }
+    public required string BannerImage { get; set; }
 }

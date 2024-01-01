@@ -11,6 +11,8 @@ public partial class ContentItem
     private bool IsActive => Item!.IsActive;
     private string MangaId => Item!.MangaId;
     private string MangaTitle => Item!.MangaTitle;
+    private string ChapterId => Item!.ChapterId;
+    private string ChapterTitle => Item!.ChapterTitle;
     private double ChapterNumber => Item!.ChapterNumber;
     private int Progress => Item!.Progress;
 }

@@ -12,12 +12,18 @@ namespace Mangarr.Backend.Endpoints.Manga.Details;
 public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsResponse>
 {
     private readonly AniListService _aniListService;
-    private readonly IMongoCollection<RequestedMangaDocument> _collection;
+    private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
+    private readonly IMongoCollection<SourceDocument> _sourceCollection;
 
-    public MangaDetailsEndpoint(IMongoCollection<RequestedMangaDocument> collection, AniListService aniListService)
+    public MangaDetailsEndpoint(
+        IMongoCollection<RequestedMangaDocument> mangaCollection,
+        AniListService aniListService,
+        IMongoCollection<SourceDocument> sourceCollection
+    )
     {
-        _collection = collection;
+        _mangaCollection = mangaCollection;
         _aniListService = aniListService;
+        _sourceCollection = sourceCollection;
     }
 
     public override void Configure()
@@ -28,11 +34,21 @@ public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsRe
 
     public override async Task HandleAsync(MangaDetailsRequest req, CancellationToken ct)
     {
-        RequestedMangaDocument? document = await _collection
+        RequestedMangaDocument? document = await _mangaCollection
             .Find(x => x.Id == req.Id)
             .FirstOrDefaultAsync(ct);
 
         if (document == null)
+        {
+            await SendNotFoundAsync(ct);
+            return;
+        }
+
+        SourceDocument? source = await _sourceCollection
+            .Find(x => x.Identifier == document.SourceId)
+            .FirstOrDefaultAsync(ct);
+
+        if (source == null)
         {
             await SendNotFoundAsync(ct);
             return;
@@ -58,6 +74,7 @@ public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsRe
                 Data = new MangaDetailsModel
                 {
                     Title = result.Value.Title.English,
+                    SourceName = source.Name,
                     Description = result.Value.DescriptionHtml,
                     CoverImage = result.Value.CoverImage.Large,
                     BannerImage = result.Value.BannerImage

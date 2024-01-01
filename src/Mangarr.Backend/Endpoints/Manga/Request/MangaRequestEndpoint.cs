@@ -81,7 +81,8 @@ public class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaRequestRe
             SearchId = req.SearchId,
             Title = title,
             CoverUrl = media.CoverImage.ExtraLarge,
-            NewChaptersOnly = req.NewChaptersOnly
+            NewChaptersOnly = req.NewChaptersOnly,
+            CreationDate = DateTime.UtcNow
         };
 
         await _collection.InsertOneAsync(requestedMangaDocument, null, ct);

@@ -9,4 +9,5 @@ public class RequestedMangaDocument : DocumentBase<RequestedMangaDocument>
     public required string CoverUrl { get; set; } = null!;
     public required bool NewChaptersOnly { get; set; }
     public DateTime? LastScanDate { get; set; }
+    public required DateTime CreationDate { get; set; } = DateTime.UtcNow;
 }
