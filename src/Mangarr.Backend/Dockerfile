@@ -6,8 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Mangarr.Backend/Mangarr.Backend.csproj", "Mangarr.Backend/"]
-COPY ["Mangarr.Shared/Mangarr.Shared.csproj", "Mangarr.Shared/"]
+COPY . ./
 RUN dotnet restore "Mangarr.Backend/Mangarr.Backend.csproj"
 COPY . .
 WORKDIR "/src/Mangarr.Backend"
