@@ -1,5 +1,12 @@
 ﻿@using Mangarr.Shared.Models
 <div id="wrapper" class="overflow-auto p-4">
+    <div class="mb-4">
+        <form class="border rounded p-2">
+            <p class="lead">Advanced</p>
+            <input class="form-control mt-2" type="text" @oninput="SearchQueryChanged" placeholder="Custom search query"/>
+        </form>
+    </div>
+
     @if (_isSearching)
     {
         <Spinner/>
@@ -12,7 +19,7 @@
     {
         @foreach (ProviderModel item in _items)
         {
-            <ContentSource Item="@item" Id="@Id"/>
+            <ContentSource Item="@item" Id="@Id" CustomSearchQuery="@CustomSearchQuery"/>
         }
     }
 </div>
