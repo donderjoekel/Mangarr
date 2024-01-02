@@ -1,6 +1,6 @@
 ﻿namespace Mangarr.Shared.Models;
 
-public class ScheduledJobInfo
+public class JobQueueItemModel
 {
     public string Name { get; set; } = string.Empty;
     public string Group { get; set; } = string.Empty;

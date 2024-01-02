@@ -4,25 +4,25 @@ using Mangarr.Shared.Responses;
 using Quartz;
 using Quartz.Impl.Matchers;
 
-namespace Mangarr.Backend.Endpoints.Jobs.Scheduled;
+namespace Mangarr.Backend.Endpoints.Jobs.Queue;
 
-public class JobsScheduledEndpoint : Endpoint<JobsScheduledRequest, JobsScheduledResponse>
+public class JobsQueueEndpoint : Endpoint<JobsQueueRequest, JobsQueueResponse>
 {
     private readonly ISchedulerFactory _schedulerFactory;
 
-    public JobsScheduledEndpoint(ISchedulerFactory schedulerFactory) => _schedulerFactory = schedulerFactory;
+    public JobsQueueEndpoint(ISchedulerFactory schedulerFactory) => _schedulerFactory = schedulerFactory;
 
     public override void Configure()
     {
-        Get("/jobs/scheduled");
+        Get("/jobs/queue");
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(JobsScheduledRequest req, CancellationToken ct)
+    public override async Task HandleAsync(JobsQueueRequest req, CancellationToken ct)
     {
         IReadOnlyList<IScheduler> schedulers = await _schedulerFactory.GetAllSchedulers(ct);
 
-        List<ScheduledJobInfo> infos = new();
+        List<JobQueueItemModel> items = new();
 
         foreach (IScheduler scheduler in schedulers)
         {
@@ -38,7 +38,7 @@ public class JobsScheduledEndpoint : Endpoint<JobsScheduledRequest, JobsSchedule
                     continue;
                 }
 
-                ScheduledJobInfo scheduledJobInfo = new()
+                JobQueueItemModel item = new()
                 {
                     Group = trigger.Key.Group,
                     Name = trigger.Key.Name,
@@ -47,10 +47,10 @@ public class JobsScheduledEndpoint : Endpoint<JobsScheduledRequest, JobsSchedule
                     NextFireTime = trigger.GetNextFireTimeUtc()
                 };
 
-                infos.Add(scheduledJobInfo);
+                items.Add(item);
             }
         }
 
-        await SendOkAsync(new JobsScheduledResponse { Data = infos }, ct);
+        await SendOkAsync(new JobsQueueResponse { Data = items }, ct);
     }
 }

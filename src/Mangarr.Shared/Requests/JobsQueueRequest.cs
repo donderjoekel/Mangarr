@@ -1,6 +1,5 @@
 ﻿namespace Mangarr.Shared.Requests;
 
-public class JobsScheduledRequest
+public class JobsQueueRequest
 {
-    
 }
