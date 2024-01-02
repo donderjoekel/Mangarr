@@ -22,6 +22,7 @@ public class IndexMangaSchedulerJob : IJob
         {
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("IndexMangaJob-" + document.MangaId)
+                .WithDescription($"Check '{document.Title}' for new chapters")
                 .ForJob(IndexMangaJob.JobKey)
                 .UsingJobData(IndexMangaJob.IdDataKey, document.Id)
                 .Build();

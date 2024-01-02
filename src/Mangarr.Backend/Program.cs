@@ -56,6 +56,7 @@ builder.Services.AddQuartz(options =>
     {
         configure
             .WithIdentity("CacheSourceSchedulerJob")
+            .WithDescription("Cache enabled sources")
             .ForJob(CacheSourceSchedulerJob.JobKey)
             .WithCronSchedule("0 0/30 0 ? * * *");
     });
@@ -64,6 +65,7 @@ builder.Services.AddQuartz(options =>
     {
         configure
             .WithIdentity("IndexMangaSchedulerJob")
+            .WithDescription("Check for new chapters")
             .ForJob(IndexMangaSchedulerJob.JobKey)
             .WithCronSchedule("0 0 * ? * * *");
     });
@@ -72,6 +74,7 @@ builder.Services.AddQuartz(options =>
     {
         configure
             .WithIdentity("DownloadChapterSchedulerJob")
+            .WithDescription("Download requested chapters")
             .ForJob(DownloadChapterSchedulerJob.JobKey)
             .StartNow()
             .WithCronSchedule("0 0/20 * ? * * *");
@@ -179,6 +182,7 @@ if (app.Environment.IsDevelopment())
 
     ITrigger indexMangaTrigger = TriggerBuilder.Create()
         .WithIdentity("LaunchIndexMangaSchedulerJob")
+        .WithDescription("(Initial) Check for new chapters")
         .ForJob(IndexMangaSchedulerJob.JobKey)
         .StartAt(DateTimeOffset.UtcNow.AddSeconds(15))
         .Build();
@@ -187,6 +191,7 @@ if (app.Environment.IsDevelopment())
 
     ITrigger downloadChapterTrigger = TriggerBuilder.Create()
         .WithIdentity("LaunchDownloadChapterSchedulerJob")
+        .WithDescription("(Initial) Download requested chapters")
         .ForJob(DownloadChapterSchedulerJob.JobKey)
         .StartAt(DateTimeOffset.UtcNow.AddSeconds(30))
         .Build();

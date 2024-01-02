@@ -71,6 +71,7 @@ public class DownloadChapterSchedulerJob : IJob
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("DownloadChapterJob-" + chapter.ChapterId)
+                .WithDescription($"Download '{manga.Title} - {chapter.ChapterName}'")
                 .ForJob(DownloadChapterJob.JobKey)
                 .UsingJobData(DownloadChapterJob.IdDataKey, chapter.Id)
                 .Build();

@@ -42,6 +42,7 @@ public class JobsScheduledEndpoint : Endpoint<JobsScheduledRequest, JobsSchedule
                 {
                     Group = trigger.Key.Group,
                     Name = trigger.Key.Name,
+                    Description = trigger.Description,
                     PreviousFireTime = trigger.GetPreviousFireTimeUtc(),
                     NextFireTime = trigger.GetNextFireTimeUtc()
                 };
