@@ -16,8 +16,8 @@
 }
 
 .content-item .content-image {
-    max-width: 177px;
-    max-height: 250px;
+    width: 177px;
+    height: 250px;
 }
 
 .content-item .title-wrapper {
