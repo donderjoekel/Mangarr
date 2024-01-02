@@ -21,10 +21,9 @@ else
                     </tr>
                     </thead>
                     <tbody>
-                    @for (int i = 0; i < Items.Count; i++)
+                    @foreach (MangaChapterModel item in Items)
                     {
-                        MangaChapterModel item = Items[i];
-                        <ContentListItem Item="@item" Index="@(Items.Count - i)"/>
+                        <ContentListItem Item="@item"/>
                     }
                     </tbody>
                 </table>

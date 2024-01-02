@@ -6,7 +6,6 @@ namespace Mangarr.Frontend.Pages.Manga.Item;
 public partial class ContentListItem
 {
     [Parameter] public MangaChapterModel? Item { get; set; }
-    [Parameter] public int Index { get; set; }
 
     private string ChapterUrl => Item!.ChapterUrl;
     private string ChapterName => Item!.ChapterName;
