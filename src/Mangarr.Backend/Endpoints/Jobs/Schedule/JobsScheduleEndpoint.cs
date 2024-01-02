@@ -44,6 +44,12 @@ public class JobsScheduleEndpoint : Endpoint<JobsScheduleRequest, JobsScheduleRe
                     continue;
                 }
 
+                // Also pretty poor way of filtering this
+                if (trigger.JobKey.Name.EndsWith("-now", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
                 IJobDetail? jobDetail = await scheduler.GetJobDetail(trigger.JobKey, ct);
 
                 if (jobDetail == null)

@@ -12,7 +12,7 @@ public class JobsTriggerEndpoint : Endpoint<JobsTriggerRequest, JobsTriggerRespo
 
     public override void Configure()
     {
-        Post("/jobs/{group}/{name}/trigger");
+        Get("/jobs/{group}/{name}/trigger");
         AllowAnonymous();
     }
 
@@ -28,7 +28,15 @@ public class JobsTriggerEndpoint : Endpoint<JobsTriggerRequest, JobsTriggerRespo
             return;
         }
 
-        await scheduler.ScheduleJob(trigger, ct);
+        ITrigger newTrigger = TriggerBuilder.Create()
+            .WithIdentity(new TriggerKey(req.Name + "-now", req.Group))
+            .WithDescription(trigger.Description)
+            .ForJob(trigger.JobKey)
+            .UsingJobData(trigger.JobDataMap)
+            .StartAt(DateTimeOffset.UtcNow.AddSeconds(5))
+            .Build();
+
+        await scheduler.ScheduleJob(newTrigger, ct);
         await SendOkAsync(ct);
     }
 }
