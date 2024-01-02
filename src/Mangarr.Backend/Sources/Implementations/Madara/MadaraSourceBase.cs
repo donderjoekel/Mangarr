@@ -89,10 +89,17 @@ internal abstract class MadaraSourceBase : SourceBase
             double chapterNumber = GetNumberOfChapter(chapterId);
             DateTime dateTime = GetPostDateOfChapter(element);
 
+            string chapterTitle = anchorElement.TextContent.Trim();
+            if (string.IsNullOrEmpty(chapterTitle))
+            {
+                anchorElement = element.QuerySelector<IHtmlAnchorElement>(".li__text > a");
+                chapterTitle = anchorElement?.TextContent.Trim() ?? string.Empty;
+            }
+
             items.Add(
                 new ChapterListItem(
                     ConstructId(chapterUrl),
-                    anchorElement.TextContent.Trim(),
+                    chapterTitle,
                     chapterNumber,
                     dateTime.Date,
                     chapterUrl));
