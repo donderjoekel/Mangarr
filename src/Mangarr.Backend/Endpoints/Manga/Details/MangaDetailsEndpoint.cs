@@ -72,11 +72,15 @@ public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsRe
 
         SourceBase.DeconstructId(document.MangaId, out string url, out _);
 
+        string title = !string.IsNullOrEmpty(result.Value.Title.English)
+            ? result.Value.Title.English
+            : result.Value.Title.Romaji;
+
         await SendOkAsync(new MangaDetailsResponse
             {
                 Data = new MangaDetailsModel
                 {
-                    Title = result.Value.Title.English,
+                    Title = title,
                     SourceName = source.Name,
                     SourceUrl = url,
                     Description = result.Value.DescriptionHtml,
