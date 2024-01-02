@@ -1,4 +1,9 @@
 ﻿@page "/library"
+@page "/library/{Mode}"
+
+@code {
+    [Parameter] public string Mode { get; set; } = "cards";
+}
 
 <Toolbar/>
-<Content/>
+<Content Mode="@Mode"/>
