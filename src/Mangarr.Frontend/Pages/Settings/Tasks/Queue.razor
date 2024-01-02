@@ -1,0 +1,33 @@
+﻿@using Mangarr.Shared.Models
+<div class="p-4">
+    <p class="lead">Queue</p>
+
+    @if (_isRefreshing)
+    {
+        <Spinner/>
+    }
+    else if (_items.Count == 0)
+    {
+        <p class="lead">The queue is empty at the moment</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Last run</th>
+                    <th>Next run</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (JobQueueItemModel item in _items)
+                {
+                    <QueueItem Item="@item"/>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
