@@ -40,16 +40,17 @@ builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection(RedisO
 
 builder.Services.AddQuartz(options =>
 {
-    options.UseDefaultThreadPool(3);
-
     options.AddJob<CacheSourceSchedulerJob>(CacheSourceSchedulerJob.JobKey);
-    options.AddJob<CacheSourceJob>(CacheSourceJob.JobKey, configure => configure.StoreDurably());
+    options.AddJob<CacheSourceJob>(CacheSourceJob.JobKey, configure => configure.StoreDurably())
+        .UseDefaultThreadPool(3);
 
     options.AddJob<IndexMangaSchedulerJob>(IndexMangaSchedulerJob.JobKey);
-    options.AddJob<IndexMangaJob>(IndexMangaJob.JobKey, configure => configure.StoreDurably());
+    options.AddJob<IndexMangaJob>(IndexMangaJob.JobKey, configure => configure.StoreDurably())
+        .UseDefaultThreadPool(5);
 
     options.AddJob<DownloadChapterSchedulerJob>(DownloadChapterSchedulerJob.JobKey);
-    options.AddJob<DownloadChapterJob>(DownloadChapterJob.JobKey, configure => configure.StoreDurably());
+    options.AddJob<DownloadChapterJob>(DownloadChapterJob.JobKey, configure => configure.StoreDurably())
+        .UseDefaultThreadPool(3);
 
     options.AddTrigger(configure =>
     {
