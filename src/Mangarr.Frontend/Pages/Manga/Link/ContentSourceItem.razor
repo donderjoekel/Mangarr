@@ -1,7 +1,7 @@
 ﻿<div class="d-flex flex-column card p-2 me-2 content-source-item">
     <img class="content-source-item-cover" src="@CoverImage" alt="cover" referrerpolicy="no-referrer">
     <p class="text-truncate">@Title</p>
-    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#add-manga-modal-@MangaId.Replace("=", string.Empty)">Select</button>
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#add-manga-modal-@MangaId.Replace("=", string.Empty).Replace("/", string.Empty)">Select</button>
 </div>
 
 <AddModal Id="@Id" Identifier="@Identifier" MangaId="@MangaId"/>
