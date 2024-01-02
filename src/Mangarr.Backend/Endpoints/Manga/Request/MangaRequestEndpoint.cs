@@ -90,6 +90,7 @@ public class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaRequestRe
 
         ITrigger trigger = TriggerBuilder.Create()
             .WithIdentity("IndexMangaJob-" + requestedMangaDocument.Id)
+            .WithDescription($"Check '{requestedMangaDocument.Title}' for new chapters")
             .ForJob(IndexMangaJob.JobKey)
             .UsingJobData(IndexMangaJob.IdDataKey, requestedMangaDocument.Id)
             .Build();
