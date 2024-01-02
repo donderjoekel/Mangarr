@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Quartz;
 using Serilog;
+using Serilog.Events;
 using StackExchange.Redis;
 using ExportOptions = Mangarr.Backend.Configuration.ExportOptions;
 using ISource = Mangarr.Backend.Sources.ISource;
@@ -22,11 +23,20 @@ builder.WebHost.ConfigureKestrel(options =>
     options.AllowSynchronousIO = false;
 });
 
-builder.Host.UseSerilog((context, configuration) =>
+builder.Host.UseSerilog((context, provider, configuration) =>
 {
+    SeqOptions seqOptions = provider.GetRequiredService<IOptions<SeqOptions>>().Value;
+
+    if (!string.IsNullOrEmpty(seqOptions.Host))
+    {
+        configuration
+            .Enrich.WithProperty("Application", "Mangarr")
+            .Enrich.FromLogContext()
+            .WriteTo.Seq(seqOptions.Host, apiKey: seqOptions.Key, restrictedToMinimumLevel: LogEventLevel.Information);
+    }
+
     configuration
-        .MinimumLevel.Debug()
-        .WriteTo.Console();
+        .WriteTo.Console(LogEventLevel.Debug);
 });
 
 builder.Host.UseConsoleLifetime(options => options.SuppressStatusMessages = true);
@@ -37,6 +47,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.Configure<AniListOptions>(builder.Configuration.GetSection(AniListOptions.SECTION));
 builder.Services.Configure<ExportOptions>(builder.Configuration.GetSection(ExportOptions.SECTION));
 builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection(RedisOptions.SECTION));
+builder.Services.Configure<SeqOptions>(builder.Configuration.GetSection(SeqOptions.SECTION));
 
 builder.Services.AddQuartz(options =>
 {

@@ -29,6 +29,7 @@
     <PackageReference Include="NRedisStack" Version="0.11.0"/>
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0"/>
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0"/>
+    <PackageReference Include="Serilog.Sinks.Seq" Version="6.0.0"/>
   </ItemGroup>
 
   <ItemGroup>
