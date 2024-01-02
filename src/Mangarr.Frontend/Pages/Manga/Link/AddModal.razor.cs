@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using Mangarr.Frontend.Extensions;
 using Microsoft.AspNetCore.Components;
 
 namespace Mangarr.Frontend.Pages.Manga.Link;
@@ -10,7 +11,7 @@ public partial class AddModal
     [Parameter] public string Identifier { get; set; } = null!;
     [Parameter] public string MangaId { get; set; } = null!;
 
-    private string SafeMangaId => MangaId.Replace('+', '-').Replace('/', '_').Replace('=', '.');
+    private string SafeMangaId => MangaId.ReplaceAll(string.Empty, "+", "/", "=");
 
     [Inject] public NavigationManager NavigationManager { get; set; } = null!;
 

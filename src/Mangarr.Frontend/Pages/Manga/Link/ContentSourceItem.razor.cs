@@ -1,4 +1,5 @@
-﻿using Mangarr.Shared.Models;
+﻿using Mangarr.Frontend.Extensions;
+using Mangarr.Shared.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace Mangarr.Frontend.Pages.Manga.Link;
@@ -13,5 +14,5 @@ public partial class ContentSourceItem
     private string CoverImage => Item.CoverUrl;
 
     private string MangaId => Item.Id;
-    private string SafeMangaId => MangaId.Replace('+', '-').Replace('/', '_').Replace('=', '.');
+    private string SafeMangaId => MangaId.ReplaceAll(string.Empty, "+", "/", "=");
 }
