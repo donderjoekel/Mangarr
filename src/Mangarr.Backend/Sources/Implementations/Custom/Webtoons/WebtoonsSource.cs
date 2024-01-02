@@ -15,7 +15,7 @@ namespace Mangarr.Backend.Sources.Implementations.Custom.Webtoons;
 internal class WebtoonsSource : SourceBase
 {
     protected override string Id => "webtoons";
-    protected override string Name => "LINE Webtoon";
+    protected override string Name => "Webtoon";
     protected override string Url => "https://www.webtoons.com/en/";
 
     public WebtoonsSource(
