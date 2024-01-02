@@ -1,8 +1,13 @@
 ﻿.content-item {
+    position: relative;
     max-width: 193px;
     padding: 8px;
     margin: 4px;
     transition: all 150ms ease-in;
+}
+
+.content-item a {
+    position: relative;
 }
 
 .content-item:hover {
@@ -13,4 +18,13 @@
 .content-item .content-image {
     max-width: 177px;
     max-height: 250px;
+}
+
+.content-item .title-wrapper {
+    opacity: 0;
+    transition: all 0.15s ease-in-out;
+}
+
+.content-item:hover .title-wrapper {
+    opacity: 1;
 }

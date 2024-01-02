@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace Mangarr.Frontend.Pages.Library;
 
-public partial class ContentItem
+public partial class ContentCardItem
 {
-    [Parameter] public RequestedMangaModel? Item { get; set; }
+    [Parameter] public MangaListDetailsModel? Item { get; set; }
 
     private string Id => Item!.Id;
     private string ImageUrl => Item!.CoverUrl;

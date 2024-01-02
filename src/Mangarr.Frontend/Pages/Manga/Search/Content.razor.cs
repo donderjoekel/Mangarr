@@ -1,21 +1,20 @@
 ﻿using FluentResults;
+using Mangarr.Frontend.Api;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Responses;
-using Mangarr.Frontend.Api;
 using Microsoft.AspNetCore.Components;
 
 namespace Mangarr.Frontend.Pages.Manga.Search;
 
 public partial class Content
 {
-    [Inject] public BackendApi BackendApi { get; set; } = null!;
-
     private readonly HashSet<int> _existingMangaIds = new();
     private readonly List<SearchResultModel> _searchResults = new();
     private CancellationTokenSource _cancellationTokenSource = new();
-    private bool _initialized;
     private bool _hasSearched;
+    private bool _initialized;
     private bool _isSearching;
+    [Inject] public BackendApi BackendApi { get; set; } = null!;
 
     protected override void OnInitialized() => GetRequestedMangasAsync();
 
@@ -29,16 +28,13 @@ public partial class Content
         if (result.IsSuccess)
         {
             _existingMangaIds.Clear();
-            foreach (RequestedMangaModel requestedMangaModel in result.Value.Data)
+            foreach (MangaListDetailsModel requestedMangaModel in result.Value.Data)
             {
                 _existingMangaIds.Add(requestedMangaModel.SearchId);
             }
         }
-        else
-        {
-            // TODO: Log error
-        }
 
+        // TODO: Log error
         _initialized = true;
         await InvokeAsync(StateHasChanged);
     }
@@ -94,11 +90,8 @@ public partial class Content
             _searchResults.Clear();
             _searchResults.AddRange(result.Value.Data);
         }
-        else
-        {
-            // TODO: Log error
-        }
 
+        // TODO: Log error
         _isSearching = false;
         await InvokeAsync(StateHasChanged);
     }

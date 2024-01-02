@@ -4,5 +4,5 @@ namespace Mangarr.Shared.Responses;
 
 public class MangaListResponse
 {
-    public List<RequestedMangaModel> Data { get; set; }
+    public List<MangaListDetailsModel> Data { get; set; }
 }

@@ -10,11 +10,34 @@
     }
     else
     {
-        <div id="items" class="row row-cols-auto g-0">
-            @foreach (RequestedMangaModel item in _items)
-            {
-                <ContentItem Item="@item"/>
-            }
-        </div>
+        if (_displayMode == DisplayMode.Cards)
+        {
+            <div id="items" class="row row-cols-auto g-0">
+                @foreach (MangaListDetailsModel item in _items)
+                {
+                    <ContentCardItem Item="@item"/>
+                }
+            </div>
+        }
+        else if (_displayMode == DisplayMode.List)
+        {
+            <div id="items" class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Chapters</th>
+                        <th scope="col">Links</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (MangaListDetailsModel item in _items)
+                    {
+                        <ContentListItem Item="@item"/>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
     }
 </div>

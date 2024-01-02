@@ -1,14 +1,22 @@
 ﻿using FluentResults;
+using Mangarr.Frontend.Api;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Responses;
-using Mangarr.Frontend.Api;
 using Microsoft.AspNetCore.Components;
 
 namespace Mangarr.Frontend.Pages.Library;
 
 public partial class Content
 {
-    private readonly List<RequestedMangaModel> _items = new();
+    public enum DisplayMode
+    {
+        Cards,
+        List
+    }
+
+    private readonly List<MangaListDetailsModel> _items = new();
+
+    private DisplayMode _displayMode = DisplayMode.Cards;
 
     private bool _isRefreshing = false;
 
