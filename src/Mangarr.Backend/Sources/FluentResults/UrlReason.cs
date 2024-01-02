@@ -14,4 +14,10 @@ public class UrlReason : IReason
 
     public string Message { get; set; }
     public Dictionary<string, object>? Metadata { get; set; }
+
+    public override string ToString() => new ReasonStringBuilder()
+        .WithReasonType(GetType())
+        .WithInfo("Url", Url)
+        .WithInfo("Message", Message)
+        .Build();
 }
