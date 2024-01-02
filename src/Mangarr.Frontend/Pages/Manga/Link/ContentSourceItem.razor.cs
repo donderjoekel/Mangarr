@@ -13,4 +13,5 @@ public partial class ContentSourceItem
     private string CoverImage => Item.CoverUrl;
 
     private string MangaId => Item.Id;
+    private string SafeMangaId => MangaId.Replace('+', '-').Replace('/', '_').Replace('=', '.');
 }

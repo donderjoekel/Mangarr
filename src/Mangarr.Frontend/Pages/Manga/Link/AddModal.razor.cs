@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Web;
+using Microsoft.AspNetCore.Components;
 
 namespace Mangarr.Frontend.Pages.Manga.Link;
 
 public partial class AddModal
 {
+    private bool _monitorNewChaptersOnly;
     [Parameter] public string Id { get; set; } = null!;
     [Parameter] public string Identifier { get; set; } = null!;
     [Parameter] public string MangaId { get; set; } = null!;
 
-    [Inject] public NavigationManager NavigationManager { get; set; } = null!;
+    private string SafeMangaId => MangaId.Replace('+', '-').Replace('/', '_').Replace('=', '.');
 
-    private bool _monitorNewChaptersOnly;
+    [Inject] public NavigationManager NavigationManager { get; set; } = null!;
 
     private void ToggleMonitorNewChaptersOnly() => _monitorNewChaptersOnly = !_monitorNewChaptersOnly;
 
     private void OnAddClick() =>
-        NavigationManager.NavigateTo($"/manga/{Id}/add/{Identifier}/{MangaId}/{_monitorNewChaptersOnly}");
+        NavigationManager.NavigateTo(
+            $"/manga/{Id}/add/{Identifier}/{HttpUtility.UrlEncode(MangaId)}/{_monitorNewChaptersOnly}");
 }
