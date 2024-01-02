@@ -1,9 +1,9 @@
 ﻿@using Humanizer
 <tr>
-    <td>
+    <td class="align-middle">
         @Item.Description
     </td>
-    <td>
+    <td class="align-middle">
         @if (Item.PreviousFireTime.HasValue)
         {
             TimeSpan timeSinceLastRun = DateTimeOffset.UtcNow - Item.PreviousFireTime.Value;
@@ -14,7 +14,7 @@
             <span>-</span>
         }
     </td>
-    <td>
+    <td class="align-middle">
         @if (Item.NextFireTime.HasValue)
         {
             TimeSpan timeUntilNextRun = Item.NextFireTime.Value - DateTimeOffset.UtcNow;
@@ -28,11 +28,11 @@
     <td>
         @if (_isRequesting)
         {
-            <input type="button" class="btn btn-primary disabled" value="Request" @onclick="RequestClicked"/>
+            <input type="button" class="btn btn-primary btn-sm disabled" value="Request" @onclick="RequestClicked"/>
         }
         else
         {
-            <input type="button" class="btn btn-primary" value="Request" @onclick="RequestClicked"/>
+            <input type="button" class="btn btn-primary btn-sm" value="Request" @onclick="RequestClicked"/>
         }
 
     </td>
