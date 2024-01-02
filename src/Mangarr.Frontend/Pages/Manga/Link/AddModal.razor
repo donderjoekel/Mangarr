@@ -1,4 +1,5 @@
-﻿<div class="modal fade" id="add-manga-modal-@MangaId.Replace("=", string.Empty).Replace("/", string.Empty)" tabindex="-1">
+﻿@using System.Web
+<div class="modal fade" id="add-manga-modal-@HttpUtility.UrlEncode(MangaId)" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
