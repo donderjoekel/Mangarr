@@ -14,7 +14,7 @@ public class PageDownloaderService
     )
     {
         List<byte[]> pages = new();
-        List<IError> errors = new();
+        List<IReason> reasons = new();
 
         float total = pageList.Items.Count;
 
@@ -29,7 +29,7 @@ public class PageDownloaderService
             }
             else
             {
-                errors.AddRange(pageResult.Errors);
+                reasons.AddRange(pageResult.Reasons);
             }
 
             await Task.Delay(100);
@@ -43,8 +43,8 @@ public class PageDownloaderService
             await progressCallback(progress);
         }
 
-        return errors.Count == 0
+        return reasons.Count == 0
             ? Result.Ok(pages)
-            : Result.Fail(errors);
+            : Result.Ok().WithReasons(reasons);
     }
 }
