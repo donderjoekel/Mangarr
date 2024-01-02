@@ -80,6 +80,7 @@ public class MangaDetailsEndpoint : Endpoint<MangaDetailsRequest, MangaDetailsRe
             {
                 Data = new MangaDetailsModel
                 {
+                    SearchId = document.SearchId,
                     Title = title,
                     SourceName = source.Name,
                     SourceUrl = url,

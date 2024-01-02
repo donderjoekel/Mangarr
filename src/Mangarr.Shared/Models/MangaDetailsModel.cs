@@ -2,6 +2,7 @@
 
 public class MangaDetailsModel
 {
+    public required int SearchId { get; set; }
     public required string Title { get; set; }
     public required string SourceName { get; set; }
     public required string SourceUrl { get; set; }
