@@ -7,6 +7,7 @@ public partial class ContentHeader
 {
     [Parameter] public MangaDetailsModel? Item { get; set; }
 
+    private int SearchId => Item!.SearchId;
     private string Title => Item!.Title;
     private string SourceName => Item!.SourceName;
     private string SourceUrl => Item!.SourceUrl;
