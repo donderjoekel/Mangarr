@@ -51,6 +51,13 @@ public class JobsQueueEndpoint : Endpoint<JobsQueueRequest, JobsQueueResponse>
             }
         }
 
-        await SendOkAsync(new JobsQueueResponse { Data = items }, ct);
+        await SendOkAsync(
+            new JobsQueueResponse
+            {
+                Data = items
+                    .OrderBy(x => x.NextFireTime ?? DateTimeOffset.MaxValue)
+                    .ToList()
+            },
+            ct);
     }
 }
