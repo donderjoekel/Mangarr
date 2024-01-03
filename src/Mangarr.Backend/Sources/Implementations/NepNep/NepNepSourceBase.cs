@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using FluentResults;
 using Mangarr.Backend.Sources.Clients;
 using Mangarr.Backend.Sources.Extensions;
@@ -135,30 +136,24 @@ internal abstract class NepNepSourceBase : SourceBase
 
         foreach (ChapterData chapter in data)
         {
-            string chapterString = chapter.Chapter[1..^1];
-
-            if (int.TryParse(chapterString, out int chapterNumber))
-            {
-                chapterString = chapterNumber.ToString();
-            }
-
-            if (chapter.Chapter[^1] != '0')
-            {
-                chapterString += $".{chapter.Chapter[^1]}";
-            }
-
-            if (!double.TryParse(chapterString, out double fullChapterNumber))
-            {
-                fullChapterNumber = -1;
-            }
+            // Thanks Netsky https://github.com/TheNetsky/extensions-generic-0.8/blob/54ef11e6ea4c89bf7423eba72ab31f7651080de2/src/NepNepParser.ts#L102-L110
+            string chapterCode = chapter.Chapter;
+            int volume = int.Parse(chapterCode[..1]);
+            string index = volume != 1 ? "-index-" + volume : string.Empty;
+            int n = int.Parse(chapterCode[1..^1]);
+            int a = int.Parse(chapterCode[^1].ToString());
+            string m = a != 0 ? "." + a : string.Empty;
+            string id = slug + "-chapter-" + n + m + index + ".html";
+            double chapterNumber = n + a * 0.1;
+            string chapterUrl = Url + "/read-online/" + id;
 
             items.Add(
                 new ChapterListItem(
-                    ConstructId($"{Url}/read-online/{slug}-chapter-{chapterString}.html", slug),
-                    chapter.Type + " - " + chapterString,
-                    fullChapterNumber,
+                    ConstructId(chapterUrl, slug),
+                    chapter.Type + " - " + chapterNumber.ToString(CultureInfo.InvariantCulture),
+                    chapterNumber,
                     DateTime.Parse(chapter.Date).Date,
-                    $"{Url}/read-online/{slug}-chapter-{chapterString}.html"));
+                    chapterUrl));
         }
 
         return Result.Ok(new ChapterList(items));
