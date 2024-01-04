@@ -2,7 +2,6 @@
 using AngleSharp.Html.Dom;
 using FluentResults;
 using Injectio.Attributes;
-using Mangarr.Backend.Sources.Caching;
 using Mangarr.Backend.Sources.Clients;
 using Mangarr.Backend.Sources.Extensions;
 using Mangarr.Backend.Sources.Models.Chapter;
@@ -45,7 +44,6 @@ internal class ReaperScansSource : SourceBase
     protected override async Task<Result<SearchResult>> Search(string query)
     {
         CustomHttpClient httpClient = GetHttpClient();
-        httpClient.AddHeader(CachingHandler.BypassCacheKey, "true");
 
         Result<string> result = await httpClient.Get(Url);
 
@@ -147,7 +145,6 @@ internal class ReaperScansSource : SourceBase
         DeconstructId(mangaId, out string url, out _);
 
         CustomHttpClient httpClient = GetHttpClient();
-        httpClient.AddHeader(CachingHandler.BypassCacheKey, "true");
 
         Result<string> result = await httpClient.Get(url);
 

@@ -1,6 +1,4 @@
 ﻿using Mangarr.Backend.Configuration;
-using Mangarr.Backend.Services;
-using Mangarr.Backend.Sources.Caching;
 using Mangarr.Backend.Sources.Clients;
 using Mangarr.Backend.Sources.Cloudflare;
 using Microsoft.Extensions.Options;
@@ -17,12 +15,7 @@ public static class HostingExtensions
 
     public static IServiceCollection AddSources(this IServiceCollection services)
     {
-        services.AddTransient<CachingHandler>(provider =>
-            new CachingHandler(provider.GetRequiredService<CachingService>()));
-
-        services.AddHttpClient("Generic")
-            .AddRetryPolicy()
-            .AddHttpMessageHandler<CachingHandler>();
+        services.AddHttpClient("Generic").AddRetryPolicy();
 
         services.AddTransient<CustomClearanceHandler>(provider =>
         {
@@ -30,10 +23,7 @@ public static class HostingExtensions
             return new CustomClearanceHandler(options.Host);
         });
 
-        services.AddHttpClient("Cloudflare")
-            .AddRetryPolicy()
-            .AddHttpMessageHandler<CachingHandler>()
-            .AddHttpMessageHandler<CustomClearanceHandler>();
+        services.AddHttpClient("Cloudflare").AddRetryPolicy().AddHttpMessageHandler<CustomClearanceHandler>();
 
         services.AddMangarrBackend();
         return services;
