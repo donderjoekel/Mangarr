@@ -1,4 +1,7 @@
 ﻿using System.Net;
+using AngleSharp.Dom;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 using FluentResults;
 using Mangarr.Backend.Sources.FluentResults;
 using Newtonsoft.Json;
@@ -22,7 +25,18 @@ public abstract partial class CustomHttpClient
     public async Task<Result<string>> Get(string requestUri, CancellationToken ct = default)
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
@@ -39,10 +53,42 @@ public abstract partial class CustomHttpClient
         return Result.Ok(content);
     }
 
+    public async Task<Result<IDocument>> GetDocument(string requestUri, CancellationToken ct = default)
+    {
+        Result<string> result = await Get(requestUri, ct);
+
+        if (result.IsFailed)
+        {
+            return result.ToResult();
+        }
+
+        try
+        {
+            IHtmlDocument document = await new HtmlParser().ParseDocumentAsync(result.Value, ct);
+            return Result.Ok<IDocument>(document);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
+    }
+
     public async Task<Result<byte[]>> GetBuffer(string requestUri, CancellationToken ct = default)
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
