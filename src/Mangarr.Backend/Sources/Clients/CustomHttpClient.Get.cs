@@ -14,7 +14,7 @@ public abstract partial class CustomHttpClient
     {
         HttpRequestMessage requestMessage = new(HttpMethod.Get, requestUri);
 
-        foreach (KeyValuePair<string, string> kvp in headers)
+        foreach (KeyValuePair<string, string> kvp in _headers)
         {
             requestMessage.Headers.Add(kvp.Key, kvp.Value);
         }
@@ -133,7 +133,7 @@ public abstract partial class CustomHttpClient
             string data = await response.Content.ReadAsStringAsync(ct);
             content = JsonConvert.DeserializeObject<T>(data)!;
         }
-        catch (JsonSerializationException e)
+        catch (JsonException e)
         {
             return Result.Fail(new ExceptionalError(e));
         }

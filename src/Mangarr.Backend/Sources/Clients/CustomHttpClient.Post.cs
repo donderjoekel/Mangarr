@@ -12,7 +12,7 @@ public abstract partial class CustomHttpClient
     {
         HttpRequestMessage httpRequestMessage = new(HttpMethod.Post, requestUri);
 
-        foreach (KeyValuePair<string, string> kvp in headers)
+        foreach (KeyValuePair<string, string> kvp in _headers)
         {
             httpRequestMessage.Headers.Add(kvp.Key, kvp.Value);
         }
@@ -53,9 +53,17 @@ public abstract partial class CustomHttpClient
     )
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response = await httpClient.SendAsync(
-            CreatePostRequest(requestUri, postMethod, data),
-            ct);
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreatePostRequest(requestUri, postMethod, data), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
@@ -80,8 +88,17 @@ public abstract partial class CustomHttpClient
     )
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response =
-            await httpClient.SendAsync(CreatePostRequest(requestUri, postMethod, data), ct);
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreatePostRequest(requestUri, postMethod, data), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
@@ -106,7 +123,7 @@ public abstract partial class CustomHttpClient
             string stringContent = await response.Content.ReadAsStringAsync(ct);
             content = JsonConvert.DeserializeObject<T>(stringContent)!;
         }
-        catch (JsonSerializationException e)
+        catch (JsonException e)
         {
             return Result.Fail(new ExceptionalError(e));
         }
@@ -123,8 +140,17 @@ public abstract partial class CustomHttpClient
         where TConcrete : TAbstract
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response =
-            await httpClient.SendAsync(CreatePostRequest(requestUri, postMethod, data), ct);
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreatePostRequest(requestUri, postMethod, data), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
@@ -149,7 +175,7 @@ public abstract partial class CustomHttpClient
             string stringContent = await response.Content.ReadAsStringAsync(ct);
             content = JsonConvert.DeserializeObject<TConcrete>(stringContent)!;
         }
-        catch (JsonSerializationException e)
+        catch (JsonException e)
         {
             return Result.Fail(new ExceptionalError(e));
         }

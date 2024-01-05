@@ -9,19 +9,19 @@ public abstract partial class CustomHttpClient
         FormUrlEncoded
     }
 
-    private readonly Dictionary<string, string> headers = new();
+    private readonly Dictionary<string, string> _headers = new();
 
-    private readonly IHttpClientFactory httpClientFactory;
+    private readonly IHttpClientFactory _httpClientFactory;
 
     protected abstract string ClientName { get; }
 
-    public CustomHttpClient(IHttpClientFactory httpClientFactory) => this.httpClientFactory = httpClientFactory;
+    public CustomHttpClient(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
-    private HttpClient CreateClient() => httpClientFactory.CreateClient(ClientName);
+    private HttpClient CreateClient() => _httpClientFactory.CreateClient(ClientName);
 
-    public void AddHeader(string key, string value) => headers[key] = value;
+    public void AddHeader(string key, string value) => _headers[key] = value;
 
-    public void RemoveHeader(string key) => headers.Remove(key);
+    public void RemoveHeader(string key) => _headers.Remove(key);
 
-    public void ClearHeaders() => headers.Clear();
+    public void ClearHeaders() => _headers.Clear();
 }
