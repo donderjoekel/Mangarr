@@ -42,4 +42,53 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Sources\Implementations\MangaStream\MangaStreamSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MangaStreamSourceGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Sources\Implementations\NepNep\NepNepSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NepNepSourceGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Sources\Implementations\Madara\MadaraSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MadaraSourceGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Sources\Implementations\BuddyComplex\BuddyComplexSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BuddyComplexSourceGenerator.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Sources\Implementations\MangaStream\MangaStreamSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MangaStreamSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\NepNep\NepNepSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NepNepSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\Madara\MadaraSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MadaraSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\BuddyComplex\BuddyComplexSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuddyComplexSourceGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Sources\Implementations\BuddyComplex\Generated\" />
+    <Folder Include="Sources\Implementations\Madara\Generated\"/>
+    <Folder Include="Sources\Implementations\MangaStream\Generated\"/>
+    <Folder Include="Sources\Implementations\NepNep\Generated\"/>
+  </ItemGroup>
+
 </Project>
