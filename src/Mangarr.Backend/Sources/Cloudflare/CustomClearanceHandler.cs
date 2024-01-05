@@ -88,8 +88,15 @@ public class CustomClearanceHandler : DelegatingHandler
                 throw new FlareSolverrException("Challenge detected but FlareSolverr is not configured");
             }
 
+            string session = string.Empty;
+
+            if (request.Headers.Contains("X-FlareSolverr-Session"))
+            {
+                session = request.Headers.GetValues("X-FlareSolverr-Session").First();
+            }
+
             // Resolve the challenge using FlareSolverr API
-            FlareSolverrResponse? flareSolverrResponse = await _flareSolverr.Solve(request);
+            FlareSolverrResponse? flareSolverrResponse = await _flareSolverr.Solve(request, session);
 
             // Save the FlareSolverr User-Agent for the following requests
             string? flareSolverUserAgent = flareSolverrResponse.Solution.UserAgent;

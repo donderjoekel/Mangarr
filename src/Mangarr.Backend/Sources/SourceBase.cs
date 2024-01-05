@@ -28,6 +28,7 @@ internal abstract partial class SourceBase : ISource
         _cloudflareHttpClient = cloudflareHttpClient;
         _cloudflareHttpClient.AddHeader("Referer", Url);
         _cloudflareHttpClient.AddHeader("User-Agent", USER_AGENT);
+        _cloudflareHttpClient.AddHeader("X-FlareSolverr-Session", Id);
 
         Type loggerType = typeof(Logger<>);
         Type[] typeArguments = { GetType() };
