@@ -45,6 +45,7 @@ public abstract class SourceTestBase
         .GetRequiredService<IEnumerable<ISource>>()
         .First(x => x.Identifier == SourceIdentifier);
 
+    [Parallelizable(ParallelScope.All)]
     [TestCaseSource("ValidSearchResults")]
     public async Task Search_Should_Return_SearchResult(string query)
     {
@@ -59,6 +60,7 @@ public abstract class SourceTestBase
         result.Value.Items.Should().NotBeEmpty();
     }
 
+    [Parallelizable(ParallelScope.All)]
     [TestCaseSource("ValidChapterLists")]
     public async Task GetChapterList_Should_Return_ChapterList(string mangaId)
     {
@@ -73,6 +75,7 @@ public abstract class SourceTestBase
         result.Value.Items.Should().NotBeEmpty();
     }
 
+    [Parallelizable(ParallelScope.All)]
     [TestCaseSource("ValidPageLists")]
     public async Task GetPageList_Should_Return_PageList(string chapterId)
     {
@@ -87,6 +90,7 @@ public abstract class SourceTestBase
         result.Value.Items.Should().NotBeEmpty();
     }
 
+    [Parallelizable(ParallelScope.All)]
     [TestCaseSource("ValidImages")]
     public async Task GetImage_Should_Return_Image(string pageId)
     {

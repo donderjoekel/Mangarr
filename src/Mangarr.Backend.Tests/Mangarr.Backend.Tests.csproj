@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Mangarr.Backend\Mangarr.Backend.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Generated\"/>
+  </ItemGroup>
+
 </Project>
