@@ -1,0 +1,78 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+
+<#
+    List<(string,string,string,bool)> models = new()
+    {
+        ("animatedglitchedscans","Animated Glitched Scans","https://anigliscans.xyz",false),
+        ("animatedglitchedcomics","Animated Glitched Comics","https://agscomics.com",false),
+        ("ascalonscans","AscalonScans","https://ascalonscans.com",false),
+        ("cosmicscans","Cosmic Scans","https://cosmic-scans.com",false),
+        ("cypherscans","Cypher Scans","https://cypherscans.xyz",false),
+        ("elarctoon","Elarc Toon","https://elarctoon.com",false),
+        ("flamecomics","Flame Comics","https://flamecomics.com",false),
+        ("freakscans","Freak Scans","https://freakscans.com",false),
+        ("infernalvoidscans","Infernal Void Scans","https://void-scans.com",false),
+        ("kaiscans","Kai Scans","https://kaiscans.com",true),
+        ("komiklab","Komik Lab","https://komiklab.com",false),
+        ("lunarscans","Lunar Scans","https://lunarscan.org",false),
+        ("manhwalover","Manhwa Lover","https://manhwalover.com",false),
+        ("manhwax","Manhwax","https://manhwax.org",false),
+        ("nightscans","Night Scans","https://nightscans.net",false),
+        ("quantumscans","Quantum Scans","https://readers-point.space",false),
+        ("ravenscans","Raven Scans","https://ravenscans.com",false),
+        ("readkomik","Readkomik","https://readkomik.com",false),
+        ("suryascans","Surya Scans","https://suryacomics.com",false),
+        ("xcalibrscans","xCaliBR Scans","https://xcalibrscans.com",false)
+    };
+
+    foreach ((string, string, string, bool) model in models)
+    {
+        string fileName = $"{model.Item2.Replace(" ", string.Empty)}Source.g.cs";
+        string filePath = Host.ResolvePath(fileName);
+
+        string directoryName = Path.GetDirectoryName(filePath);
+        string generatedPath = Path.Combine(directoryName, "Generated");
+
+        if (!Directory.Exists(generatedPath))
+            Directory.CreateDirectory(generatedPath);
+
+        string generatedFilePath = Path.Combine(generatedPath, fileName);
+
+        File.WriteAllText(generatedFilePath, GenerateClass(model));
+    }
+#>
+
+<#+
+    public string GenerateClass((string, string, string, bool) model)
+    {
+        return $@"// Auto generated
+
+using Injectio.Attributes;
+using Mangarr.Backend.Sources.Clients;
+
+namespace Mangarr.Backend.Sources.Implementations.MangaStream;
+
+[RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
+internal class {model.Item2.Replace(" ", string.Empty)}Source : MangaStreamSourceBase
+{{
+    protected override string Id => ""{model.Item1}"";
+    protected override string Name => ""{model.Item2}"";
+    protected override string Url => ""{model.Item3}"";
+    protected override bool HasCloudflareProtection => {model.Item4.ToString().ToLower()};
+
+    public {model.Item2.Replace(" ", string.Empty)}Source(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
+    {{
+    }}
+}}
+";
+    }
+#>

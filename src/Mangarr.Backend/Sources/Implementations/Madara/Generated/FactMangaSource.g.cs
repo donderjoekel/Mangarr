@@ -1,0 +1,26 @@
+// Auto generated
+
+using Injectio.Attributes;
+using Mangarr.Backend.Sources.Clients;
+
+namespace Mangarr.Backend.Sources.Implementations.Madara;
+
+[RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
+internal class FactMangaSource : MadaraSourceBase
+{
+    protected override string Id => "factmanga";
+    protected override string Name => "FactManga";
+    protected override string Url => "https://factmanga.com";
+    protected override bool HasCloudflareProtection => false;
+    protected override bool UseAjaxChapterListMethod => true;
+    protected override bool UseIdChapterListMethod => false;
+
+    public FactMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
+    {
+    }
+}

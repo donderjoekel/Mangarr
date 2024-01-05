@@ -52,7 +52,8 @@ internal abstract class MadaraSourceBase : SourceBase
         {
             IHtmlAnchorElement? anchor = element.FindDescendant<IHtmlAnchorElement>();
             IHtmlImageElement? image = element.FindDescendant<IHtmlImageElement>();
-            string coverUrl = image.GetAttribute("data-src") ?? image.Source;
+
+            string coverUrl = image?.GetAttribute("data-src") ?? image?.Source ?? string.Empty;
 
             items.Add(
                 new SearchResultItem(
@@ -243,7 +244,7 @@ internal abstract class MadaraSourceBase : SourceBase
         List<PageListItem> items = new();
 
         IDocument document = CreateDocument(result.Value);
-        IEnumerable<IHtmlImageElement> elements = document.QuerySelectorAll<IHtmlImageElement>(".wp-manga-chapter-img");
+        IEnumerable<IHtmlImageElement> elements = document.QuerySelectorAll<IHtmlImageElement>(".reading-content img");
 
         foreach (IHtmlImageElement element in elements)
         {
