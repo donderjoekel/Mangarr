@@ -51,11 +51,11 @@ internal abstract class MangaStreamSourceBase : SourceBase
         foreach (SearchResponse.Series series in result.Value.series)
         {
             items.AddRange(
-                series.all.Select(all =>
+                series.all.Select(x =>
                     new SearchResultItem(
-                        ConstructId(all.post_link),
-                        all.post_title,
-                        all.post_image)));
+                        ConstructId(Url + "?p=" + x.ID, x.ID.ToString()),
+                        x.post_title,
+                        x.post_image)));
         }
 
         return Result.Ok(new SearchResult(items));
@@ -63,8 +63,11 @@ internal abstract class MangaStreamSourceBase : SourceBase
 
     protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
     {
-        DeconstructId(mangaId, out string url, out _);
-        Result<string> result = await GetHttpClient().Get(url);
+        DeconstructId(mangaId, out string url, out string[] args);
+        string chapterId = args[0];
+
+        Result<string> result = await GetHttpClient().PostAsForm(Url + "/wp-admin/admin-ajax.php",
+            new { action = "get_chapters", id = chapterId });
 
         if (result.IsFailed)
         {
@@ -74,27 +77,20 @@ internal abstract class MangaStreamSourceBase : SourceBase
         List<ChapterListItem> items = new();
         IDocument document = CreateDocument(result.Value);
 
-        IEnumerable<IHtmlListItemElement> elements = document.QuerySelectorAll<IHtmlListItemElement>("#chapterlist li");
+        IEnumerable<IHtmlOptionElement> elements = document.QuerySelectorAll<IHtmlOptionElement>("option");
 
-        foreach (IHtmlListItemElement element in elements)
+        foreach (IHtmlOptionElement element in elements)
         {
-            Match match = Regex.Match(element.GetAttribute("data-num"), @"(\d+\.?\d?)+");
-            double chapterNumber = 0;
-            if (match.Success && match.Groups.Count > 1)
-            {
-                chapterNumber = double.Parse(match.Groups[1].Value);
-            }
+            string? id = element.GetAttribute("data-id");
+            string title = element.TextContent.Trim();
+            double number = double.Parse(Regex.Replace(title, "[^0-9.]", string.Empty));
+            string chapterUrl = Url + "?p=" + id;
 
-            IHtmlAnchorElement? anchorElement = element.FindDescendant<IHtmlAnchorElement>();
-            IHtmlSpanElement? titleElement = element.QuerySelector<IHtmlSpanElement>(".chapternum");
-            IHtmlSpanElement? dateElement = element.QuerySelector<IHtmlSpanElement>(".chapterdate");
-
-            items.Add(new ChapterListItem(
-                ConstructId(anchorElement.Href),
-                titleElement.TextContent,
-                chapterNumber,
-                DateTime.Parse(dateElement.TextContent).Date,
-                anchorElement.Href));
+            items.Add(new ChapterListItem(ConstructId(chapterUrl, id),
+                title,
+                number,
+                DateTime.UtcNow,
+                chapterUrl));
         }
 
         return Result.Ok(new ChapterList(items));

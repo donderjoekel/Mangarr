@@ -186,6 +186,9 @@ public abstract partial class CustomHttpClient
     public Task<Result<string>> Post(string requestUri, CancellationToken ct = default) =>
         Post(requestUri, null, PostMethod.None, ct);
 
+    public Task<Result<string>> Post(string requestUri, object data, CancellationToken ct = default) =>
+        Post(requestUri, data, PostMethod.None, ct);
+
     public Task<Result<string>> PostAsJson(string requestUri, object data, CancellationToken ct = default) =>
         Post(requestUri, data, PostMethod.Json, ct);
 
