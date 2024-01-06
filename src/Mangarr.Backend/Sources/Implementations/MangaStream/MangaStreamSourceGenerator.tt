@@ -9,6 +9,7 @@
     {
         ("anigliscans","Animated Glitched Scans","https://anigliscans.xyz",false),
         ("animatedglitchedcomics","Animated Glitched Comics","https://agscomics.com",false),
+        ("asurascans","Asura Scans","https://asuratoon.com",true),
         ("ascalonscans","AscalonScans","https://ascalonscans.com",false),
         ("cosmicscans","Cosmic Scans","https://cosmic-scans.com",false),
         ("cypherscans","Cypher Scans","https://cypherscans.xyz",false),
