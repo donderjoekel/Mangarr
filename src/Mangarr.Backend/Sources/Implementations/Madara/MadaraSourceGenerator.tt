@@ -132,7 +132,8 @@
         ("yaoiscan","YaoiScan","https://yaoiscan.com",false,true,false),
         ("zandynofansub","Zandy no Fansub","https://zandynofansub.aishiteru.org",false,true,false),
         ("zinchanmanga","ZinChanManga","https://zinchanmanga.com",false,true,false),
-        ("zinmanga","Zinmanga","https://zinmanga.com",false,true,false)
+        ("zinmanga","Zinmanga","https://zinmanga.com",false,true,false),
+        ("resetscans","Reset Scans","https://reset-scans.us",false,true,false)
     };
 
     foreach ((string, string, string, bool,bool,bool) model in models)
