@@ -31,30 +31,30 @@ public class AnimatedGlitchedScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://anigliscans.xyz?p=46642
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjY0Mnw0NjY0Mg==");
-        // https://anigliscans.xyz?p=43280
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00MzI4MHw0MzI4MA==");
-        // https://anigliscans.xyz?p=46254
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjI1NHw0NjI1NA==");
-        // https://anigliscans.xyz?p=46289
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjI4OXw0NjI4OQ==");
-        // https://anigliscans.xyz?p=45572
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NTU3Mnw0NTU3Mg==");
+        // https://anigliscans.xyz/awakened-thief-steals-the-world-4/
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovYXdha2VuZWQtdGhpZWYtc3RlYWxzLXRoZS13b3JsZC00L3xodHRwczovL2FuaWdsaXNjYW5zLnh5ej9wPTQ1NTcwfDQ=");
+        // https://anigliscans.xyz/im-the-only-one-with-outstanding-cheats-after-my-class-got-transported-to-another-world-1/
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovaW0tdGhlLW9ubHktb25lLXdpdGgtb3V0c3RhbmRpbmctY2hlYXRzLWFmdGVyLW15LWNsYXNzLWdvdC10cmFuc3BvcnRlZC10by1hbm90aGVyLXdvcmxkLTEvfGh0dHBzOi8vYW5pZ2xpc2NhbnMueHl6P3A9NDcxNjl8MQ==");
+        // https://anigliscans.xyz/awakened-thief-steals-the-world-2/
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovYXdha2VuZWQtdGhpZWYtc3RlYWxzLXRoZS13b3JsZC0yL3xodHRwczovL2FuaWdsaXNjYW5zLnh5ej9wPTQ1NTcwfDI=");
+        // https://anigliscans.xyz/please-get-out-of-my-household-1/
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovcGxlYXNlLWdldC1vdXQtb2YtbXktaG91c2Vob2xkLTEvfGh0dHBzOi8vYW5pZ2xpc2NhbnMueHl6P3A9NDYwMjh8MQ==");
+        // https://anigliscans.xyz/the-book-of-abyss-chapter-3/
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovdGhlLWJvb2stb2YtYWJ5c3MtY2hhcHRlci0zL3xodHRwczovL2FuaWdsaXNjYW5zLnh5ej9wPTQ2NjIwfDM=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://anigliscans.xyz/wp-content/uploads/2023/11/01-1.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMDEtMS5qcGc=");
-        // https://anigliscans.xyz/wp-content/uploads/2023/11/04-1.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMDQtMS5qcGc=");
-        // https://anigliscans.xyz/wp-content/uploads/2023/11/17.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMTcuanBn");
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/11-10.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTEtMTAuanBlZw==");
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/02-12.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDItMTIuanBlZw==");
+        // https://anigliscans.xyz/wp-content/uploads/2024/01/02-3.jpeg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDItMy5qcGVn");
+        // https://anigliscans.xyz/wp-content/uploads/2023/12/02-3.jpeg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDItMy5qcGVn");
+        // https://anigliscans.xyz/wp-content/uploads/2023/12/00-1.jpeg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDAtMS5qcGVn");
+        // https://anigliscans.xyz/wp-content/uploads/2023/12/12-1.jpeg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTItMS5qcGVn");
+        // https://anigliscans.xyz/wp-content/uploads/2023/12/01-40.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDEtNDAuanBn");
     }
 }
 

@@ -31,30 +31,30 @@ public class ReadkomikSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://readkomik.com?p=576932
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTMyfDU3NjkzMg==");
-        // https://readkomik.com?p=576872
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2ODcyfDU3Njg3Mg==");
-        // https://readkomik.com?p=576905
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTA1fDU3NjkwNQ==");
-        // https://readkomik.com?p=576909
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTA5fDU3NjkwOQ==");
-        // https://readkomik.com?p=576918
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTE4fDU3NjkxOA==");
+        // https://readkomik.com/i-rely-on-chapter-3/
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2ktcmVseS1vbi1jaGFwdGVyLTMvfGh0dHBzOi8vcmVhZGtvbWlrLmNvbT9wPTU3NzAzN3wz");
+        // https://readkomik.com/i-rely-on-chapter-5/
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2ktcmVseS1vbi1jaGFwdGVyLTUvfGh0dHBzOi8vcmVhZGtvbWlrLmNvbT9wPTU3NzAzN3w1");
+        // https://readkomik.com/ibnr-chapter-6/
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2libnItY2hhcHRlci02L3xodHRwczovL3JlYWRrb21pay5jb20/cD01NzY4NTZ8Ng==");
+        // https://readkomik.com/ibnr-chapter-18/
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2libnItY2hhcHRlci0xOC98aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2ODU2fDE4");
+        // https://readkomik.com/ibnr-chapter-16/
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2libnItY2hhcHRlci0xNi98aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2ODU2fDE2");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-30__14.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTMwX18xNC5qcGc=");
-        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-27__12.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTI3X18xMi5qcGc=");
-        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-30__7.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTMwX183LmpwZw==");
-        // https://rkscans.com/wp-content/uploads/2024/01/RTCM-05__5.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9SVENNLTA1X181LmpwZw==");
-        // https://rkscans.com/wp-content/uploads/2024/01/RTCM-05__6.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9SVENNLTA1X182LmpwZw==");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-18__53.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTE4X181My5qcGc=");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-18__18.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTE4X18xOC5qcGc=");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-18__46.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTE4X180Ni5qcGc=");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-18__70.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTE4X183MC5qcGc=");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-06__019.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTA2X18wMTkuanBn");
     }
 }
 

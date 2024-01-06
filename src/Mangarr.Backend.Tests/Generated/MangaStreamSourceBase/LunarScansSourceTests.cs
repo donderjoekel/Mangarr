@@ -31,30 +31,30 @@ public class LunarScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://lunarscan.org?p=7511
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnP3A9NzUxMXw3NTEx");
-        // https://lunarscan.org?p=7253
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnP3A9NzI1M3w3MjUz");
-        // https://lunarscan.org?p=7878
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnP3A9Nzg3OHw3ODc4");
-        // https://lunarscan.org?p=7844
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnP3A9Nzg0NHw3ODQ0");
-        // https://lunarscan.org?p=8158
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnP3A9ODE1OHw4MTU4");
+        // https://lunarscan.org/pervert-addiction-chapter-44/
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3BlcnZlcnQtYWRkaWN0aW9uLWNoYXB0ZXItNDQvfGh0dHBzOi8vbHVuYXJzY2FuLm9yZz9wPTgwMjl8NDQ=");
+        // https://lunarscan.org/im-the-leader-of-a-cult-chapter-1/
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL2ltLXRoZS1sZWFkZXItb2YtYS1jdWx0LWNoYXB0ZXItMS98aHR0cHM6Ly9sdW5hcnNjYW4ub3JnP3A9NzA4OXwx");
+        // https://lunarscan.org/corruption-obscene-tales-chapter-1/
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL2NvcnJ1cHRpb24tb2JzY2VuZS10YWxlcy1jaGFwdGVyLTEvfGh0dHBzOi8vbHVuYXJzY2FuLm9yZz9wPTgzMDZ8MQ==");
+        // https://lunarscan.org/pervert-addiction-chapter-41/
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3BlcnZlcnQtYWRkaWN0aW9uLWNoYXB0ZXItNDEvfGh0dHBzOi8vbHVuYXJzY2FuLm9yZz9wPTgwMjl8NDE=");
+        // https://lunarscan.org/pervert-addiction-chapter-54/
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3BlcnZlcnQtYWRkaWN0aW9uLWNoYXB0ZXItNTQvfGh0dHBzOi8vbHVuYXJzY2FuLm9yZz9wPTgwMjl8NTQ=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://lunarscan.org/wp-content/uploads/2023/12/AG-1-08.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIzLzEyL0FHLTEtMDguanBn");
-        // https://lunarscan.org/wp-content/uploads/2023/12/PTMT-8-09.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIzLzEyL1BUTVQtOC0wOS5qcGc=");
-        // https://lunarscan.org/wp-content/uploads/2024/01/PA-52-02.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI0LzAxL1BBLTUyLTAyLmpwZw==");
-        // https://lunarscan.org/wp-content/uploads/2023/12/PTMT-8-04.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIzLzEyL1BUTVQtOC0wNC5qcGc=");
-        // https://lunarscan.org/wp-content/uploads/2023/11/TLC-4-07.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIzLzExL1RMQy00LTA3LmpwZw==");
+        // https://lunarscan.org/wp-content/uploads/2024/01/PA-44-08.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI0LzAxL1BBLTQ0LTA4LmpwZw==");
+        // https://lunarscan.org/wp-content/uploads/2024/01/COT-1-05.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI0LzAxL0NPVC0xLTA1LmpwZw==");
+        // https://lunarscan.org/wp-content/uploads/2024/01/PA-44-07.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI0LzAxL1BBLTQ0LTA3LmpwZw==");
+        // https://lunarscan.org/wp-content/uploads/2024/01/PA-41-07.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI0LzAxL1BBLTQxLTA3LmpwZw==");
+        // https://lunarscan.org/wp-content/uploads/2024/01/PA-54-06.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9sdW5hcnNjYW4ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDI0LzAxL1BBLTU0LTA2LmpwZw==");
     }
 }
 

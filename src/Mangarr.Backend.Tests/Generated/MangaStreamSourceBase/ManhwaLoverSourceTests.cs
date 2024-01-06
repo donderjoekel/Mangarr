@@ -31,30 +31,30 @@ public class ManhwaLoverSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://manhwalover.com?p=282172
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2Fsb3Zlci5jb20/cD0yODIxNzJ8MjgyMTcy");
-        // https://manhwalover.com?p=282011
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2Fsb3Zlci5jb20/cD0yODIwMTF8MjgyMDEx");
-        // https://manhwalover.com?p=281902
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2Fsb3Zlci5jb20/cD0yODE5MDJ8MjgxOTAy");
-        // https://manhwalover.com?p=281937
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2Fsb3Zlci5jb20/cD0yODE5Mzd8MjgxOTM3");
-        // https://manhwalover.com?p=282189
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2Fsb3Zlci5jb20/cD0yODIxODl8MjgyMTg5");
+        // https://www.manhwalover.com/a-wonderful-new-world-chapter-65-english/
+        yield return new TestCaseData("aHR0cHM6Ly93d3cubWFuaHdhbG92ZXIuY29tL2Etd29uZGVyZnVsLW5ldy13b3JsZC1jaGFwdGVyLTY1LWVuZ2xpc2gvfGh0dHBzOi8vbWFuaHdhbG92ZXIuY29tP3A9MjgxNzk5fDY1");
+        // https://www.manhwalover.com/a-wonderful-new-world-chapter-62-english/
+        yield return new TestCaseData("aHR0cHM6Ly93d3cubWFuaHdhbG92ZXIuY29tL2Etd29uZGVyZnVsLW5ldy13b3JsZC1jaGFwdGVyLTYyLWVuZ2xpc2gvfGh0dHBzOi8vbWFuaHdhbG92ZXIuY29tP3A9MjgxNzk5fDYy");
+        // https://www.manhwalover.com/a-wonderful-new-world-chapter-195-english/
+        yield return new TestCaseData("aHR0cHM6Ly93d3cubWFuaHdhbG92ZXIuY29tL2Etd29uZGVyZnVsLW5ldy13b3JsZC1jaGFwdGVyLTE5NS1lbmdsaXNoL3xodHRwczovL21hbmh3YWxvdmVyLmNvbT9wPTI4MTc5OXwxOTU=");
+        // https://www.manhwalover.com/a-wonderful-new-world-chapter-212-english/
+        yield return new TestCaseData("aHR0cHM6Ly93d3cubWFuaHdhbG92ZXIuY29tL2Etd29uZGVyZnVsLW5ldy13b3JsZC1jaGFwdGVyLTIxMi1lbmdsaXNoL3xodHRwczovL21hbmh3YWxvdmVyLmNvbT9wPTI4MTc5OXwyMTI=");
+        // https://www.manhwalover.com/a-wonderful-new-world-chapter-188-english/
+        yield return new TestCaseData("aHR0cHM6Ly93d3cubWFuaHdhbG92ZXIuY29tL2Etd29uZGVyZnVsLW5ldy13b3JsZC1jaGFwdGVyLTE4OC1lbmdsaXNoL3xodHRwczovL21hbmh3YWxvdmVyLmNvbT9wPTI4MTc5OXwxODg=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://img03.imgfx01.xyz/uploads/4098/6/99-cd650.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcwMy5pbWdmeDAxLnh5ei91cGxvYWRzLzQwOTgvNi85OS1jZDY1MC5qcGc=");
-        // https://img03.imgfx01.xyz/uploads/4098/6/15-cd650.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcwMy5pbWdmeDAxLnh5ei91cGxvYWRzLzQwOTgvNi8xNS1jZDY1MC5qcGc=");
-        // https://img03.imgfx01.xyz/uploads/4098/6/97-cd650.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcwMy5pbWdmeDAxLnh5ei91cGxvYWRzLzQwOTgvNi85Ny1jZDY1MC5qcGc=");
-        // https://img03.imgfx01.xyz/uploads/4098/14/83-cd88e.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcwMy5pbWdmeDAxLnh5ei91cGxvYWRzLzQwOTgvMTQvODMtY2Q4OGUuanBn");
-        // https://img03.imgfx01.xyz/uploads/4098/14/137-cd88e.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcwMy5pbWdmeDAxLnh5ei91cGxvYWRzLzQwOTgvMTQvMTM3LWNkODhlLmpwZw==");
+        // https://img12.imgfx02.xyz/chapters/63/195/2-04550.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAyLnh5ei9jaGFwdGVycy82My8xOTUvMi0wNDU1MC5qcGc=");
+        // https://img12.imgfx01.xyz/chapters/63/188/15-36346.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei9jaGFwdGVycy82My8xODgvMTUtMzYzNDYuanBn");
+        // https://img12.imgfx02.xyz/chapters/63/195/8-04550.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAyLnh5ei9jaGFwdGVycy82My8xOTUvOC0wNDU1MC5qcGc=");
+        // https://img12.imgfx01.xyz/uploads/63/62/1-378.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzYzLzYyLzEtMzc4LmpwZw==");
+        // https://img12.imgfx01.xyz/uploads/63/62/11-378.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzYzLzYyLzExLTM3OC5qcGc=");
     }
 }
 

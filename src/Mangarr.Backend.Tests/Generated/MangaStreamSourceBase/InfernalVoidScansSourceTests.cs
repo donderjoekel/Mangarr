@@ -31,30 +31,30 @@ public class InfernalVoidScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://void-scans.com?p=88251
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjUxfDg4MjUx");
-        // https://void-scans.com?p=88213
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjEzfDg4MjEz");
-        // https://void-scans.com?p=88097
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MDk3fDg4MDk3");
-        // https://void-scans.com?p=88276
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4Mjc2fDg4Mjc2");
-        // https://void-scans.com?p=88211
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjExfDg4MjEx");
+        // https://void-scans.com/preview-chapter-5/
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9wcmV2aWV3LWNoYXB0ZXItNS98aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MTc1fDU=");
+        // https://void-scans.com/avalon-of-disaster-chapter-4/
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9hdmFsb24tb2YtZGlzYXN0ZXItY2hhcHRlci00L3xodHRwczovL3ZvaWQtc2NhbnMuY29tP3A9ODgyOTN8NA==");
+        // https://void-scans.com/chairman-kang-the-newcomer-chapter-24/
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9jaGFpcm1hbi1rYW5nLXRoZS1uZXdjb21lci1jaGFwdGVyLTI0L3xodHRwczovL3ZvaWQtc2NhbnMuY29tP3A9ODgxNzF8MjQ=");
+        // https://void-scans.com/chairman-kang-the-newcomer-chapter-11/
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9jaGFpcm1hbi1rYW5nLXRoZS1uZXdjb21lci1jaGFwdGVyLTExL3xodHRwczovL3ZvaWQtc2NhbnMuY29tP3A9ODgxNzF8MTE=");
+        // https://void-scans.com/chairman-kang-the-newcomer-chapter-21/
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9jaGFpcm1hbi1rYW5nLXRoZS1uZXdjb21lci1jaGFwdGVyLTIxL3xodHRwczovL3ZvaWQtc2NhbnMuY29tP3A9ODgxNzF8MjE=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/03-67.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDMtNjcud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/01-81.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDEtODEud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/05-58.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDUtNTgud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/06-80.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDYtODAud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/09-55.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDktNTUud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/05-85.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDUtODUud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/26-2.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMjYtMi53ZWJw");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/02-76.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDItNzYud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/04-76.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDQtNzYud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/02-79.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDItNzkud2VicA==");
     }
 }
 

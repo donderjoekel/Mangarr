@@ -31,26 +31,24 @@ public class RavenScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://ravenscans.com?p=25549
-        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTI1NTQ5fDI1NTQ5");
-        // https://ravenscans.com?p=25061
-        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTI1MDYxfDI1MDYx");
-        // https://ravenscans.com?p=26917
-        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTI2OTE3fDI2OTE3");
-        // https://ravenscans.com?p=25856
-        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTI1ODU2fDI1ODU2");
-        // https://ravenscans.com?p=26825
-        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTI2ODI1fDI2ODI1");
+        // https://ravenscans.com/i-am-the-descendant-of-the-divine-dragon-chapter-19/
+        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbS9pLWFtLXRoZS1kZXNjZW5kYW50LW9mLXRoZS1kaXZpbmUtZHJhZ29uLWNoYXB0ZXItMTkvfGh0dHBzOi8vcmF2ZW5zY2Fucy5jb20/cD0yMzY0NnwxOQ==");
+        // https://ravenscans.com/am-i-invincible-chapter-181/
+        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbS9hbS1pLWludmluY2libGUtY2hhcHRlci0xODEvfGh0dHBzOi8vcmF2ZW5zY2Fucy5jb20/cD0yNTk4N3wxODE=");
+        // https://ravenscans.com/i-am-the-descendant-of-the-divine-dragon-chapter-4/
+        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbS9pLWFtLXRoZS1kZXNjZW5kYW50LW9mLXRoZS1kaXZpbmUtZHJhZ29uLWNoYXB0ZXItNC98aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTIzNjQ2fDQ=");
+        // https://ravenscans.com/am-i-invincible-chapter-chapter-176/
+        yield return new TestCaseData("aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbS9hbS1pLWludmluY2libGUtY2hhcHRlci1jaGFwdGVyLTE3Ni98aHR0cHM6Ly9yYXZlbnNjYW5zLmNvbT9wPTI1OTg3fDE3Ng==");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://i3.wp.com/ravenscans.com/wp-content/uploads/2023/10/2-2-8.jpg?resize=960%2C3000&ssl=1
-        yield return new TestCaseData("aHR0cHM6Ly9pMy53cC5jb20vcmF2ZW5zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTAvMi0yLTguanBnP3Jlc2l6ZT05NjAlMkMzMDAwJnNzbD0x");
-        // https://i0.wp.com/ravenscans.com/wp-content/uploads/2023/12/2-20-7.webp?resize=959%2C4907&ssl=1
-        yield return new TestCaseData("aHR0cHM6Ly9pMC53cC5jb20vcmF2ZW5zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMi0yMC03LndlYnA/cmVzaXplPTk1OSUyQzQ5MDcmc3NsPTE=");
-        // https://i2.wp.com/ravenscans.com/wp-content/uploads/2023/10/3-20-16.jpg?resize=960%2C3000&ssl=1
-        yield return new TestCaseData("aHR0cHM6Ly9pMi53cC5jb20vcmF2ZW5zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTAvMy0yMC0xNi5qcGc/cmVzaXplPTk2MCUyQzMwMDAmc3NsPTE=");
+        // https://i0.wp.com/ravenscans.com/wp-content/uploads/2023/11/2-16-13.jpg?resize=960%2C5806&ssl=1
+        yield return new TestCaseData("aHR0cHM6Ly9pMC53cC5jb20vcmF2ZW5zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMi0xNi0xMy5qcGc/cmVzaXplPTk2MCUyQzU4MDYmc3NsPTE=");
+        // https://i2.wp.com/ravenscans.com/wp-content/uploads/2023/09/raven-11.jpg?resize=611%2C611&ssl=1
+        yield return new TestCaseData("aHR0cHM6Ly9pMi53cC5jb20vcmF2ZW5zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDkvcmF2ZW4tMTEuanBnP3Jlc2l6ZT02MTElMkM2MTEmc3NsPTE=");
+        // https://i3.wp.com/ravenscans.com/wp-content/uploads/2023/11/3-1.jpg?resize=960%2C4257&ssl=1
+        yield return new TestCaseData("aHR0cHM6Ly9pMy53cC5jb20vcmF2ZW5zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMy0xLmpwZz9yZXNpemU9OTYwJTJDNDI1NyZzc2w9MQ==");
     }
 }
 

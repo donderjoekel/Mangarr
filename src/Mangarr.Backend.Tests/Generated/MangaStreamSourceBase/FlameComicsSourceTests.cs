@@ -31,30 +31,30 @@ public class FlameComicsSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://flamecomics.com?p=161110
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20/cD0xNjExMTB8MTYxMTEw");
-        // https://flamecomics.com?p=156661
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20/cD0xNTY2NjF8MTU2NjYx");
-        // https://flamecomics.com?p=148600
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20/cD0xNDg2MDB8MTQ4NjAw");
-        // https://flamecomics.com?p=147042
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20/cD0xNDcwNDJ8MTQ3MDQy");
-        // https://flamecomics.com?p=160639
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20/cD0xNjA2Mzl8MTYwNjM5");
+        // https://flamecomics.com/baek-clans-terminally-ill-young-master-chapter-5/
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vYmFlay1jbGFucy10ZXJtaW5hbGx5LWlsbC15b3VuZy1tYXN0ZXItY2hhcHRlci01L3xodHRwczovL2ZsYW1lY29taWNzLmNvbT9wPTE0NzAyNHw1");
+        // https://flamecomics.com/the-god-of-war-who-regressed-to-level-2-chapter-21/
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vdGhlLWdvZC1vZi13YXItd2hvLXJlZ3Jlc3NlZC10by1sZXZlbC0yLWNoYXB0ZXItMjEvfGh0dHBzOi8vZmxhbWVjb21pY3MuY29tP3A9MTQzMTM2fDIx");
+        // https://flamecomics.com/star-fostered-swordmaster-chapter-7/
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vc3Rhci1mb3N0ZXJlZC1zd29yZG1hc3Rlci1jaGFwdGVyLTcvfGh0dHBzOi8vZmxhbWVjb21pY3MuY29tP3A9MTQ5NzY0fDc=");
+        // https://flamecomics.com/baek-clans-terminally-ill-young-master-chapter-23/
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vYmFlay1jbGFucy10ZXJtaW5hbGx5LWlsbC15b3VuZy1tYXN0ZXItY2hhcHRlci0yMy98aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20/cD0xNDcwMjR8MjM=");
+        // https://flamecomics.com/academys-genius-swordsman-chapter-9/
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vYWNhZGVteXMtZ2VuaXVzLXN3b3Jkc21hbi1jaGFwdGVyLTkvfGh0dHBzOi8vZmxhbWVjb21pY3MuY29tP3A9MTQzMzAwfDk=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://flamecomics.com/wp-content/uploads/2023/12/AGS_29_14.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvQUdTXzI5XzE0LmpwZw==");
-        // https://flamecomics.com/wp-content/uploads/2023/12/AGS_29_10.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvQUdTXzI5XzEwLmpwZw==");
-        // https://flamecomics.com/wp-content/uploads/2023/08/BCTIYM1-04-1.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDgvQkNUSVlNMS0wNC0xLmpwZw==");
-        // https://flamecomics.com/wp-content/uploads/2023/12/BTYIM_23_07.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvQlRZSU1fMjNfMDcuanBn");
-        // https://flamecomics.com/wp-content/uploads/2023/09/AGS_00-2.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDkvQUdTXzAwLTIuanBn");
+        // https://flamecomics.com/wp-content/uploads/2023/08/AGS_12-1.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDgvQUdTXzEyLTEuanBn");
+        // https://flamecomics.com/wp-content/uploads/2023/08/AGS_02-1.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDgvQUdTXzAyLTEuanBn");
+        // https://flamecomics.com/wp-content/uploads/2023/08/BCTIYM-2.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDgvQkNUSVlNLTIuanBn");
+        // https://flamecomics.com/wp-content/uploads/2023/12/BTYIM_23_01.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvQlRZSU1fMjNfMDEuanBn");
+        // https://flamecomics.com/wp-content/uploads/2023/12/BTYIM_23_02.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9mbGFtZWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvQlRZSU1fMjNfMDIuanBn");
     }
 }
 

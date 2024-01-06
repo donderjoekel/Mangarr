@@ -31,30 +31,30 @@ public class AsuraScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://asuratoon.com?p=275588
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc1NTg4fDI3NTU4OA==");
-        // https://asuratoon.com?p=275265
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc1MjY1fDI3NTI2NQ==");
-        // https://asuratoon.com?p=275723
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc1NzIzfDI3NTcyMw==");
-        // https://asuratoon.com?p=275959
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc1OTU5fDI3NTk1OQ==");
-        // https://asuratoon.com?p=275546
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc1NTQ2fDI3NTU0Ng==");
+        // https://asuratoon.com/0873280421-regressor-of-the-fallen-family-chapter-5/
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tLzA4NzMyODA0MjEtcmVncmVzc29yLW9mLXRoZS1mYWxsZW4tZmFtaWx5LWNoYXB0ZXItNS98aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc2NjQ2fDU=");
+        // https://asuratoon.com/0873280421-mr-devourer-please-act-like-a-final-boss-chapter-11/
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tLzA4NzMyODA0MjEtbXItZGV2b3VyZXItcGxlYXNlLWFjdC1saWtlLWEtZmluYWwtYm9zcy1jaGFwdGVyLTExL3xodHRwczovL2FzdXJhdG9vbi5jb20/cD0yNzUyOTR8MTE=");
+        // https://asuratoon.com/0873280421-mr-devourer-please-act-like-a-final-boss-chapter-14/
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tLzA4NzMyODA0MjEtbXItZGV2b3VyZXItcGxlYXNlLWFjdC1saWtlLWEtZmluYWwtYm9zcy1jaGFwdGVyLTE0L3xodHRwczovL2FzdXJhdG9vbi5jb20/cD0yNzUyOTR8MTQ=");
+        // https://asuratoon.com/0873280421-mr-devourer-please-act-like-a-final-boss-chapter-9/
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tLzA4NzMyODA0MjEtbXItZGV2b3VyZXItcGxlYXNlLWFjdC1saWtlLWEtZmluYWwtYm9zcy1jaGFwdGVyLTkvfGh0dHBzOi8vYXN1cmF0b29uLmNvbT9wPTI3NTI5NHw5");
+        // https://asuratoon.com/0873280421-the-extras-academy-survival-guide-chapter-3/
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tLzA4NzMyODA0MjEtdGhlLWV4dHJhcy1hY2FkZW15LXN1cnZpdmFsLWd1aWRlLWNoYXB0ZXItMy98aHR0cHM6Ly9hc3VyYXRvb24uY29tP3A9Mjc0NjQ0fDM=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/17/07.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC8xNy8wNy5qcGc=");
-        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/8/03.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC84LzAzLmpwZw==");
-        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/4/07 kopya.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC80LzA3IGtvcHlhLmpwZw==");
-        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/22/07.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC8yMi8wNy5qcGc=");
-        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/4/08 kopya.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC80LzA4IGtvcHlhLmpwZw==");
+        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/14/04.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC8xNC8wNC5qcGc=");
+        // https://asuratoon.com/wp-content/uploads/2023/12/02_result-copy.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIzLzEyLzAyX3Jlc3VsdC1jb3B5LmpwZw==");
+        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/14/08.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC8xNC8wOC5qcGc=");
+        // https://asuratoon.com/wp-content/uploads/custom-upload/274644/3/06.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NDY0NC8zLzA2LmpwZw==");
+        // https://asuratoon.com/wp-content/uploads/custom-upload/275294/11/00_Mr Devourer, Please Act Like a Final Boss copy.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hc3VyYXRvb24uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9jdXN0b20tdXBsb2FkLzI3NTI5NC8xMS8wMF9NciBEZXZvdXJlciwgUGxlYXNlIEFjdCBMaWtlIGEgRmluYWwgQm9zcyBjb3B5LmpwZw==");
     }
 }
 

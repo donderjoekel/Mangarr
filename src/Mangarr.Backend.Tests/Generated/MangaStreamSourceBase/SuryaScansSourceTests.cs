@@ -31,30 +31,30 @@ public class SuryaScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://suryacomics.com?p=32207
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0zMjIwN3wzMjIwNw==");
-        // https://suryacomics.com?p=31002
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0zMTAwMnwzMTAwMg==");
-        // https://suryacomics.com?p=31362
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0zMTM2MnwzMTM2Mg==");
-        // https://suryacomics.com?p=31613
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0zMTYxM3wzMTYxMw==");
-        // https://suryacomics.com?p=30920
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0zMDkyMHwzMDkyMA==");
+        // https://suryacomics.com/merciless-chapter-19/
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vbWVyY2lsZXNzLWNoYXB0ZXItMTkvfGh0dHBzOi8vc3VyeWFjb21pY3MuY29tP3A9MzAxNDl8MTk=");
+        // https://suryacomics.com/the-return-of-apocalypses-tyrant-chapter-4/
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vdGhlLXJldHVybi1vZi1hcG9jYWx5cHNlcy10eXJhbnQtY2hhcHRlci00L3xodHRwczovL3N1cnlhY29taWNzLmNvbT9wPTI5NDk4fDQ=");
+        // https://suryacomics.com/merciless-chapter-2/
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vbWVyY2lsZXNzLWNoYXB0ZXItMi98aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0zMDE0OXwy");
+        // https://suryacomics.com/the-return-of-apocalypses-tyrant-chapter-7/
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vdGhlLXJldHVybi1vZi1hcG9jYWx5cHNlcy10eXJhbnQtY2hhcHRlci03L3xodHRwczovL3N1cnlhY29taWNzLmNvbT9wPTI5NDk4fDc=");
+        // https://suryacomics.com/ill-be-a-villain-in-this-life-chapter-31/
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vaWxsLWJlLWEtdmlsbGFpbi1pbi10aGlzLWxpZmUtY2hhcHRlci0zMS98aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20/cD0yOTQ5NHwzMQ==");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://suryacomics.com/wp-content/uploads/2024/01/01-3.webp
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDEtMy53ZWJw");
-        // https://suryacomics.com/wp-content/uploads/2023/12/4-64.webp
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvNC02NC53ZWJw");
-        // https://suryacomics.com/wp-content/uploads/2023/12/11-100.webp
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTEtMTAwLndlYnA=");
-        // https://suryacomics.com/wp-content/uploads/2024/01/10-3.webp
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTAtMy53ZWJw");
-        // https://suryacomics.com/wp-content/uploads/2023/12/10-131.webp
-        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTAtMTMxLndlYnA=");
+        // https://suryacomics.com/wp-content/uploads/2023/12/1-38.webp
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMS0zOC53ZWJw");
+        // https://suryacomics.com/wp-content/uploads/2023/12/7-30.webp
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvNy0zMC53ZWJw");
+        // https://suryacomics.com/wp-content/uploads/2023/12/10-64.webp
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTAtNjQud2VicA==");
+        // https://suryacomics.com/wp-content/uploads/2023/12/3-57.webp
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMy01Ny53ZWJw");
+        // https://suryacomics.com/wp-content/uploads/2023/12/12-96.webp
+        yield return new TestCaseData("aHR0cHM6Ly9zdXJ5YWNvbWljcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTItOTYud2VicA==");
     }
 }
 

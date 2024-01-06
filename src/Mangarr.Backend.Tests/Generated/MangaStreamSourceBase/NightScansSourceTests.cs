@@ -31,30 +31,26 @@ public class NightScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://nightscans.net?p=64712
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldD9wPTY0NzEyfDY0NzEy");
-        // https://nightscans.net?p=68388
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldD9wPTY4Mzg4fDY4Mzg4");
-        // https://nightscans.net?p=65611
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldD9wPTY1NjExfDY1NjEx");
-        // https://nightscans.net?p=69159
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldD9wPTY5MTU5fDY5MTU5");
-        // https://nightscans.net?p=66206
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldD9wPTY2MjA2fDY2MjA2");
+        // https://nightscans.net/strongest-player-returns-after-a-thousand-years-chapter-12/
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC9zdHJvbmdlc3QtcGxheWVyLXJldHVybnMtYWZ0ZXItYS10aG91c2FuZC15ZWFycy1jaGFwdGVyLTEyL3xodHRwczovL25pZ2h0c2NhbnMubmV0P3A9NjQ3MDd8MTI=");
+        // https://nightscans.net/sword-breaker-chapter-20/
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC9zd29yZC1icmVha2VyLWNoYXB0ZXItMjAvfGh0dHBzOi8vbmlnaHRzY2Fucy5uZXQ/cD02NTEzNnwyMA==");
+        // https://nightscans.net/strongest-player-returns-after-a-thousand-years-chapter-15/
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC9zdHJvbmdlc3QtcGxheWVyLXJldHVybnMtYWZ0ZXItYS10aG91c2FuZC15ZWFycy1jaGFwdGVyLTE1L3xodHRwczovL25pZ2h0c2NhbnMubmV0P3A9NjQ3MDd8MTU=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://nightscans.net/wp-content/uploads/2023/12/RATHMD_Chapter-00_00.webp
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9SQVRITURfQ2hhcHRlci0wMF8wMC53ZWJw");
-        // https://nightscans.net/wp-content/uploads/2023/12/SB_Chapter-07_11.webp
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TQl9DaGFwdGVyLTA3XzExLndlYnA=");
-        // https://nightscans.net/wp-content/uploads/2023/12/SB_Chapter-07_01.webp
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TQl9DaGFwdGVyLTA3XzAxLndlYnA=");
-        // https://nightscans.net/wp-content/uploads/2023/12/MPSAI_Chapter-06_02.webp
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9NUFNBSV9DaGFwdGVyLTA2XzAyLndlYnA=");
-        // https://nightscans.net/wp-content/uploads/2023/12/MPSAI_Chapter-06_01.webp
-        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9NUFNBSV9DaGFwdGVyLTA2XzAxLndlYnA=");
+        // https://nightscans.net/wp-content/uploads/2023/12/SPRAATY_Chapter-12_10.webp
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TUFJBQVRZX0NoYXB0ZXItMTJfMTAud2VicA==");
+        // https://nightscans.net/wp-content/uploads/2023/12/SPRAATY_Chapter-15_11.webp
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TUFJBQVRZX0NoYXB0ZXItMTVfMTEud2VicA==");
+        // https://nightscans.net/wp-content/uploads/2023/12/SPRAATY_Chapter-15_06.webp
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TUFJBQVRZX0NoYXB0ZXItMTVfMDYud2VicA==");
+        // https://nightscans.net/wp-content/uploads/2023/12/SB_Chapter-20_16.webp
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TQl9DaGFwdGVyLTIwXzE2LndlYnA=");
+        // https://nightscans.net/wp-content/uploads/2023/12/SB_Chapter-20_06.webp
+        yield return new TestCaseData("aHR0cHM6Ly9uaWdodHNjYW5zLm5ldC93cC1jb250ZW50L3VwbG9hZHMvMjAyMy8xMi9TQl9DaGFwdGVyLTIwXzA2LndlYnA=");
     }
 }
 

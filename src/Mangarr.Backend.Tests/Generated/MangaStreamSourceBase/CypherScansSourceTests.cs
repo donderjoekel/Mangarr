@@ -31,30 +31,28 @@ public class CypherScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidPageLists()
     {
-        // https://cypherscans.xyz?p=167051
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcwNTF8MTY3MDUx");
-        // https://cypherscans.xyz?p=167241
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcyNDF8MTY3MjQx");
-        // https://cypherscans.xyz?p=167074
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcwNzR8MTY3MDc0");
-        // https://cypherscans.xyz?p=166887
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjY4ODd8MTY2ODg3");
-        // https://cypherscans.xyz?p=167266
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcyNjZ8MTY3MjY2");
+        // https://cypherscans.xyz/i-use-my-muscles-to-dominate-the-world-of-cultivating-immortals-chapter-22/
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS11c2UtbXktbXVzY2xlcy10by1kb21pbmF0ZS10aGUtd29ybGQtb2YtY3VsdGl2YXRpbmctaW1tb3J0YWxzLWNoYXB0ZXItMjIvfGh0dHBzOi8vY3lwaGVyc2NhbnMueHl6P3A9MTY3MTg0fDIy");
+        // https://cypherscans.xyz/dark-and-light-martial-emperor-chapter-2/
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovZGFyay1hbmQtbGlnaHQtbWFydGlhbC1lbXBlcm9yLWNoYXB0ZXItMi98aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjY2OTh8Mg==");
+        // https://cypherscans.xyz/dark-and-light-martial-emperor-chapter-9/
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovZGFyay1hbmQtbGlnaHQtbWFydGlhbC1lbXBlcm9yLWNoYXB0ZXItOS98aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjY2OTh8OQ==");
+        // https://cypherscans.xyz/i-use-my-muscles-to-dominate-the-world-of-cultivating-immortals-chapter-20/
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS11c2UtbXktbXVzY2xlcy10by1kb21pbmF0ZS10aGUtd29ybGQtb2YtY3VsdGl2YXRpbmctaW1tb3J0YWxzLWNoYXB0ZXItMjAvfGh0dHBzOi8vY3lwaGVyc2NhbnMueHl6P3A9MTY3MTg0fDIw");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/02-179.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDItMTc5LndlYnA=");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/13-19.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTMtMTkud2VicA==");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/04-171.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDQtMTcxLndlYnA=");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/10-54.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTAtNTQud2VicA==");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/12-37.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTItMzcud2VicA==");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/10-43.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTAtNDMud2VicA==");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/01-150.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDEtMTUwLndlYnA=");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/02-150.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDItMTUwLndlYnA=");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/07-89.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDctODkud2VicA==");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/04-202.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDQtMjAyLndlYnA=");
     }
 }
 
