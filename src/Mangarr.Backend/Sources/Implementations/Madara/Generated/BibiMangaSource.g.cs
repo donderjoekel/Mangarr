@@ -3,17 +3,19 @@
 using Injectio.Attributes;
 using Mangarr.Backend.Sources.Clients;
 
-namespace Mangarr.Backend.Sources.Implementations.BuddyComplex;
+namespace Mangarr.Backend.Sources.Implementations.Madara;
 
 [RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
-internal class MangaFabSource : BuddyComplexSourceBase
+internal class BibiMangaSource : MadaraSourceBase
 {
-    protected override string Id => "mangafab";
-    protected override string Name => "MangaFab";
-    protected override string Url => "https://mangacute.com";
+    protected override string Id => "bibimanga";
+    protected override string Name => "BibiManga";
+    protected override string Url => "https://bibimanga.com";
     protected override bool HasCloudflareProtection => false;
+    protected override bool UseAjaxChapterListMethod => true;
+    protected override bool UseIdChapterListMethod => false;
 
-    public MangaFabSource(
+    public BibiMangaSource(
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
         ILoggerFactory loggerFactory

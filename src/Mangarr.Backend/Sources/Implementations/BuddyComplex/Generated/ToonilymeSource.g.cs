@@ -8,7 +8,7 @@ namespace Mangarr.Backend.Sources.Implementations.BuddyComplex;
 [RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
 internal class ToonilymeSource : BuddyComplexSourceBase
 {
-    protected override string Id => "toonily.me";
+    protected override string Id => "toonilyme";
     protected override string Name => "Toonily.me";
     protected override string Url => "https://toonily.me";
     protected override bool HasCloudflareProtection => false;

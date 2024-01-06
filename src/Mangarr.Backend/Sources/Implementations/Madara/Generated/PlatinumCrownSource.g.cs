@@ -8,7 +8,7 @@ namespace Mangarr.Backend.Sources.Implementations.Madara;
 [RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
 internal class PlatinumCrownSource : MadaraSourceBase
 {
-    protected override string Id => "platinumcrown";
+    protected override string Id => "platinumscans";
     protected override string Name => "Platinum Crown";
     protected override string Url => "https://platinumscans.com";
     protected override bool HasCloudflareProtection => false;

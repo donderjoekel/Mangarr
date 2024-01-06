@@ -9,7 +9,6 @@
         ("boxmanhwa","BoxManhwa","https://boxmanhwa.com",false),
         ("mangabuddy","MangaBuddy","https://mangabuddy.com",false),
         ("mangacute","MangaCute","https://mangacute.com",false),
-        ("mangafab","MangaFab","https://mangacute.com",false),
         ("mangaforest","MangaForest","https://mangaforest.me",false),
         ("mangapuma","MangaPuma","https://mangapuma.com",false),
         ("mangasaga","MangaSaga","https://mangasaga.com",false),
@@ -17,7 +16,7 @@
         ("mangaxyz","MangaXYZ","https://mangaxyz.com",false),
         ("manhuasite","ManhuaSite","https://manhuasite.com",false),
         ("manhwatube","ManhwaTube","https://manhwatube.com",false),
-        ("toonily.me","Toonily.me","https://toonily.me",false),
+        ("toonilyme","Toonily.me","https://toonily.me",false),
         ("toonitube","TooniTube","https://toonitube.com",false),
         ("truemanga","TrueManga","https://truemanga.com",false)
     };

@@ -7,15 +7,15 @@
 <#
     List<(string,string,string,bool)> models = new()
     {
-        ("animatedglitchedscans","Animated Glitched Scans","https://anigliscans.xyz",false),
+        ("anigliscans","Animated Glitched Scans","https://anigliscans.xyz",false),
         ("animatedglitchedcomics","Animated Glitched Comics","https://agscomics.com",false),
         ("ascalonscans","AscalonScans","https://ascalonscans.com",false),
         ("cosmicscans","Cosmic Scans","https://cosmic-scans.com",false),
         ("cypherscans","Cypher Scans","https://cypherscans.xyz",false),
-        ("elarctoon","Elarc Toon","https://elarctoon.com",false),
+        ("elarcpage","Elarc Toon","https://elarctoon.com",false),
         ("flamecomics","Flame Comics","https://flamecomics.com",false),
         ("freakscans","Freak Scans","https://freakscans.com",false),
-        ("infernalvoidscans","Infernal Void Scans","https://void-scans.com",false),
+        ("voidscans","Infernal Void Scans","https://void-scans.com",false),
         ("kaiscans","Kai Scans","https://kaiscans.com",true),
         ("komiklab","Komik Lab","https://komiklab.com",false),
         ("lunarscans","Lunar Scans","https://lunarscan.org",false),
@@ -26,7 +26,7 @@
         ("ravenscans","Raven Scans","https://ravenscans.com",false),
         ("readkomik","Readkomik","https://readkomik.com",false),
         ("suryascans","Surya Scans","https://suryacomics.com",false),
-        ("xcalibrscans","xCaliBR Scans","https://xcalibrscans.com",false)
+        ("xcalibr","xCaliBR Scans","https://xcalibrscans.com",false)
     };
 
     foreach ((string, string, string, bool) model in models)
