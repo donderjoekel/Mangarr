@@ -12,6 +12,7 @@
     <PackageReference Include="AngleSharp" Version="1.0.7"/>
     <PackageReference Include="Anilist4Net" Version="1.5.0"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+    <PackageReference Include="Discord.Net.Webhook" Version="3.13.0"/>
     <PackageReference Include="FastEndpoints" Version="5.19.2"/>
     <PackageReference Include="FastEndpoints.Generator" Version="5.19.2">
       <PrivateAssets>all</PrivateAssets>
@@ -85,7 +86,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Sources\Implementations\BuddyComplex\Generated\" />
+    <Folder Include="Sources\Implementations\BuddyComplex\Generated\"/>
     <Folder Include="Sources\Implementations\Madara\Generated\"/>
     <Folder Include="Sources\Implementations\MangaStream\Generated\"/>
     <Folder Include="Sources\Implementations\NepNep\Generated\"/>

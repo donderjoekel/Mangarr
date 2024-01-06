@@ -1,10 +1,12 @@
 using System.Text.Json;
+using Discord.Webhook;
 using FastEndpoints.Swagger;
 using IdGen.DependencyInjection;
 using Mangarr.Backend.Configuration;
 using Mangarr.Backend.Extensions;
 using Mangarr.Backend.Jobs;
 using Mangarr.Backend.Services;
+using Mangarr.Backend.Services.Notifications;
 using Mangarr.Backend.Sources.Extensions;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -48,6 +50,7 @@ builder.Services.Configure<AniListOptions>(builder.Configuration.GetSection(AniL
 builder.Services.Configure<ExportOptions>(builder.Configuration.GetSection(ExportOptions.SECTION));
 builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection(RedisOptions.SECTION));
 builder.Services.Configure<SeqOptions>(builder.Configuration.GetSection(SeqOptions.SECTION));
+builder.Services.Configure<NotificationOptions>(builder.Configuration.GetSection(NotificationOptions.SECTION));
 
 builder.Services.AddQuartz(options =>
 {
@@ -115,6 +118,12 @@ builder.Services.AddSingleton<ExportService>();
 builder.Services.AddSingleton<PageDownloaderService>();
 // builder.Services.AddSingleton<MangaProcessor>();
 builder.Services.AddSingleton<NotificationService>();
+builder.Services.AddSingleton<INotificationProcessor, DiscordNotificationProcessor>();
+builder.Services.AddSingleton<DiscordWebhookClient>(provider =>
+{
+    IOptions<NotificationOptions> options = provider.GetRequiredService<IOptions<NotificationOptions>>();
+    return new DiscordWebhookClient(options.Value.Discord);
+});
 // builder.Services.AddSingleton<ChapterProcessor>();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();

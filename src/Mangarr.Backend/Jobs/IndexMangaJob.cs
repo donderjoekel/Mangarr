@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using Mangarr.Backend.Services.Notifications;
 using MongoDB.Driver;
 using Quartz;
 using ChapterList = Mangarr.Backend.Sources.Models.Chapter.ChapterList;
@@ -18,19 +19,22 @@ public class IndexMangaJob : IJob
 
     private readonly ILogger<IndexMangaJob> _logger;
     private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
+    private readonly NotificationService _notificationService;
     private readonly IEnumerable<ISource> _sources;
 
     public IndexMangaJob(
         ILogger<IndexMangaJob> logger,
         IMongoCollection<RequestedMangaDocument> mangaCollection,
         IMongoCollection<RequestedChapterDocument> chapterCollection,
-        IEnumerable<ISource> sources
+        IEnumerable<ISource> sources,
+        NotificationService notificationService
     )
     {
         _logger = logger;
         _mangaCollection = mangaCollection;
         _chapterCollection = chapterCollection;
         _sources = sources;
+        _notificationService = notificationService;
     }
 
     public async Task Execute(IJobExecutionContext context)
@@ -120,7 +124,7 @@ public class IndexMangaJob : IJob
 
         if (newChapters.Any())
         {
-            // await _notificationService.NotifyNewChapters(manga, newChapters);
+            await _notificationService.NotifyNewChapters(manga, newChapters);
         }
 
         await _mangaCollection.UpdateOneAsync(

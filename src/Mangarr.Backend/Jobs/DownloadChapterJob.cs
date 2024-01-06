@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using Mangarr.Backend.Data;
 using Mangarr.Backend.Services;
+using Mangarr.Backend.Services.Notifications;
 using MongoDB.Driver;
 using Quartz;
 using ISource = Mangarr.Backend.Sources.ISource;
@@ -21,6 +22,7 @@ public class DownloadChapterJob : IJob
     private readonly ExportService _exportService;
     private readonly ILogger<DownloadChapterJob> _logger;
     private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
+    private readonly NotificationService _notificationService;
     private readonly PageDownloaderService _pageDownloaderService;
     private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
     private readonly IEnumerable<ISource> _sources;
@@ -35,7 +37,8 @@ public class DownloadChapterJob : IJob
         ComicInfoService comicInfoService,
         CoverImageService coverImageService,
         ExportService exportService,
-        PageDownloaderService pageDownloaderService
+        PageDownloaderService pageDownloaderService,
+        NotificationService notificationService
     )
     {
         _logger = logger;
@@ -48,6 +51,7 @@ public class DownloadChapterJob : IJob
         _coverImageService = coverImageService;
         _exportService = exportService;
         _pageDownloaderService = pageDownloaderService;
+        _notificationService = notificationService;
     }
 
     public async Task Execute(IJobExecutionContext context)
@@ -194,7 +198,7 @@ public class DownloadChapterJob : IJob
             null,
             ct);
 
-        // await _notificationService.NotifyChapterDownloadFailed(requestedMangaDocument, requestedChapterDocument);
+        await _notificationService.NotifyChapterDownloadFailed(requestedMangaDocument, requestedChapterDocument);
     }
 
     private async Task MarkChapterDownloadSucceeded(
@@ -213,6 +217,6 @@ public class DownloadChapterJob : IJob
             ChapterProgressDocument.Filter.Eq(x => x.ChapterId, requestedChapterDocument.Id),
             ct);
 
-        // await _notificationService.NotifyChapterDownloadSucceeded(requestedMangaDocument, requestedChapterDocument);
+        await _notificationService.NotifyChapterDownloadSucceeded(requestedMangaDocument, requestedChapterDocument);
     }
 }

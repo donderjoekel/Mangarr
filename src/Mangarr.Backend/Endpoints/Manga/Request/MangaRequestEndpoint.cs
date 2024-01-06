@@ -2,6 +2,7 @@
 using FluentResults;
 using Mangarr.Backend.Jobs;
 using Mangarr.Backend.Services;
+using Mangarr.Backend.Services.Notifications;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;
 using MongoDB.Driver;
