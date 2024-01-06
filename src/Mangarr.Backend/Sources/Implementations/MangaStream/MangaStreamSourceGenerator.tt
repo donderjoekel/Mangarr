@@ -5,32 +5,32 @@
 <#@ import namespace="System.IO" #>
 
 <#
-    List<(string,string,string,bool)> models = new()
+    List<(string,string,string,bool,bool)> models = new()
     {
-        ("anigliscans","Animated Glitched Scans","https://anigliscans.xyz",false),
-        ("animatedglitchedcomics","Animated Glitched Comics","https://agscomics.com",false),
-        ("asurascans","Asura Scans","https://asuratoon.com",true),
-        ("ascalonscans","AscalonScans","https://ascalonscans.com",false),
-        ("cosmicscans","Cosmic Scans","https://cosmic-scans.com",false),
-        ("cypherscans","Cypher Scans","https://cypherscans.xyz",false),
-        ("elarcpage","Elarc Toon","https://elarctoon.com",false),
-        ("flamecomics","Flame Comics","https://flamecomics.com",false),
-        ("freakscans","Freak Scans","https://freakscans.com",false),
-        ("voidscans","Infernal Void Scans","https://void-scans.com",false),
-        ("kaiscans","Kai Scans","https://kaiscans.com",true),
-        ("komiklab","Komik Lab","https://komiklab.com",false),
-        ("lunarscans","Lunar Scans","https://lunarscan.org",false),
-        ("manhwalover","Manhwa Lover","https://manhwalover.com",false),
-        ("manhwax","Manhwax","https://manhwax.org",false),
-        ("nightscans","Night Scans","https://nightscans.net",false),
-        ("quantumscans","Quantum Scans","https://readers-point.space",false),
-        ("ravenscans","Raven Scans","https://ravenscans.com",false),
-        ("readkomik","Readkomik","https://readkomik.com",false),
-        ("suryascans","Surya Scans","https://suryacomics.com",false),
-        ("xcalibr","xCaliBR Scans","https://xcalibrscans.com",false)
+        ("anigliscans","Animated Glitched Scans","https://anigliscans.xyz",false,false),
+        ("animatedglitchedcomics","Animated Glitched Comics","https://agscomics.com",false,false),
+        ("asurascans","Asura Scans","https://asuratoon.com",true,true),
+        ("ascalonscans","AscalonScans","https://ascalonscans.com",false,false),
+        ("cosmicscans","Cosmic Scans","https://cosmic-scans.com",false,false),
+        ("cypherscans","Cypher Scans","https://cypherscans.xyz",false,false),
+        ("elarcpage","Elarc Toon","https://elarctoon.com",false,false),
+        ("flamecomics","Flame Comics","https://flamecomics.com",false,false),
+        ("freakscans","Freak Scans","https://freakscans.com",false,false),
+        ("voidscans","Infernal Void Scans","https://void-scans.com",false,false),
+        ("kaiscans","Kai Scans","https://kaiscans.com",true,false),
+        ("komiklab","Komik Lab","https://komiklab.com",false,false),
+        ("lunarscans","Lunar Scans","https://lunarscan.org",false,false),
+        ("manhwalover","Manhwa Lover","https://manhwalover.com",false,false),
+        ("manhwax","Manhwax","https://manhwax.org",false,false),
+        ("nightscans","Night Scans","https://nightscans.net",false,false),
+        ("quantumscans","Quantum Scans","https://readers-point.space",false,false),
+        ("ravenscans","Raven Scans","https://ravenscans.com",false,false),
+        ("readkomik","Readkomik","https://readkomik.com",false,false),
+        ("suryascans","Surya Scans","https://suryacomics.com",false,false),
+        ("xcalibr","xCaliBR Scans","https://xcalibrscans.com",false,false)
     };
 
-    foreach ((string, string, string, bool) model in models)
+    foreach ((string, string, string, bool,bool) model in models)
     {
         string fileName = $"{model.Item2.Replace(" ", string.Empty)}Source.g.cs";
         string filePath = Host.ResolvePath(fileName);
@@ -48,11 +48,12 @@
 #>
 
 <#+
-    public string GenerateClass((string, string, string, bool) model)
+    public string GenerateClass((string, string, string, bool, bool) model)
     {
         return $@"// Auto generated
 
 using Injectio.Attributes;
+using Mangarr.Backend.Services;
 using Mangarr.Backend.Sources.Clients;
 
 namespace Mangarr.Backend.Sources.Implementations.MangaStream;
@@ -68,9 +69,10 @@ internal class {model.Item2.Replace(" ", string.Empty)}Source : MangaStreamSourc
     public {model.Item2.Replace(" ", string.Empty)}Source(
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
-        ILoggerFactory loggerFactory
+        ILoggerFactory loggerFactory,
+        CachingService cachingService
     )
-        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory, cachingService)
     {{
     }}
 }}

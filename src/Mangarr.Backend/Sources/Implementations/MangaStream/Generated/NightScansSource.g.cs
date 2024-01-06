@@ -1,6 +1,7 @@
 // Auto generated
 
 using Injectio.Attributes;
+using Mangarr.Backend.Services;
 using Mangarr.Backend.Sources.Clients;
 
 namespace Mangarr.Backend.Sources.Implementations.MangaStream;
@@ -16,9 +17,10 @@ internal class NightScansSource : MangaStreamSourceBase
     public NightScansSource(
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
-        ILoggerFactory loggerFactory
+        ILoggerFactory loggerFactory,
+        CachingService cachingService
     )
-        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory, cachingService)
     {
     }
 }
