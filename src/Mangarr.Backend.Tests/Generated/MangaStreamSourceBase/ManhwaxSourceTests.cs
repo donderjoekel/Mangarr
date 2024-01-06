@@ -17,44 +17,44 @@ public class ManhwaxSourceTests : SourceTestBase
 
     public static IEnumerable ValidChapterLists()
     {
-        // https://manhwax.org/manga/not-at-work/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9tYW5nYS9ub3QtYXQtd29yay8=");
-        // https://manhwax.org/manga/you-came-during-the-massage-earlier-didnt-you/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9tYW5nYS95b3UtY2FtZS1kdXJpbmctdGhlLW1hc3NhZ2UtZWFybGllci1kaWRudC15b3Uv");
-        // https://manhwax.org/manga/our-exchange/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9tYW5nYS9vdXItZXhjaGFuZ2Uv");
-        // https://manhwax.org/manga/please-kill-my-husband/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9tYW5nYS9wbGVhc2Uta2lsbC1teS1odXNiYW5kLw==");
-        // https://manhwax.org/manga/making-friends-with-streamers-by-hacking/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9tYW5nYS9tYWtpbmctZnJpZW5kcy13aXRoLXN0cmVhbWVycy1ieS1oYWNraW5nLw==");
+        // https://manhwax.org?p=296829
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjgyOXwyOTY4Mjk=");
+        // https://manhwax.org?p=296593
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjU5M3wyOTY1OTM=");
+        // https://manhwax.org?p=296416
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjQxNnwyOTY0MTY=");
+        // https://manhwax.org?p=296345
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjM0NXwyOTYzNDU=");
+        // https://manhwax.org?p=296154
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjE1NHwyOTYxNTQ=");
     }
 
     public static IEnumerable ValidPageLists()
     {
-        // https://manhwax.org/please-kill-my-husband-chapter-12-english/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9wbGVhc2Uta2lsbC1teS1odXNiYW5kLWNoYXB0ZXItMTItZW5nbGlzaC8=");
-        // https://manhwax.org/our-exchange-chapter-156-english/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9vdXItZXhjaGFuZ2UtY2hhcHRlci0xNTYtZW5nbGlzaC8=");
-        // https://manhwax.org/our-exchange-chapter-109-english/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9vdXItZXhjaGFuZ2UtY2hhcHRlci0xMDktZW5nbGlzaC8=");
-        // https://manhwax.org/our-exchange-chapter-19-english/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9vdXItZXhjaGFuZ2UtY2hhcHRlci0xOS1lbmdsaXNoLw==");
-        // https://manhwax.org/please-kill-my-husband-chapter-68-english/
-        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZy9wbGVhc2Uta2lsbC1teS1odXNiYW5kLWNoYXB0ZXItNjgtZW5nbGlzaC8=");
+        // https://manhwax.org?p=296675
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjY3NXwyOTY2NzU=");
+        // https://manhwax.org?p=296738
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjczOHwyOTY3Mzg=");
+        // https://manhwax.org?p=296710
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjcxMHwyOTY3MTA=");
+        // https://manhwax.org?p=296194
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjE5NHwyOTYxOTQ=");
+        // https://manhwax.org?p=296618
+        yield return new TestCaseData("aHR0cHM6Ly9tYW5od2F4Lm9yZz9wPTI5NjYxOHwyOTY2MTg=");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://img12.imgfx01.xyz/uploads/165/156/79-718.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzE2NS8xNTYvNzktNzE4LmpwZw==");
-        // https://img12.imgfx02.xyz/uploads/165/19/56-202.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAyLnh5ei91cGxvYWRzLzE2NS8xOS81Ni0yMDIuanBn");
-        // https://img12.imgfx02.xyz/uploads/3767/12/26-2cfbb.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAyLnh5ei91cGxvYWRzLzM3NjcvMTIvMjYtMmNmYmIuanBn");
-        // https://img12.imgfx01.xyz/uploads/165/156/75-718.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzE2NS8xNTYvNzUtNzE4LmpwZw==");
-        // https://img12.imgfx01.xyz/uploads/165/109/45-182.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzE2NS8xMDkvNDUtMTgyLmpwZw==");
+        // https://img12.imgfx01.xyz/uploads/165/115/104-917.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzE2NS8xMTUvMTA0LTkxNy5qcGc=");
+        // https://img12.imgfx02.xyz/uploads/165/58/67-924.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAyLnh5ei91cGxvYWRzLzE2NS81OC82Ny05MjQuanBn");
+        // https://img12.imgfx01.xyz/uploads/165/150/86-897.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzE2NS8xNTAvODYtODk3LmpwZw==");
+        // https://img12.imgfx01.xyz/uploads/165/150/65-897.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAxLnh5ei91cGxvYWRzLzE2NS8xNTAvNjUtODk3LmpwZw==");
+        // https://img12.imgfx02.xyz/uploads/165/58/117-929.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pbWcxMi5pbWdmeDAyLnh5ei91cGxvYWRzLzE2NS81OC8xMTctOTI5LmpwZw==");
     }
 }
 

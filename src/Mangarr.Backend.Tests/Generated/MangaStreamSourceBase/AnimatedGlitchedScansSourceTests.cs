@@ -4,7 +4,7 @@ namespace Mangarr.Backend.Tests;
 
 public class AnimatedGlitchedScansSourceTests : SourceTestBase
 {
-    protected override string SourceIdentifier => "animatedglitchedscans";
+    protected override string SourceIdentifier => "anigliscans";
 
     public static IEnumerable ValidSearchResults()
     {
@@ -17,44 +17,44 @@ public class AnimatedGlitchedScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidChapterLists()
     {
-        // https://anigliscans.xyz/series/im-the-only-one-with-outstanding-cheats-after-my-class-got-transported-to-another-world/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovc2VyaWVzL2ltLXRoZS1vbmx5LW9uZS13aXRoLW91dHN0YW5kaW5nLWNoZWF0cy1hZnRlci1teS1jbGFzcy1nb3QtdHJhbnNwb3J0ZWQtdG8tYW5vdGhlci13b3JsZC8=");
-        // https://anigliscans.xyz/series/the-book-of-abyss/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovc2VyaWVzL3RoZS1ib29rLW9mLWFieXNzLw==");
-        // https://anigliscans.xyz/series/please-get-out-of-my-household/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovc2VyaWVzL3BsZWFzZS1nZXQtb3V0LW9mLW15LWhvdXNlaG9sZC8=");
-        // https://anigliscans.xyz/series/awakened-thief-steals-the-world/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovc2VyaWVzL2F3YWtlbmVkLXRoaWVmLXN0ZWFscy10aGUtd29ybGQv");
-        // https://anigliscans.xyz/series/unrivaled-gamer-dominating-with-the-ex-skill-hero-master/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovc2VyaWVzL3Vucml2YWxlZC1nYW1lci1kb21pbmF0aW5nLXdpdGgtdGhlLWV4LXNraWxsLWhlcm8tbWFzdGVyLw==");
+        // https://anigliscans.xyz?p=47169
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NzE2OXw0NzE2OQ==");
+        // https://anigliscans.xyz?p=46620
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjYyMHw0NjYyMA==");
+        // https://anigliscans.xyz?p=46028
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjAyOHw0NjAyOA==");
+        // https://anigliscans.xyz?p=45570
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NTU3MHw0NTU3MA==");
+        // https://anigliscans.xyz?p=43278
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00MzI3OHw0MzI3OA==");
     }
 
     public static IEnumerable ValidPageLists()
     {
-        // https://anigliscans.xyz/awakened-thief-steals-the-world-5/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovYXdha2VuZWQtdGhpZWYtc3RlYWxzLXRoZS13b3JsZC01Lw==");
-        // https://anigliscans.xyz/awakened-thief-steals-the-world-4/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovYXdha2VuZWQtdGhpZWYtc3RlYWxzLXRoZS13b3JsZC00Lw==");
-        // https://anigliscans.xyz/awakened-thief-steals-the-world-6/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovYXdha2VuZWQtdGhpZWYtc3RlYWxzLXRoZS13b3JsZC02Lw==");
-        // https://anigliscans.xyz/the-book-of-abyss-chapter-0/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovdGhlLWJvb2stb2YtYWJ5c3MtY2hhcHRlci0wLw==");
-        // https://anigliscans.xyz/the-book-of-abyss-chapter-4/
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovdGhlLWJvb2stb2YtYWJ5c3MtY2hhcHRlci00Lw==");
+        // https://anigliscans.xyz?p=46642
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjY0Mnw0NjY0Mg==");
+        // https://anigliscans.xyz?p=43280
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00MzI4MHw0MzI4MA==");
+        // https://anigliscans.xyz?p=46254
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjI1NHw0NjI1NA==");
+        // https://anigliscans.xyz?p=46289
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NjI4OXw0NjI4OQ==");
+        // https://anigliscans.xyz?p=45572
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXo/cD00NTU3Mnw0NTU3Mg==");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/09-3.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDktMy5qcGVn");
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/03-40.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDMtNDAuanBn");
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/00-3.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDAtMy5qcGVn");
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/02-10.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDItMTAuanBlZw==");
-        // https://anigliscans.xyz/wp-content/uploads/2023/12/06-10.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDYtMTAuanBlZw==");
+        // https://anigliscans.xyz/wp-content/uploads/2023/11/01-1.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMDEtMS5qcGc=");
+        // https://anigliscans.xyz/wp-content/uploads/2023/11/04-1.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMDQtMS5qcGc=");
+        // https://anigliscans.xyz/wp-content/uploads/2023/11/17.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMTcuanBn");
+        // https://anigliscans.xyz/wp-content/uploads/2023/12/11-10.jpeg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTEtMTAuanBlZw==");
+        // https://anigliscans.xyz/wp-content/uploads/2023/12/02-12.jpeg
+        yield return new TestCaseData("aHR0cHM6Ly9hbmlnbGlzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDItMTIuanBlZw==");
     }
 }
 

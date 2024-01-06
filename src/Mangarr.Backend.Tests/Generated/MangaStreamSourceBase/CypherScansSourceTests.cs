@@ -17,44 +17,44 @@ public class CypherScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidChapterLists()
     {
-        // https://cypherscans.xyz/manga/i-use-my-muscles-to-dominate-the-world-of-cultivating-immortals/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovbWFuZ2EvaS11c2UtbXktbXVzY2xlcy10by1kb21pbmF0ZS10aGUtd29ybGQtb2YtY3VsdGl2YXRpbmctaW1tb3J0YWxzLw==");
-        // https://cypherscans.xyz/manga/reborn-as-the-heavenly-martial-demon/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovbWFuZ2EvcmVib3JuLWFzLXRoZS1oZWF2ZW5seS1tYXJ0aWFsLWRlbW9uLw==");
-        // https://cypherscans.xyz/manga/dark-and-light-martial-emperor/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovbWFuZ2EvZGFyay1hbmQtbGlnaHQtbWFydGlhbC1lbXBlcm9yLw==");
-        // https://cypherscans.xyz/manga/i-can-crit-infinitely/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovbWFuZ2EvaS1jYW4tY3JpdC1pbmZpbml0ZWx5Lw==");
-        // https://cypherscans.xyz/manga/i-really-dont-want-to-be-the-first/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovbWFuZ2EvaS1yZWFsbHktZG9udC13YW50LXRvLWJlLXRoZS1maXJzdC8=");
+        // https://cypherscans.xyz?p=167746
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjc3NDZ8MTY3NzQ2");
+        // https://cypherscans.xyz?p=167608
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjc2MDh8MTY3NjA4");
+        // https://cypherscans.xyz?p=167184
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcxODR8MTY3MTg0");
+        // https://cypherscans.xyz?p=166833
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjY4MzN8MTY2ODMz");
+        // https://cypherscans.xyz?p=166698
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjY2OTh8MTY2Njk4");
     }
 
     public static IEnumerable ValidPageLists()
     {
-        // https://cypherscans.xyz/i-really-dont-want-to-be-the-first-chapter-100/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS1yZWFsbHktZG9udC13YW50LXRvLWJlLXRoZS1maXJzdC1jaGFwdGVyLTEwMC8=");
-        // https://cypherscans.xyz/i-really-dont-want-to-be-the-first-chapter-121/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS1yZWFsbHktZG9udC13YW50LXRvLWJlLXRoZS1maXJzdC1jaGFwdGVyLTEyMS8=");
-        // https://cypherscans.xyz/i-really-dont-want-to-be-the-first-chapter-50/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS1yZWFsbHktZG9udC13YW50LXRvLWJlLXRoZS1maXJzdC1jaGFwdGVyLTUwLw==");
-        // https://cypherscans.xyz/i-really-dont-want-to-be-the-first-chapter-2/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS1yZWFsbHktZG9udC13YW50LXRvLWJlLXRoZS1maXJzdC1jaGFwdGVyLTIv");
-        // https://cypherscans.xyz/i-really-dont-want-to-be-the-first-chapter-106/
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovaS1yZWFsbHktZG9udC13YW50LXRvLWJlLXRoZS1maXJzdC1jaGFwdGVyLTEwNi8=");
+        // https://cypherscans.xyz?p=167051
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcwNTF8MTY3MDUx");
+        // https://cypherscans.xyz?p=167241
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcyNDF8MTY3MjQx");
+        // https://cypherscans.xyz?p=167074
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcwNzR8MTY3MDc0");
+        // https://cypherscans.xyz?p=166887
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjY4ODd8MTY2ODg3");
+        // https://cypherscans.xyz?p=167266
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXo/cD0xNjcyNjZ8MTY3MjY2");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/300-126.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMzAwLTEyNi53ZWJw");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/005-49.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDA1LTQ5LmpwZWc=");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/006-45.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDA2LTQ1LndlYnA=");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/300-105.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMzAwLTEwNS53ZWJw");
-        // https://cypherscans.xyz/wp-content/uploads/2024/01/002-49.jpeg
-        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDAyLTQ5LmpwZWc=");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/02-179.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDItMTc5LndlYnA=");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/13-19.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTMtMTkud2VicA==");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/04-171.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDQtMTcxLndlYnA=");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/10-54.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTAtNTQud2VicA==");
+        // https://cypherscans.xyz/wp-content/uploads/2024/01/12-37.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jeXBoZXJzY2Fucy54eXovd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTItMzcud2VicA==");
     }
 }
 

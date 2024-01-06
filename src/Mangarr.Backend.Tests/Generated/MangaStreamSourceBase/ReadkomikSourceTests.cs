@@ -17,44 +17,44 @@ public class ReadkomikSourceTests : SourceTestBase
 
     public static IEnumerable ValidChapterLists()
     {
-        // https://readkomik.com/manga/i-rely-on-my-invincibility-to-deal-tons-of-damage-passively/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21hbmdhL2ktcmVseS1vbi1teS1pbnZpbmNpYmlsaXR5LXRvLWRlYWwtdG9ucy1vZi1kYW1hZ2UtcGFzc2l2ZWx5Lw==");
-        // https://readkomik.com/manga/return-of-top-class-master/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21hbmdhL3JldHVybi1vZi10b3AtY2xhc3MtbWFzdGVyLw==");
-        // https://readkomik.com/manga/the-iron-blooded-necromancer-has-returned/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21hbmdhL3RoZS1pcm9uLWJsb29kZWQtbmVjcm9tYW5jZXItaGFzLXJldHVybmVkLw==");
-        // https://readkomik.com/manga/mr-devourer-please-act-like-a-final-boss/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21hbmdhL21yLWRldm91cmVyLXBsZWFzZS1hY3QtbGlrZS1hLWZpbmFsLWJvc3Mv");
-        // https://readkomik.com/manga/0-kill-assassine/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21hbmdhLzAta2lsbC1hc3Nhc3NpbmUv");
+        // https://readkomik.com?p=577037
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc3MDM3fDU3NzAzNw==");
+        // https://readkomik.com?p=576922
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTIyfDU3NjkyMg==");
+        // https://readkomik.com?p=576856
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2ODU2fDU3Njg1Ng==");
+        // https://readkomik.com?p=576407
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2NDA3fDU3NjQwNw==");
+        // https://readkomik.com?p=576368
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2MzY4fDU3NjM2OA==");
     }
 
     public static IEnumerable ValidPageLists()
     {
-        // https://readkomik.com/mdpalfb-chapter-7/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21kcGFsZmItY2hhcHRlci03Lw==");
-        // https://readkomik.com/mdpalfb-chapter-14/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21kcGFsZmItY2hhcHRlci0xNC8=");
-        // https://readkomik.com/ibnr-chapter-13/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2libnItY2hhcHRlci0xMy8=");
-        // https://readkomik.com/ibnr-chapter-31/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL2libnItY2hhcHRlci0zMS8=");
-        // https://readkomik.com/mdpalfb-chapter-2/
-        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tL21kcGFsZmItY2hhcHRlci0yLw==");
+        // https://readkomik.com?p=576932
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTMyfDU3NjkzMg==");
+        // https://readkomik.com?p=576872
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2ODcyfDU3Njg3Mg==");
+        // https://readkomik.com?p=576905
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTA1fDU3NjkwNQ==");
+        // https://readkomik.com?p=576909
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTA5fDU3NjkwOQ==");
+        // https://readkomik.com?p=576918
+        yield return new TestCaseData("aHR0cHM6Ly9yZWFka29taWsuY29tP3A9NTc2OTE4fDU3NjkxOA==");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://rkscans.com/wp-content/uploads/2024/01/MDPALFB-14__6.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9NRFBBTEZCLTE0X182LmpwZw==");
-        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-13__4.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTEzX180LmpwZw==");
-        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-13__10.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTEzX18xMC5qcGc=");
-        // https://rkscans.com/wp-content/uploads/2024/01/MDPALFB-02__1.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9NRFBBTEZCLTAyX18xLmpwZw==");
-        // https://rkscans.com/wp-content/uploads/2024/01/MDPALFB-02__3.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9NRFBBTEZCLTAyX18zLmpwZw==");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-30__14.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTMwX18xNC5qcGc=");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-27__12.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTI3X18xMi5qcGc=");
+        // https://rkscans.com/wp-content/uploads/2024/01/IBNR-30__7.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9JQk5SLTMwX183LmpwZw==");
+        // https://rkscans.com/wp-content/uploads/2024/01/RTCM-05__5.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9SVENNLTA1X181LmpwZw==");
+        // https://rkscans.com/wp-content/uploads/2024/01/RTCM-05__6.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9ya3NjYW5zLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAyNC8wMS9SVENNLTA1X182LmpwZw==");
     }
 }
 

@@ -4,7 +4,7 @@ namespace Mangarr.Backend.Tests;
 
 public class InfernalVoidScansSourceTests : SourceTestBase
 {
-    protected override string SourceIdentifier => "infernalvoidscans";
+    protected override string SourceIdentifier => "voidscans";
 
     public static IEnumerable ValidSearchResults()
     {
@@ -17,42 +17,44 @@ public class InfernalVoidScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidChapterLists()
     {
-        // https://void-scans.com/manga/preview/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9tYW5nYS9wcmV2aWV3Lw==");
-        // https://void-scans.com/manga/this-life-starts-as-a-child-actor/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9tYW5nYS90aGlzLWxpZmUtc3RhcnRzLWFzLWEtY2hpbGQtYWN0b3Iv");
-        // https://void-scans.com/manga/99-boss/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9tYW5nYS85OS1ib3NzLw==");
-        // https://void-scans.com/manga/the-return-of-apocalypses-tyrant/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS9tYW5nYS90aGUtcmV0dXJuLW9mLWFwb2NhbHlwc2VzLXR5cmFudC8=");
+        // https://void-scans.com?p=88293
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjkzfDg4Mjkz");
+        // https://void-scans.com?p=88175
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MTc1fDg4MTc1");
+        // https://void-scans.com?p=88171
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MTcxfDg4MTcx");
+        // https://void-scans.com?p=88053
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MDUzfDg4MDUz");
+        // https://void-scans.com?p=88003
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MDAzfDg4MDAz");
     }
 
     public static IEnumerable ValidPageLists()
     {
-        // https://void-scans.com/99-boss-chapter-8/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS85OS1ib3NzLWNoYXB0ZXItOC8=");
-        // https://void-scans.com/this-life-starts-as-a-child-actor-chapter-20/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS90aGlzLWxpZmUtc3RhcnRzLWFzLWEtY2hpbGQtYWN0b3ItY2hhcHRlci0yMC8=");
-        // https://void-scans.com/the-return-of-apocalypses-tyrant-chapter-20/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS90aGUtcmV0dXJuLW9mLWFwb2NhbHlwc2VzLXR5cmFudC1jaGFwdGVyLTIwLw==");
-        // https://void-scans.com/the-return-of-apocalypses-tyrant-chapter-12/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS90aGUtcmV0dXJuLW9mLWFwb2NhbHlwc2VzLXR5cmFudC1jaGFwdGVyLTEyLw==");
-        // https://void-scans.com/this-life-starts-as-a-child-actor-chapter-6/
-        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbS90aGlzLWxpZmUtc3RhcnRzLWFzLWEtY2hpbGQtYWN0b3ItY2hhcHRlci02Lw==");
+        // https://void-scans.com?p=88251
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjUxfDg4MjUx");
+        // https://void-scans.com?p=88213
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjEzfDg4MjEz");
+        // https://void-scans.com?p=88097
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MDk3fDg4MDk3");
+        // https://void-scans.com?p=88276
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4Mjc2fDg4Mjc2");
+        // https://void-scans.com?p=88211
+        yield return new TestCaseData("aHR0cHM6Ly92b2lkLXNjYW5zLmNvbT9wPTg4MjExfDg4MjEx");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://cdn.void-scans.com/wp-content/uploads/2023/10/11_11_11zon-29.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTAvMTFfMTFfMTF6b24tMjkud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/10-11.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMTAtMTEud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/01-14.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDEtMTQud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/05-13.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDUtMTMud2VicA==");
-        // https://cdn.void-scans.com/wp-content/uploads/2024/01/01-37.webp
-        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDEtMzcud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/03-67.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDMtNjcud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/01-81.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDEtODEud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/05-58.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDUtNTgud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/06-80.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDYtODAud2VicA==");
+        // https://cdn.void-scans.com/wp-content/uploads/2024/01/09-55.webp
+        yield return new TestCaseData("aHR0cHM6Ly9jZG4udm9pZC1zY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDktNTUud2VicA==");
     }
 }
 

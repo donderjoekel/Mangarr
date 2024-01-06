@@ -17,44 +17,44 @@ public class FreakScansSourceTests : SourceTestBase
 
     public static IEnumerable ValidChapterLists()
     {
-        // https://freakscans.com/manga/the-demon-emperor-hopes-for-a-hero/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS9tYW5nYS90aGUtZGVtb24tZW1wZXJvci1ob3Blcy1mb3ItYS1oZXJvLw==");
-        // https://freakscans.com/manga/0-kill-assassine/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS9tYW5nYS8wLWtpbGwtYXNzYXNzaW5lLw==");
-        // https://freakscans.com/manga/potion-witch/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS9tYW5nYS9wb3Rpb24td2l0Y2gv");
-        // https://freakscans.com/manga/utori-the-legacy/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS9tYW5nYS91dG9yaS10aGUtbGVnYWN5Lw==");
-        // https://freakscans.com/manga/legend-of-the-holy-sword/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS9tYW5nYS9sZWdlbmQtb2YtdGhlLWhvbHktc3dvcmQv");
+        // https://freakscans.com?p=24923
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTI0OTIzfDI0OTIz");
+        // https://freakscans.com?p=24841
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTI0ODQxfDI0ODQx");
+        // https://freakscans.com?p=24069
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTI0MDY5fDI0MDY5");
+        // https://freakscans.com?p=23965
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTIzOTY1fDIzOTY1");
+        // https://freakscans.com?p=23932
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTIzOTMyfDIzOTMy");
     }
 
     public static IEnumerable ValidPageLists()
     {
-        // https://freakscans.com/the-demon-emperor-hopes-for-a-hero-ch-02/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS90aGUtZGVtb24tZW1wZXJvci1ob3Blcy1mb3ItYS1oZXJvLWNoLTAyLw==");
-        // https://freakscans.com/potion-witch-ch-01/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS9wb3Rpb24td2l0Y2gtY2gtMDEv");
-        // https://freakscans.com/0-kill-assassine-ch-02/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS8wLWtpbGwtYXNzYXNzaW5lLWNoLTAyLw==");
-        // https://freakscans.com/0-kill-assassine-ch-03/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS8wLWtpbGwtYXNzYXNzaW5lLWNoLTAzLw==");
-        // https://freakscans.com/the-demon-emperor-hopes-for-a-hero-ch-01/
-        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbS90aGUtZGVtb24tZW1wZXJvci1ob3Blcy1mb3ItYS1oZXJvLWNoLTAxLw==");
+        // https://freakscans.com?p=24087
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTI0MDg3fDI0MDg3");
+        // https://freakscans.com?p=23956
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTIzOTU2fDIzOTU2");
+        // https://freakscans.com?p=24942
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTI0OTQyfDI0OTQy");
+        // https://freakscans.com?p=23946
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTIzOTQ2fDIzOTQ2");
+        // https://freakscans.com?p=23967
+        yield return new TestCaseData("aHR0cHM6Ly9mcmVha3NjYW5zLmNvbT9wPTIzOTY3fDIzOTY3");
     }
 
     public static IEnumerable ValidImages()
     {
-        // https://i3.wp.com/freakscans.com/wp-content/uploads/2023/12/08-120.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pMy53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDgtMTIwLmpwZw==");
-        // https://i2.wp.com/freakscans.com/wp-content/uploads/2023/12/17-19.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pMi53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTctMTkuanBn");
-        // https://i3.wp.com/freakscans.com/wp-content/uploads/2023/12/03-135.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pMy53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDMtMTM1LmpwZw==");
-        // https://i3.wp.com/freakscans.com/wp-content/uploads/2023/12/16-24.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pMy53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMTYtMjQuanBn");
-        // https://i0.wp.com/freakscans.com/wp-content/uploads/2023/12/06-135.jpg
-        yield return new TestCaseData("aHR0cHM6Ly9pMC53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDYtMTM1LmpwZw==");
+        // https://i0.wp.com/freakscans.com/wp-content/uploads/2023/12/05-126.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pMC53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDUtMTI2LmpwZw==");
+        // https://i2.wp.com/freakscans.com/wp-content/uploads/2023/07/100.5.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pMi53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMDcvMTAwLjUuanBn");
+        // https://i0.wp.com/freakscans.com/wp-content/uploads/2023/12/06-128.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pMC53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTIvMDYtMTI4LmpwZw==");
+        // https://i2.wp.com/freakscans.com/wp-content/uploads/2023/11/100.5.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pMi53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjMvMTEvMTAwLjUuanBn");
+        // https://i0.wp.com/freakscans.com/wp-content/uploads/2024/01/04-41.jpg
+        yield return new TestCaseData("aHR0cHM6Ly9pMC53cC5jb20vZnJlYWtzY2Fucy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjQvMDEvMDQtNDEuanBn");
     }
 }
 
