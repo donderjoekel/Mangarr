@@ -41,4 +41,23 @@ public class ExportService
             return Result.Fail(new ExceptionalError(e));
         }
     }
+
+    public bool DoesChapterExist(
+        RequestedMangaDocument requestedMangaDocument,
+        RequestedChapterDocument requestedChapterDocument
+    )
+    {
+        string mangaTitle = requestedMangaDocument.Title;
+        string chapterTitle = requestedChapterDocument.ChapterNumber.ToString(CultureInfo.InvariantCulture);
+        string archiveName = $"{mangaTitle} - {chapterTitle}.cbz";
+        string archiveDirectory = Path.Combine(_exportOptions.Path, mangaTitle);
+
+        if (!Directory.Exists(archiveDirectory))
+        {
+            return false;
+        }
+
+        string archivePath = Path.Combine(archiveDirectory, archiveName);
+        return File.Exists(archivePath);
+    }
 }

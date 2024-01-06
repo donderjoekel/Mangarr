@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using Mangarr.Backend.Services;
 using Mangarr.Backend.Services.Notifications;
 using MongoDB.Driver;
 using Quartz;
@@ -16,6 +17,7 @@ public class IndexMangaJob : IJob
 
     public static readonly JobKey JobKey = new("IndexMangaJob");
     private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
+    private readonly ExportService _exportService;
 
     private readonly ILogger<IndexMangaJob> _logger;
     private readonly IMongoCollection<RequestedMangaDocument> _mangaCollection;
@@ -27,7 +29,8 @@ public class IndexMangaJob : IJob
         IMongoCollection<RequestedMangaDocument> mangaCollection,
         IMongoCollection<RequestedChapterDocument> chapterCollection,
         IEnumerable<ISource> sources,
-        NotificationService notificationService
+        NotificationService notificationService,
+        ExportService exportService
     )
     {
         _logger = logger;
@@ -35,6 +38,7 @@ public class IndexMangaJob : IJob
         _chapterCollection = chapterCollection;
         _sources = sources;
         _notificationService = notificationService;
+        _exportService = exportService;
     }
 
     public async Task Execute(IJobExecutionContext context)
@@ -111,6 +115,8 @@ public class IndexMangaJob : IJob
                 Downloaded = false,
                 CreationDate = DateTime.UtcNow
             };
+
+            requestedChapterDocument.Downloaded = _exportService.DoesChapterExist(manga, requestedChapterDocument);
 
             await _chapterCollection.InsertOneAsync(requestedChapterDocument, null, ct);
 
