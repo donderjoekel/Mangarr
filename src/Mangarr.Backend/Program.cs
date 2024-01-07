@@ -91,7 +91,7 @@ builder.Services.AddQuartz(options =>
             .WithDescription("Download requested chapters")
             .ForJob(DownloadChapterSchedulerJob.JobKey)
             .StartNow()
-            .WithCronSchedule("0 0/20 * ? * * *");
+            .WithCronSchedule("0 10/20 * ? * * *");
     });
 });
 
