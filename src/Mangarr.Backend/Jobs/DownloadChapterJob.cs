@@ -194,7 +194,8 @@ public class DownloadChapterJob : IJob
             ChapterProgressDocument.Filter.Eq(x => x.ChapterId, requestedChapterDocument.Id),
             ChapterProgressDocument.Update.Combine(
                 ChapterProgressDocument.Update.Set(x => x.Progress, 0),
-                ChapterProgressDocument.Update.Set(x => x.IsActive, false)),
+                ChapterProgressDocument.Update.Set(x => x.IsActive, false),
+                ChapterProgressDocument.Update.Set(x => x.IsFailed, true)),
             null,
             ct);
 

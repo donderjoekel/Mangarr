@@ -49,14 +49,21 @@ public class DownloadChapterSchedulerJob : IJob
                 continue;
             }
 
-            long count = await _progressCollection.CountDocumentsAsync(
-                ChapterProgressDocument.Filter.Eq(x => x.ChapterId, chapter.Id),
-                null,
-                context.CancellationToken);
+            ChapterProgressDocument progress = await _progressCollection
+                .Find(x => x.ChapterId == chapter.Id)
+                .FirstOrDefaultAsync(context.CancellationToken);
 
-            if (count == 0)
+            if (progress != null && progress.IsFailed)
             {
-                ChapterProgressDocument progress = new()
+                _logger.LogWarning("Skipping chapter {Title} because there is a previously failed download",
+                    manga.Title + " - " + chapter.ChapterName);
+
+                continue;
+            }
+
+            if (progress == null)
+            {
+                progress = new ChapterProgressDocument
                 {
                     MangaId = manga.Id,
                     MangaTitle = manga.Title,

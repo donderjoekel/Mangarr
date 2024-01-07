@@ -8,5 +8,6 @@ public class ChapterProgressDocument : DocumentBase<ChapterProgressDocument>
     public string ChapterTitle { get; set; } = null!;
     public double ChapterNumber { get; set; }
     public bool IsActive { get; set; }
+    public bool IsFailed { get; set; }
     public int Progress { get; set; }
 }
