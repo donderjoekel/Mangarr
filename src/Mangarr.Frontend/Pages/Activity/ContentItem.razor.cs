@@ -8,6 +8,7 @@ public partial class ContentItem
     [Parameter] public ChapterProgressModel? Item { get; set; }
     [Parameter] public int Index { get; set; }
 
+    private bool IsFailed => Item!.IsFailed;
     private bool IsActive => Item!.IsActive;
     private string MangaId => Item!.MangaId;
     private string MangaTitle => Item!.MangaTitle;

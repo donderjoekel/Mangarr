@@ -8,5 +8,6 @@ public class ChapterProgressModel
     public string ChapterTitle { get; set; } = string.Empty;
     public double ChapterNumber { get; set; }
     public bool IsActive { get; set; } = false;
+    public bool IsFailed { get; set; } = false;
     public int Progress { get; set; }
 }
