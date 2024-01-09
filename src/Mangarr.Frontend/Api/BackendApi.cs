@@ -67,4 +67,16 @@ public class BackendApi
 
     public Task<Result<string>> TriggerJob(string group, string name) =>
         _httpClient.Get($"jobs/{group}/{name}/trigger");
+
+    public Task<Result<ChapterEnableResponse>> EnableChapter(string id) =>
+        _httpClient.Post<ChapterEnableResponse>($"chapter/{id}/enable", new { });
+
+    public Task<Result<ChapterDisableResponse>> DisableChapter(string id) =>
+        _httpClient.Post<ChapterDisableResponse>($"chapter/{id}/disable", new { });
+
+    public Task<Result<MangaEnableChaptersResponse>> EnableMangaChapters(string id) =>
+        _httpClient.Post<MangaEnableChaptersResponse>($"manga/{id}/enable/chapters", new { });
+
+    public Task<Result<MangaDisableChaptersResponse>> DisableMangaChapters(string id) =>
+        _httpClient.Post<MangaDisableChaptersResponse>($"manga/{id}/disable/chapters", new { });
 }
