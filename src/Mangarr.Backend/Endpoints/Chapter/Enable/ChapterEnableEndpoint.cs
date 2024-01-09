@@ -8,17 +8,12 @@ namespace Mangarr.Backend.Endpoints.Chapter.Enable;
 
 public class ChapterEnableEndpoint : Endpoint<ChapterEnableRequest, ChapterEnableResponse>
 {
-    private readonly IMongoCollection<ChapterProgressDocument> _chapterProgressCollection;
     private readonly IMongoCollection<RequestedChapterDocument> _requestedChapterCollection;
 
     public ChapterEnableEndpoint(
-        IMongoCollection<RequestedChapterDocument> requestedChapterCollection,
-        IMongoCollection<ChapterProgressDocument> chapterProgressCollection
-    )
-    {
+        IMongoCollection<RequestedChapterDocument> requestedChapterCollection
+    ) =>
         _requestedChapterCollection = requestedChapterCollection;
-        _chapterProgressCollection = chapterProgressCollection;
-    }
 
     public override void Configure()
     {
@@ -52,17 +47,6 @@ public class ChapterEnableEndpoint : Endpoint<ChapterEnableRequest, ChapterEnabl
         if (!result.IsAcknowledged)
         {
             ThrowError("Unable to update chapter");
-        }
-
-        ChapterProgressDocument progressDocument = await _chapterProgressCollection
-            .Find(x => x.ChapterId == req.Id)
-            .FirstOrDefaultAsync(ct);
-
-        if (progressDocument != null)
-        {
-            await _chapterProgressCollection.DeleteOneAsync(
-                ChapterProgressDocument.Filter.Eq(x => x.Id, progressDocument.Id),
-                ct);
         }
 
         await SendOkAsync(chapterDocument, ct);
