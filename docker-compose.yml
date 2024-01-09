@@ -43,7 +43,7 @@ services:
       # Exporting
       - EXPORT__PATH=/mnt/comics/ # Where to export the comics to
       # Flarsolverr
-      - FLARESOLVERR__HOST=mangarr.flaresolverr # The host of the flaresolverr instance
+      - FLARESOLVERR__HOST=http://mangarr.flaresolverr:8191 # The host of the flaresolverr instance
       # Mongo
       - MONGO__HOST=mangarr.db # The host of the mongo instance
       - MONGO__USERNAME=admin # The username of the mongo instance
@@ -51,6 +51,11 @@ services:
       # Redis
       - REDIS__HOST=mangarr.cache # The host of the redis instance
       - REDIS__PASSWORD=password # The password of the redis instance
+      # Seq
+      - SEQ__HOST=http://your.seq.host.here
+      - SEQ__KEY=your-seq-api-key
+      # Notifications
+      - NOTIFICATIONS__DISCORD=discord-webhook-url-here
 
   mangarr.frontend:
     container_name: mangarr.frontend
