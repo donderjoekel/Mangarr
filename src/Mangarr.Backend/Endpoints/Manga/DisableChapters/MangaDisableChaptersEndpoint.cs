@@ -41,7 +41,7 @@ public class MangaDisableChaptersEndpoint : Endpoint<MangaDisableChaptersRequest
         UpdateResult updateResult = await _requestedChapterCollection.UpdateManyAsync(
             RequestedChapterDocument.Filter.And(
                 RequestedChapterDocument.Filter.Eq(x => x.RequestedMangaId, manga.Id),
-                RequestedChapterDocument.Filter.Eq(x => x.MarkedForDownload, false)),
+                RequestedChapterDocument.Filter.Eq(x => x.MarkedForDownload, true)),
             RequestedChapterDocument.Update.Set(x => x.MarkedForDownload, false),
             cancellationToken: ct);
 
