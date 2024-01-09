@@ -106,7 +106,7 @@ internal class WebtoonsSource : SourceBase
                 string? episodeNumber = element.GetAttribute("data-episode-no");
                 double chapterNumber = double.Parse(episodeNumber);
                 IHtmlAnchorElement? anchor = element.FindDescendant<IHtmlAnchorElement>();
-                IHtmlSpanElement? titleElement = element.QuerySelector<IHtmlSpanElement>(".subj");
+                IHtmlSpanElement? titleElement = element.QuerySelector<IHtmlSpanElement>(".subj span");
                 IHtmlSpanElement? dateElement = element.QuerySelector<IHtmlSpanElement>(".date");
 
                 if (items.Any(x => x.Url == anchor.Href))
