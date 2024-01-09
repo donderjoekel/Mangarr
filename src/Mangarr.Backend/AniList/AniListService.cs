@@ -1,8 +1,9 @@
 ﻿using Anilist4Net;
 using Anilist4Net.Enums;
 using FluentResults;
+using Mangarr.Backend.Caching;
 
-namespace Mangarr.Backend.Services;
+namespace Mangarr.Backend.AniList;
 
 public class AniListService
 {

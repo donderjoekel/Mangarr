@@ -1,4 +1,4 @@
-﻿namespace Mangarr.Backend.Services.Notifications;
+﻿namespace Mangarr.Backend.Notifications;
 
 public interface INotificationProcessor
 {

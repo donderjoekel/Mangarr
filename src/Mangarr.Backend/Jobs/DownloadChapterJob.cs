@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using Mangarr.Backend.Data;
+using Mangarr.Backend.Notifications;
 using Mangarr.Backend.Services;
-using Mangarr.Backend.Services.Notifications;
 using MongoDB.Driver;
 using Quartz;
 using ISource = Mangarr.Backend.Sources.ISource;

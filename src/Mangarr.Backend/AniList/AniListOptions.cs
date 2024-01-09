@@ -1,4 +1,4 @@
-﻿namespace Mangarr.Backend.Configuration;
+﻿namespace Mangarr.Backend.AniList;
 
 public class AniListOptions
 {

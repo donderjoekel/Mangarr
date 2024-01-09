@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
-namespace Mangarr.Backend.Services;
+namespace Mangarr.Backend.Caching;
 
 public class CachingService
 {

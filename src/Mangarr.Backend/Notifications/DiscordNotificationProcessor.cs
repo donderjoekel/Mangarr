@@ -3,18 +3,19 @@ using Anilist4Net.Enums;
 using Discord;
 using Discord.Webhook;
 using FluentResults;
+using Mangarr.Backend.AniList;
 using MongoDB.Driver;
 
-namespace Mangarr.Backend.Services.Notifications;
+namespace Mangarr.Backend.Notifications;
 
 public class DiscordNotificationProcessor : INotificationProcessor
 {
     private readonly AniListService _aniListService;
-    private readonly DiscordWebhookClient _client;
+    private readonly DiscordWebhookClient? _client;
     private readonly IMongoCollection<SourceDocument> _sourceCollection;
 
     public DiscordNotificationProcessor(
-        DiscordWebhookClient client,
+        DiscordWebhookClient? client,
         AniListService aniListService,
         IMongoCollection<SourceDocument> sourceCollection
     )
@@ -26,6 +27,11 @@ public class DiscordNotificationProcessor : INotificationProcessor
 
     public async Task NotifyNewManga(RequestedMangaDocument requestedMangaDocument)
     {
+        if (_client == null)
+        {
+            return;
+        }
+
         Result<Media?> result = await _aniListService.GetMedia(requestedMangaDocument.SearchId);
         if (result.IsFailed)
         {
@@ -71,6 +77,11 @@ public class DiscordNotificationProcessor : INotificationProcessor
         IEnumerable<RequestedChapterDocument> newChapters
     )
     {
+        if (_client == null)
+        {
+            return Task.CompletedTask;
+        }
+
         Embed build = new EmbedBuilder()
             .WithTitle("New chapters have been added")
             .WithDescription($@"**Title**
@@ -91,6 +102,11 @@ public class DiscordNotificationProcessor : INotificationProcessor
         RequestedChapterDocument requestedChapterDocument
     )
     {
+        if (_client == null)
+        {
+            return Task.CompletedTask;
+        }
+
         Embed build = new EmbedBuilder()
             .WithTitle("Failed to download a chapter")
             .WithDescription($@"**Title**
@@ -110,6 +126,11 @@ public class DiscordNotificationProcessor : INotificationProcessor
         RequestedChapterDocument requestedChapterDocument
     )
     {
+        if (_client == null)
+        {
+            return Task.CompletedTask;
+        }
+
         Embed build = new EmbedBuilder()
             .WithTitle("Successfully downloaded a chapter")
             .WithDescription($@"**Title**

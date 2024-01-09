@@ -1,4 +1,4 @@
-﻿namespace Mangarr.Backend.Configuration;
+﻿namespace Mangarr.Backend.Caching;
 
 public class RedisOptions
 {

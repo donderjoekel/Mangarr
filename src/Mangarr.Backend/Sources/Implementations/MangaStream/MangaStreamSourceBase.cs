@@ -2,7 +2,7 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using FluentResults;
-using Mangarr.Backend.Services;
+using Mangarr.Backend.Caching;
 using Mangarr.Backend.Sources.Clients;
 using Mangarr.Backend.Sources.Extensions;
 using Mangarr.Backend.Sources.Implementations.MangaStream.Data;

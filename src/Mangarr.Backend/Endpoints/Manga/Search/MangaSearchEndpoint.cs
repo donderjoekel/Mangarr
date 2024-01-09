@@ -1,8 +1,7 @@
 ﻿using Anilist4Net;
 using Anilist4Net.Enums;
 using FluentResults;
-using Mangarr.Backend.Configuration;
-using Mangarr.Backend.Services;
+using Mangarr.Backend.AniList;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
 using Mangarr.Shared.Responses;

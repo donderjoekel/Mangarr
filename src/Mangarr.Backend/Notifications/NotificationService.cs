@@ -1,7 +1,8 @@
-﻿using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
+﻿using Mangarr.Backend.AniList;
+using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
-namespace Mangarr.Backend.Services.Notifications;
+namespace Mangarr.Backend.Notifications;
 
 public class NotificationService
 {

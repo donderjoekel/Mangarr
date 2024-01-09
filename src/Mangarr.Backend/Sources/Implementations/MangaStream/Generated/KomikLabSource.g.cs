@@ -1,6 +1,7 @@
 // Auto generated
 
 using Injectio.Attributes;
+using Mangarr.Backend.Caching;
 using Mangarr.Backend.Services;
 using Mangarr.Backend.Sources.Clients;
 

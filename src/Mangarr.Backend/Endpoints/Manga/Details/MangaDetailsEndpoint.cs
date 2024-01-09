@@ -1,6 +1,6 @@
 ﻿using Anilist4Net;
 using FluentResults;
-using Mangarr.Backend.Services;
+using Mangarr.Backend.AniList;
 using Mangarr.Backend.Sources;
 using Mangarr.Shared.Models;
 using Mangarr.Shared.Requests;
