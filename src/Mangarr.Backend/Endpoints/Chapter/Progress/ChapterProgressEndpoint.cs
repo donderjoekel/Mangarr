@@ -4,7 +4,7 @@ using Mangarr.Shared.Responses;
 using MongoDB.Driver;
 using IMapper = AutoMapper.IMapper;
 
-namespace Mangarr.Backend.Endpoints.Chapter;
+namespace Mangarr.Backend.Endpoints.Chapter.Progress;
 
 public class ChapterProgressEndpoint : Endpoint<ChapterProgressRequest, ChapterProgressResponse>
 {
