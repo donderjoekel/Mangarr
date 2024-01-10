@@ -97,7 +97,7 @@ internal abstract class MangaStreamSourceBase : SourceBase
 
             items.Add(new ChapterListItem(
                 ConstructId(anchorElement.Href, url, chapterNumber.ToString()),
-                titleElement.TextContent,
+                titleElement.TextContent.Trim().Replace("\n",string.Empty).Replace("\t", string.Empty),
                 chapterNumber,
                 DateTime.Parse(dateElement.TextContent).Date,
                 anchorElement.Href));
