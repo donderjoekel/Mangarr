@@ -31,7 +31,7 @@ public static class HostExtensions
                         .WithIdentity("CacheSourceSchedulerJob")
                         .WithDescription("Cache enabled sources")
                         .ForJob(CacheSourceSchedulerJob.JobKey)
-                        .WithCronSchedule("0 0/30 0 ? * * *");
+                        .WithCronSchedule("0 0/30 0 ? * * *", x => x.InTimeZone(TimeZoneInfo.Local));
                 });
 
                 options.AddTrigger(configure =>
@@ -40,7 +40,7 @@ public static class HostExtensions
                         .WithIdentity("IndexMangaSchedulerJob")
                         .WithDescription("Check for new chapters")
                         .ForJob(IndexMangaSchedulerJob.JobKey)
-                        .WithCronSchedule("0 0 * ? * * *");
+                        .WithCronSchedule("0 0 0/4 ? * * *", x => x.InTimeZone(TimeZoneInfo.Local));
                 });
 
                 options.AddTrigger(configure =>
@@ -50,7 +50,7 @@ public static class HostExtensions
                         .WithDescription("Download requested chapters")
                         .ForJob(DownloadChapterSchedulerJob.JobKey)
                         .StartNow()
-                        .WithCronSchedule("0 10 * ? * * *");
+                        .WithCronSchedule("0 10 0/4 ? * * *", x => x.InTimeZone(TimeZoneInfo.Local));
                 });
             });
 }
