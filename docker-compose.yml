@@ -3,6 +3,7 @@ services:
   mangarr.db:
     container_name: mangarr.db
     image: mongo
+    hostname: mangarr.db
     restart: always
     ports:
       - 27017:27017
@@ -15,6 +16,7 @@ services:
   mangarr.cache:
     container_name: mangarr.cache
     image: redis/redis-stack # This is using the redis-stack image, consider switching to the regular redis image
+    hostname: mangarr.cache
     restart: always
     ports:
       - 6379:6379
@@ -25,13 +27,15 @@ services:
   mangarr.flaresolverr:
     container_name: mangarr.flaresolverr
     image: flaresolverr/flaresolverr
+    hostname: mangarr.flaresolverr
     restart: always
     ports:
-      - 8189:8189
+      - 8191:8191
 
   mangarr.backend:
     container_name: mangarr.backend
     image: tnrd/mangarr.backend:latest
+    hostname: mangarr.backend
     ports:
       - 6565:80
       - 6566:443
