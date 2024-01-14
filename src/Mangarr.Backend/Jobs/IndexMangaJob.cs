@@ -116,7 +116,16 @@ public class IndexMangaJob : IJob
                 CreationDate = DateTime.UtcNow
             };
 
-            requestedChapterDocument.Downloaded = _exportService.DoesChapterExist(manga, requestedChapterDocument);
+            Result<bool> doesChapterExistResult =
+                await _exportService.DoesChapterExist(manga, requestedChapterDocument);
+
+            if (doesChapterExistResult.IsFailed)
+            {
+                // TODO: Should there be a log here that it failed because of some reason?
+                continue;
+            }
+
+            requestedChapterDocument.Downloaded = doesChapterExistResult.Value;
 
             await _chapterCollection.InsertOneAsync(requestedChapterDocument, null, ct);
 

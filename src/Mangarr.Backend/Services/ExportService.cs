@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using FluentResults;
-using Mangarr.Backend.Configuration;
-using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
 
@@ -9,9 +8,10 @@ namespace Mangarr.Backend.Services;
 
 public class ExportService
 {
-    private readonly ExportOptions _exportOptions;
+    private readonly IMongoCollection<RootFolderDocument> _rootFolderCollection;
 
-    public ExportService(IOptions<ExportOptions> exportOptions) => _exportOptions = exportOptions.Value;
+    public ExportService(IMongoCollection<RootFolderDocument> rootFolderCollection) =>
+        _rootFolderCollection = rootFolderCollection;
 
     public async Task<Result> Export(
         RequestedMangaDocument requestedMangaDocument,
@@ -21,10 +21,19 @@ public class ExportService
     {
         try
         {
+            RootFolderDocument? rootFolderDocument = await _rootFolderCollection
+                .Find(x => x.Id == requestedMangaDocument.RootFolderId)
+                .FirstOrDefaultAsync();
+
+            if (rootFolderDocument == null)
+            {
+                return Result.Fail("Root folder missing");
+            }
+
             string mangaTitle = requestedMangaDocument.Title;
             string chapterTitle = requestedChapterDocument.ChapterNumber.ToString(CultureInfo.InvariantCulture);
             string archiveName = $"{mangaTitle} - {chapterTitle}.cbz";
-            string archiveDirectory = Path.Combine(_exportOptions.Path, mangaTitle);
+            string archiveDirectory = Path.Combine(rootFolderDocument.Path, mangaTitle);
 
             if (!Directory.Exists(archiveDirectory))
             {
@@ -42,15 +51,24 @@ public class ExportService
         }
     }
 
-    public bool DoesChapterExist(
+    public async Task<Result<bool>> DoesChapterExist(
         RequestedMangaDocument requestedMangaDocument,
         RequestedChapterDocument requestedChapterDocument
     )
     {
+        RootFolderDocument? rootFolderDocument = await _rootFolderCollection
+            .Find(x => x.Id == requestedMangaDocument.RootFolderId)
+            .FirstOrDefaultAsync();
+
+        if (rootFolderDocument == null)
+        {
+            return Result.Fail("Root folder missing");
+        }
+
         string mangaTitle = requestedMangaDocument.Title;
         string chapterTitle = requestedChapterDocument.ChapterNumber.ToString(CultureInfo.InvariantCulture);
         string archiveName = $"{mangaTitle} - {chapterTitle}.cbz";
-        string archiveDirectory = Path.Combine(_exportOptions.Path, mangaTitle);
+        string archiveDirectory = Path.Combine(rootFolderDocument.Path, mangaTitle);
 
         if (!Directory.Exists(archiveDirectory))
         {
