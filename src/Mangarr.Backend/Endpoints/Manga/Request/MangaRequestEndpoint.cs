@@ -80,6 +80,7 @@ public class MangaRequestEndpoint : Endpoint<MangaRequestRequest, MangaRequestRe
             MangaId = req.MangaId,
             SourceId = req.ProviderId,
             SearchId = req.SearchId,
+            RootFolderId = req.FolderId,
             Title = title,
             CoverUrl = media.CoverImage.ExtraLarge,
             NewChaptersOnly = req.NewChaptersOnly,
