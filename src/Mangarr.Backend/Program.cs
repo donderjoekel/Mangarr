@@ -30,13 +30,11 @@ builder.Services.Configure<ExportOptions>(builder.Configuration.GetSection(Expor
 builder.AddMangarrAniList();
 builder.AddMangarrCaching();
 builder.AddMangarrDatabase();
+builder.AddMangarrInitializers();
 builder.AddMangarrLogging();
 builder.AddMangarrJobs();
 builder.AddMangarrNotifications();
 builder.AddMangarrSources();
-
-builder.Services.AddTransient<IInitializer, SourceInitializer>();
-builder.Services.AddTransient<IInitializer, JobsInitializer>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ArchiveService>();
