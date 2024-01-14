@@ -4,15 +4,13 @@ using IdGen.DependencyInjection;
 using Mangarr.Backend.AniList;
 using Mangarr.Backend.Caching;
 using Mangarr.Backend.Extensions;
+using Mangarr.Backend.Initialization;
 using Mangarr.Backend.Jobs;
 using Mangarr.Backend.Logging;
 using Mangarr.Backend.Notifications;
 using Mangarr.Backend.Services;
 using Mangarr.Backend.Sources;
-using MongoDB.Driver;
-using Quartz;
 using ExportOptions = Mangarr.Backend.Configuration.ExportOptions;
-using ISource = Mangarr.Backend.Sources.ISource;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +34,9 @@ builder.AddMangarrLogging();
 builder.AddMangarrJobs();
 builder.AddMangarrNotifications();
 builder.AddMangarrSources();
+
+builder.Services.AddTransient<IInitializer, SourceInitializer>();
+builder.Services.AddTransient<IInitializer, JobsInitializer>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ArchiveService>();
@@ -74,57 +75,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUi3(x => x.ConfigureDefaults());
 }
 
+IEnumerable<IInitializer> initializers =
+    app.Services.GetRequiredService<IEnumerable<IInitializer>>().OrderBy(x => x.Order);
+
+foreach (IInitializer initializer in initializers)
 {
-    // Initialize sources and update DB
-    List<ISource> sources = app.Services.GetRequiredService<IEnumerable<ISource>>().ToList();
-    IMongoCollection<SourceDocument> sourceCollection =
-        app.Services.GetRequiredService<IMongoCollection<SourceDocument>>();
-
-    List<SourceDocument> existingSources = await sourceCollection.Find(x => true).ToListAsync();
-
-    foreach (ISource source in sources)
-    {
-        await source.Initialize();
-
-        if (existingSources.Any(x => x.Identifier == source.Identifier))
-        {
-            continue;
-        }
-
-        SourceDocument document = new() { Identifier = source.Identifier, Name = source.Name, Url = source.Url };
-        await sourceCollection.InsertOneAsync(document);
-    }
-
-    foreach (SourceDocument existingSource in existingSources)
-    {
-        if (sources.All(x => x.Identifier != existingSource.Identifier))
-        {
-            await sourceCollection.DeleteOneAsync(x => x.Identifier == existingSource.Identifier);
-        }
-    }
-}
-
-{
-    ISchedulerFactory schedulerFactory = app.Services.GetRequiredService<ISchedulerFactory>();
-    IScheduler scheduler = await schedulerFactory.GetScheduler();
-
-    ITrigger indexMangaTrigger = TriggerBuilder.Create()
-        .WithIdentity("LaunchIndexMangaSchedulerJob")
-        .WithDescription("(Initial) Check for new chapters")
-        .ForJob(IndexMangaSchedulerJob.JobKey)
-        .StartAt(DateTimeOffset.UtcNow.AddSeconds(15))
-        .Build();
-
-    await scheduler.ScheduleJob(indexMangaTrigger);
-
-    ITrigger downloadChapterTrigger = TriggerBuilder.Create()
-        .WithIdentity("LaunchDownloadChapterSchedulerJob")
-        .WithDescription("(Initial) Download requested chapters")
-        .ForJob(DownloadChapterSchedulerJob.JobKey)
-        .StartAt(DateTimeOffset.UtcNow.AddSeconds(30))
-        .Build();
-
-    await scheduler.ScheduleJob(downloadChapterTrigger);
+    await initializer.Initialize();
 }
 
 await app.RunAsync();
