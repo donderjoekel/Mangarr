@@ -22,30 +22,49 @@ public class CachingService
 
     public bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? value)
     {
+        value = default;
+
         RedisValue redisValue = _database.StringGet(key);
-        if (redisValue.HasValue)
+        if (!redisValue.HasValue)
         {
-            try
+            return false;
+        }
+
+        try
+        {
+            JsonData? jsonData = JsonConvert.DeserializeObject<JsonData>(redisValue!, _serializerSettings);
+
+            if (jsonData == null)
             {
-                value = JsonConvert.DeserializeObject<T>(redisValue!, _serializerSettings)!;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Failed to deserialize value from cache");
-                value = default;
+                _logger.LogError("Deserialization from cache returned null");
                 return false;
             }
 
+            if (jsonData.Value is not T converted)
+            {
+                _logger.LogError("Failed to convert value from cache");
+                return false;
+            }
+
+            value = converted;
             return true;
         }
-
-        value = default;
-        return false;
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Failed to deserialize value from cache");
+            return false;
+        }
     }
 
     public void Set<T>(string key, T value, TimeSpan? expiry = null)
     {
-        string serializedValue = JsonConvert.SerializeObject(value, _serializerSettings);
+        JsonData jsonData = new() { Value = value };
+        string serializedValue = JsonConvert.SerializeObject(jsonData, _serializerSettings);
         _database.StringSet(key, serializedValue, expiry);
+    }
+
+    private class JsonData
+    {
+        public object Value { get; set; } = null!;
     }
 }
