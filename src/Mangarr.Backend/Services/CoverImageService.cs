@@ -1,17 +1,27 @@
 ﻿using FluentResults;
+using Mangarr.Backend.Caching;
 
 namespace Mangarr.Backend.Services;
 
 public class CoverImageService
 {
+    private readonly CachingService _cachingService;
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public CoverImageService(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
+    public CoverImageService(IHttpClientFactory httpClientFactory, CachingService cachingService)
+    {
+        _httpClientFactory = httpClientFactory;
+        _cachingService = cachingService;
+    }
 
     public async Task<Result<byte[]>> DownloadCoverImage(RequestedMangaDocument requestedMangaDocument)
     {
-        HttpClient httpClient = _httpClientFactory.CreateClient();
+        if (_cachingService.TryGetValue(requestedMangaDocument.Id, out byte[]? cachedCoverImage))
+        {
+            return Result.Ok(cachedCoverImage);
+        }
 
+        HttpClient httpClient = _httpClientFactory.CreateClient();
         HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(requestedMangaDocument.CoverUrl);
 
         try
@@ -25,7 +35,9 @@ public class CoverImageService
 
         try
         {
-            return await httpResponseMessage.Content.ReadAsByteArrayAsync();
+            byte[] buffer = await httpResponseMessage.Content.ReadAsByteArrayAsync();
+            _cachingService.Set(requestedMangaDocument.Id, buffer, TimeSpan.FromDays(1));
+            return Result.Ok(buffer);
         }
         catch (Exception e)
         {
