@@ -1,5 +1,9 @@
 ﻿using FluentResults;
+using Mangarr.Backend.Archival;
+using Mangarr.Backend.Conversion;
+using Mangarr.Backend.Cover;
 using Mangarr.Backend.Data;
+using Mangarr.Backend.Downloading;
 using Mangarr.Backend.Notifications;
 using Mangarr.Backend.Services;
 using MongoDB.Driver;
@@ -18,6 +22,7 @@ public class DownloadChapterJob : IJob
     private readonly ArchiveService _archiveService;
     private readonly IMongoCollection<RequestedChapterDocument> _chapterCollection;
     private readonly ComicInfoService _comicInfoService;
+    private readonly ConversionService _conversionService;
     private readonly CoverImageService _coverImageService;
     private readonly ExportService _exportService;
     private readonly ILogger<DownloadChapterJob> _logger;
@@ -26,6 +31,17 @@ public class DownloadChapterJob : IJob
     private readonly PageDownloaderService _pageDownloaderService;
     private readonly IMongoCollection<ChapterProgressDocument> _progressCollection;
     private readonly IEnumerable<ISource> _sources;
+    private Archive _archive = null!;
+
+    private RequestedChapterDocument _chapter = null!;
+    private ComicInfo _comicInfo = null!;
+    private CoverImage _coverImage = null!;
+    private CancellationToken _ct;
+    private DownloadedPages _downloadedPages = null!;
+    private RequestedMangaDocument _manga = null!;
+    private PageList _pageList = null!;
+    private int _progress;
+    private ISource _source = null!;
 
     public DownloadChapterJob(
         ILogger<DownloadChapterJob> logger,
@@ -38,7 +54,8 @@ public class DownloadChapterJob : IJob
         CoverImageService coverImageService,
         ExportService exportService,
         PageDownloaderService pageDownloaderService,
-        NotificationService notificationService
+        NotificationService notificationService,
+        ConversionService conversionService
     )
     {
         _logger = logger;
@@ -52,154 +69,241 @@ public class DownloadChapterJob : IJob
         _exportService = exportService;
         _pageDownloaderService = pageDownloaderService;
         _notificationService = notificationService;
+        _conversionService = conversionService;
+
+        _pageDownloaderService.Progress += OnPageDownloaderProgress;
     }
 
     public async Task Execute(IJobExecutionContext context)
     {
+        _ct = context.CancellationToken;
+
         if (!context.MergedJobDataMap.TryGetString(IdDataKey, out string? id))
         {
             _logger.LogError("Unable to get id from job data");
             return;
         }
 
-        RequestedChapterDocument chapter = await _chapterCollection
-            .Find(x => x.Id == id)
-            .FirstOrDefaultAsync(context.CancellationToken);
-
-        if (chapter == null)
+        if (!await TryGetChapter(id!))
         {
             _logger.LogInformation("Chapter with id '{Id}' no longer exists, skipping download", id);
             return;
         }
 
-        RequestedMangaDocument manga = await _mangaCollection
-            .Find(x => x.Id == chapter.RequestedMangaId)
-            .FirstOrDefaultAsync(context.CancellationToken);
-
-        if (manga == null)
+        if (!await TryGetManga())
         {
             _logger.LogInformation("Manga with id '{Id}' no longer exists, skipping download",
-                chapter.RequestedMangaId);
+                _chapter.RequestedMangaId);
             return;
         }
 
-        ISource? source = _sources.FirstOrDefault(x => x.Identifier == manga.SourceId);
+        if (!TryGetSource())
+        {
+            _logger.LogError("Unable to find source with id '{Id}', aborting download", _manga!.SourceId);
+            return;
+        }
+
+        await SetProgress(5);
+
+        if (!await TryGetPageList())
+        {
+            await MarkChapterDownloadFailed();
+            return;
+        }
+
+        await SetProgress(10);
+
+        if (!await TryDownloadPages())
+        {
+            await MarkChapterDownloadFailed();
+            return;
+        }
+
+        if (!await TryCreateComicInfo())
+        {
+            await MarkChapterDownloadFailed();
+            return;
+        }
+
+        await SetProgress(85);
+
+        if (!await TryGetCoverImage())
+        {
+            await MarkChapterDownloadFailed();
+            return;
+        }
+
+        await SetProgress(90);
+
+        if (!await TryCreateArchive())
+        {
+            await MarkChapterDownloadFailed();
+            return;
+        }
+
+        await SetProgress(95);
+
+        if (!await TryExportArchive())
+        {
+            await MarkChapterDownloadFailed();
+            return;
+        }
+
+        await SetProgress(100);
+        await MarkChapterDownloadSucceeded(_manga, _chapter, _ct);
+    }
+
+    private async Task<bool> TryGetChapter(string id)
+    {
+        _chapter = await _chapterCollection
+            .Find(x => x.Id == id)
+            .FirstOrDefaultAsync(_ct);
+
+        return _chapter != null;
+    }
+
+    private async Task<bool> TryGetManga()
+    {
+        _manga = await _mangaCollection
+            .Find(x => x.Id == _chapter!.RequestedMangaId)
+            .FirstOrDefaultAsync(_ct);
+
+        return _manga != null;
+    }
+
+    private bool TryGetSource()
+    {
+        ISource? source = _sources.FirstOrDefault(x => x.Identifier == _manga.SourceId);
 
         if (source == null)
         {
-            _logger.LogError("Unable to find source with id '{Id}', aborting download", manga.SourceId);
-            return;
+            return false;
         }
 
-        await UpdateProgress(chapter, 5, context.CancellationToken);
-        Result<PageList> pageListResult = await source.GetPageList(chapter.ChapterId);
-
-        if (pageListResult.IsFailed)
-        {
-            _logger.LogError("Unable to get page list: {Result}", pageListResult.ToString());
-            await MarkChapterDownloadFailed(manga, chapter, context.CancellationToken);
-            return;
-        }
-
-        await UpdateProgress(chapter, 10, context.CancellationToken);
-
-        Result<List<byte[]>> downloadPagesResult = await _pageDownloaderService.DownloadPages(source,
-            pageListResult.Value,
-            p => UpdateProgress(chapter, 10 + (int)Math.Round(p * 0.7), context.CancellationToken));
-
-        if (downloadPagesResult.IsFailed)
-        {
-            _logger.LogError("Unable to download pages: {Result}", downloadPagesResult.ToString());
-            await MarkChapterDownloadFailed(manga, chapter, context.CancellationToken);
-            return;
-        }
-
-        Result<ComicInfo> comicInfoResult = await _comicInfoService.Create(manga.SearchId,
-            chapter.ChapterNumber,
-            downloadPagesResult.Value.Count);
-
-        if (comicInfoResult.IsFailed)
-        {
-            _logger.LogError("Unable to create comic info: {Result}", comicInfoResult.ToString());
-            await MarkChapterDownloadFailed(manga, chapter, context.CancellationToken);
-            return;
-        }
-
-        await UpdateProgress(chapter, 80, context.CancellationToken);
-
-        Result<byte[]> coverImageResult = await _coverImageService.DownloadCoverImage(manga);
-
-        if (coverImageResult.IsFailed)
-        {
-            _logger.LogError("Unable to download cover image: {Result}", coverImageResult.ToString());
-            await MarkChapterDownloadFailed(manga, chapter, context.CancellationToken);
-            return;
-        }
-
-        await UpdateProgress(chapter, 90, context.CancellationToken);
-
-        Result<byte[]> archiveResult = await _archiveService.CreateArchive(comicInfoResult.Value,
-            coverImageResult.Value,
-            downloadPagesResult.Value,
-            context.CancellationToken);
-
-        if (archiveResult.IsFailed)
-        {
-            _logger.LogError("Unable to create archive: {Result}", archiveResult.ToString());
-            await MarkChapterDownloadFailed(manga, chapter, context.CancellationToken);
-            return;
-        }
-
-        await UpdateProgress(chapter, 95, context.CancellationToken);
-
-        Result exportResult = await _exportService.Export(manga, chapter, archiveResult.Value);
-
-        if (exportResult.IsFailed)
-        {
-            _logger.LogError("Unable to export archive: {Result}", exportResult.ToString());
-            await MarkChapterDownloadFailed(manga, chapter, context.CancellationToken);
-            return;
-        }
-
-        await UpdateProgress(chapter, 100, context.CancellationToken);
-        await MarkChapterDownloadSucceeded(manga, chapter, context.CancellationToken);
+        _source = source;
+        return true;
     }
 
-    private async Task UpdateProgress(
-        RequestedChapterDocument requestedChapterDocument,
-        int progress,
-        CancellationToken ct
-    ) =>
+    private async Task<bool> TryGetPageList()
+    {
+        Result<PageList> result = await _source.GetPageList(_chapter.ChapterId);
+
+        if (result.IsFailed)
+        {
+            _logger.LogError("Unable to get page list: {Result}", result.ToString());
+            return false;
+        }
+
+        _pageList = result.Value;
+        return true;
+    }
+
+    private async Task<bool> TryDownloadPages()
+    {
+        Result<DownloadedPages> downloadPages = await _pageDownloaderService.DownloadPages(_source, _pageList);
+
+        if (downloadPages.IsFailed)
+        {
+            _logger.LogError("Unable to download pages: {Result}", downloadPages.ToString());
+            return false;
+        }
+
+        _downloadedPages = downloadPages.Value;
+        return true;
+    }
+
+    private async Task<bool> TryCreateComicInfo()
+    {
+        Result<ComicInfo> result = await _comicInfoService.Create(_manga.SearchId,
+            _chapter.ChapterNumber,
+            _downloadedPages.Pages.Count);
+
+        if (result.IsFailed)
+        {
+            _logger.LogError("Unable to create comic info: {Result}", result.ToString());
+            return false;
+        }
+
+        _comicInfo = result.Value;
+        return true;
+    }
+
+    private async Task<bool> TryGetCoverImage()
+    {
+        Result<CoverImage> result = await _coverImageService.GetCoverImage(_manga);
+
+        if (result.IsFailed)
+        {
+            _logger.LogError("Unable to get cover image: {Result}", result.ToString());
+            return false;
+        }
+
+        _coverImage = result.Value;
+        return true;
+    }
+
+    private async Task<bool> TryCreateArchive()
+    {
+        Result<Archive> archive = await _archiveService.CreateArchive(_comicInfo, _coverImage, _downloadedPages, _ct);
+
+        if (archive.IsFailed)
+        {
+            _logger.LogError("Unable to create archive: {Result}", archive.ToString());
+            return false;
+        }
+
+        _archive = archive.Value;
+        return true;
+    }
+
+    private async Task<bool> TryExportArchive()
+    {
+        Result result = await _exportService.Export(_manga, _chapter, _archive);
+
+        if (result.IsFailed)
+        {
+            _logger.LogError("Unable to export archive: {Result}", result.ToString());
+            return false;
+        }
+
+        return true;
+    }
+
+    private Task OnPageDownloaderProgress(int progress) => SetProgress(10 + (int)Math.Round(progress * 0.8f));
+
+    private async Task SetProgress(int progress)
+    {
+        _progress = progress;
+
         await _progressCollection.UpdateOneAsync(
-            ChapterProgressDocument.Filter.Eq(x => x.ChapterId, requestedChapterDocument.Id),
+            ChapterProgressDocument.Filter.Eq(x => x.ChapterId, _chapter.Id),
             ChapterProgressDocument.Update.Combine(
-                ChapterProgressDocument.Update.Set(x => x.Progress, progress),
+                ChapterProgressDocument.Update.Set(x => x.Progress, _progress),
                 ChapterProgressDocument.Update.Set(x => x.IsActive, true)),
             null,
-            ct);
+            _ct);
+    }
 
-    private async Task MarkChapterDownloadFailed(
-        RequestedMangaDocument requestedMangaDocument,
-        RequestedChapterDocument requestedChapterDocument,
-        CancellationToken ct
-    )
+    private Task IncrementProgress(int amount) => SetProgress(_progress + amount);
+
+    private async Task MarkChapterDownloadFailed()
     {
         await _chapterCollection.UpdateOneAsync(
-            RequestedChapterDocument.Filter.Eq(x => x.Id, requestedChapterDocument.Id),
+            RequestedChapterDocument.Filter.Eq(x => x.Id, _chapter.Id),
             RequestedChapterDocument.Update.Set(x => x.Downloaded, false),
             null,
-            ct);
+            _ct);
 
         await _progressCollection.UpdateOneAsync(
-            ChapterProgressDocument.Filter.Eq(x => x.ChapterId, requestedChapterDocument.Id),
+            ChapterProgressDocument.Filter.Eq(x => x.ChapterId, _chapter.Id),
             ChapterProgressDocument.Update.Combine(
                 ChapterProgressDocument.Update.Set(x => x.Progress, 0),
                 ChapterProgressDocument.Update.Set(x => x.IsActive, false),
                 ChapterProgressDocument.Update.Set(x => x.IsFailed, true)),
             null,
-            ct);
+            _ct);
 
-        await _notificationService.NotifyChapterDownloadFailed(requestedMangaDocument, requestedChapterDocument);
+        await _notificationService.NotifyChapterDownloadFailed(_manga, _chapter);
     }
 
     private async Task MarkChapterDownloadSucceeded(

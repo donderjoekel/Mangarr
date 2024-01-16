@@ -23,7 +23,7 @@ public static class HostExtensions
 
                 options.AddJob<DownloadChapterSchedulerJob>(DownloadChapterSchedulerJob.JobKey);
                 options.AddJob<DownloadChapterJob>(DownloadChapterJob.JobKey, configure => configure.StoreDurably())
-                    .UseDefaultThreadPool(3);
+                    .UseDefaultThreadPool(1);
 
                 options.AddTrigger(configure =>
                 {

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using FluentResults;
+using Mangarr.Backend.Archival;
 using MongoDB.Driver;
 using RequestedChapterDocument = Mangarr.Backend.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Backend.Database.Documents.RequestedMangaDocument;
@@ -16,7 +17,7 @@ public class ExportService
     public async Task<Result> Export(
         RequestedMangaDocument requestedMangaDocument,
         RequestedChapterDocument requestedChapterDocument,
-        byte[] archiveBytes
+        Archive archive
     )
     {
         try
@@ -32,7 +33,7 @@ public class ExportService
 
             string mangaTitle = requestedMangaDocument.Title;
             string chapterTitle = requestedChapterDocument.ChapterNumber.ToString(CultureInfo.InvariantCulture);
-            string archiveName = $"{mangaTitle} - {chapterTitle}.cbz";
+            string archiveName = $"{mangaTitle} - {chapterTitle}{archive.Extension}";
             string archiveDirectory = Path.Combine(rootFolderDocument.Path, mangaTitle);
 
             if (!Directory.Exists(archiveDirectory))
@@ -41,7 +42,7 @@ public class ExportService
             }
 
             string archivePath = Path.Combine(archiveDirectory, archiveName);
-            await File.WriteAllBytesAsync(archivePath, archiveBytes);
+            await File.WriteAllBytesAsync(archivePath, archive.Data);
 
             return Result.Ok();
         }

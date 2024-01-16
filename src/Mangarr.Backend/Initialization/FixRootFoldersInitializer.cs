@@ -25,6 +25,12 @@ public class FixRootFoldersInitializer : IInitializer
 
     async Task IInitializer.Initialize()
     {
+        await CreateExportRootFolder();
+        await FixMissingRootFolders();
+    }
+
+    private async Task CreateExportRootFolder()
+    {
         long rootFolderCount = await _rootFolderCollection.CountDocumentsAsync(RootFolderDocument.Filter.Empty);
         if (rootFolderCount != 0)
         {
@@ -35,7 +41,10 @@ public class FixRootFoldersInitializer : IInitializer
         {
             await _rootFolderCollection.InsertOneAsync(new RootFolderDocument { Path = _exportOptions.Path });
         }
+    }
 
+    private async Task FixMissingRootFolders()
+    {
         List<RootFolderDocument> rootFolderDocuments = await _rootFolderCollection.Find(x => true).ToListAsync();
 
         if (rootFolderDocuments.Count == 0)
