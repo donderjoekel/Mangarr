@@ -1,0 +1,32 @@
+﻿@page "/activity"
+@using Mangarr.Stack.Extensions
+
+<TopToolbar/>
+
+<div id="wrapper" class="overflow-auto p-4">
+    @if (_items.Count == 0)
+    {
+        <p class="lead">Nothing is being downloaded right now</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Manga</th>
+                    <th>Chapter</th>
+                    <th>Progress</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ((ChapterProgressDocument? item, int index) in _items.WithIndex())
+                {
+                    <ActivityItem Item="@item" Index="@(index + 1)"/>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

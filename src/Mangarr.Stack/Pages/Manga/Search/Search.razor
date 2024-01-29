@@ -1,0 +1,52 @@
+﻿@page "/manga/search"
+
+<TopToolbar>
+    <div id="toolbar-left" class="ms-3">
+
+        <div class="h-100">
+            <button class="btn h-100" type="button" @onclick="ToggleAdult">
+                @if (SettingsApi.AniList.AllowAdult)
+                {
+                    <i class="bi bi-explicit-fill fs-2"></i>
+                }
+                else
+                {
+                    <i class="bi bi-explicit fs-2"></i>
+                }
+            </button>
+        </div>
+    </div>
+</TopToolbar>
+
+<div id="wrapper" class="overflow-auto p-4">
+    <form>
+        <input class="form-control" type="text" placeholder="eg: Boku No Hero" @oninput="SearchQueryChanged">
+    </form>
+    <hr>
+    @if (SearchFailed)
+    {
+        <p class="lead">Uh oh, seems like something went wrong, please try again in a bit!</p>
+        <p>@_failureResult!.ToString()</p>
+    }
+    else if (!_hasSearched)
+    {
+        <p class="lead">Use the search bar to look for manga</p>
+    }
+    else if (_isSearching)
+    {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status"></div>
+        </div>
+    }
+    else if (_searchResults.Count == 0)
+    {
+        <p class="lead">Uh oh, couldn't find anything, try searching for something else!</p>
+    }
+    else
+    {
+        foreach (Media item in _searchResults)
+        {
+            <SearchResultItem Item="@item"/>
+        }
+    }
+</div>

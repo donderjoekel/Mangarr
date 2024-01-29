@@ -1,0 +1,7 @@
+﻿<div class="d-flex flex-column card p-2 me-2 content-source-item">
+    <img class="content-source-item-cover" src="@Item.CoverUrl" alt="cover" referrerpolicy="no-referrer">
+    <p class="text-truncate">@Item.Name</p>
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#add-manga-modal-@SafeMangaId">Select</button>
+</div>
+
+<AddModal SearchId="@SearchId" SourceId="@SourceId" MangaId="@Item.Id"/>

@@ -1,0 +1,116 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="Sources\Implementations\Madara\MadaraSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MadaraSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\Madara\MadaraSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MadaraSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\MangaStream\MangaStreamSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MangaStreamSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\MangaStream\MangaStreamSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MangaStreamSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\NepNep\NepNepSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NepNepSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\NepNep\NepNepSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NepNepSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\BuddyComplex\BuddyComplexSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuddyComplexSourceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Sources\Implementations\BuddyComplex\BuddyComplexSourceGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuddyComplexSourceGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sources\Implementations\Madara\MadaraSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MadaraSourceGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Sources\Implementations\MangaStream\MangaStreamSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MangaStreamSourceGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Sources\Implementations\NepNep\NepNepSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NepNepSourceGenerator.cs</LastGenOutput>
+    </None>
+    <None Update="Sources\Implementations\BuddyComplex\BuddyComplexSourceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BuddyComplexSourceGenerator.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.0.7"/>
+    <PackageReference Include="Anilist4Net" Version="1.5.0"/>
+    <PackageReference Include="Base64UrlEncoder" Version="1.0.1"/>
+    <PackageReference Include="Discord.Net.Webhook" Version="3.13.0"/>
+    <PackageReference Include="FlareSolverrSharp" Version="3.0.5"/>
+    <PackageReference Include="FluentResults" Version="3.15.2"/>
+    <PackageReference Include="Humanizer.Core" Version="2.14.1"/>
+    <PackageReference Include="Injectio" Version="3.1.0"/>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.1"/>
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0"/>
+    <PackageReference Include="MongoDB.Driver" Version="2.23.1"/>
+    <PackageReference Include="NRedisStack" Version="0.11.0"/>
+    <PackageReference Include="PropertyChanged.Blazor.SourceGenerator" Version="0.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0"/>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0"/>
+    <PackageReference Include="Serilog.Sinks.Seq" Version="6.0.0"/>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.2"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.eot"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.otf"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.ttf"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.woff"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md"/>
+    <_ContentIncludedByDefault Remove="wwwroot\css\site.css"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
+  </ItemGroup>
+
+</Project>
