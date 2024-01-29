@@ -1,6 +1,9 @@
 # Mangarr
 Mangarr is an *arr (sonarr, radarr) inspired approach to downloading manga. In contrast to the arr suite it does not do this by making use of newsgroups and torrents, but instead it uses a collection of sources.
 
+![image](https://github.com/tnrd-org/Mangarr/assets/5531467/3a2f21b0-54e8-4e7c-8110-53ae6341eac7)
+
+
 # Getting Started
 
 ## Installation
