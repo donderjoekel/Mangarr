@@ -196,11 +196,9 @@ Please report any issues that you run into, and also feel free to suggest new fe
 - Implement of the toolbar where it is needed
 - Proper mobile support
 - Migrating between sources
-- Root folders
 - More (and working) settings
 - More sources
 
 # Known issues
 
-- Toolbar has no functionality
 - Pages don't automatically refresh
