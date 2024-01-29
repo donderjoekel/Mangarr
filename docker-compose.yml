@@ -32,20 +32,16 @@ services:
     ports:
       - 8191:8191
 
-  mangarr.backend:
-    container_name: mangarr.backend
-    image: tnrd/mangarr.backend:latest
-    hostname: mangarr.backend
+  mangarr.stack:
+    container_name: mangarr.stack
+    image: tnrd/mangarr.stack:latest
+    hostname: mangarr.stack
     ports:
       - 6565:80
       - 6566:443
     volumes:
       - ./data/comics:/mnt/comics
     environment:
-      # AniList
-      - ANILIST__ALLOWADULT=false # Whether you want to allow hentai content or not
-      # Exporting
-      - EXPORT__PATH=/mnt/comics/ # Where to export the comics to
       # Flarsolverr
       - FLARESOLVERR__HOST=http://mangarr.flaresolverr:8191 # The host of the flaresolverr instance
       # Mongo
@@ -55,19 +51,8 @@ services:
       # Redis
       - REDIS__HOST=mangarr.cache # The host of the redis instance
       - REDIS__PASSWORD=password # The password of the redis instance
-      # Seq
+      # Seq - Optional
       - SEQ__HOST=http://your.seq.host.here
       - SEQ__KEY=your-seq-api-key
-      # Notifications
+      # Notifications - Optional
       - NOTIFICATIONS__DISCORD=discord-webhook-url-here
-
-  mangarr.frontend:
-    container_name: mangarr.frontend
-    image: tnrd/mangarr.frontend
-    ports:
-      - 6665:80
-      - 6666:443
-    environment:
-      # Backend
-      - BACKEND__HOST=http://mangarr.backend # The host of the backend instance
-
