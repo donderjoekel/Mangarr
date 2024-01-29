@@ -1,0 +1,18 @@
+﻿<tr>
+    <td>@Item.Name</td>
+    <td>
+        <a href="@Item.Url" target="_blank">@Item.Url</a>
+    </td>
+    <td>
+        @if (_isUpdating)
+        {
+            <Spinner/>
+        }
+        else
+        {
+            <div class="form-check form-switch">
+                <input type="checkbox" class="form-check-input" role="switch" checked="@Item.Enabled" @onchange="ToggleEnabledAsync">
+            </div>
+        }
+    </td>
+</tr>

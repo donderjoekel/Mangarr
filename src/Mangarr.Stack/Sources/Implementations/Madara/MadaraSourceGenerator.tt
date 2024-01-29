@@ -1,0 +1,188 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+
+<#
+    List<(string,string,string,bool,bool,bool)> models = new()
+    {
+        ("adultwebtoon","Adult Webtoon","https://adultwebtoon.com",false,false,true),
+        ("allporncomic","AllPornComic","https://allporncomic.com",false,true,false),
+        ("aquamanga","Aqua Manga","https://aquamanga.org",false,true,false),
+        ("aquascans","AQUA Scans","https://aquascans.com",false,true,false),
+        ("arcanescans","Arcanescans","https://arcanescans.com",false,true,false),
+        ("babelwuxia","Babel Wuxia","https://babelwuxia.com",true,true,false),
+        ("bananamanga","Banana Manga","https://bananamanga.net",false,true,false),
+        ("bestmanhua","BestManhua","https://bestmanhua.com",false,true,false),
+        ("boyslove","BoysLove","https://boyslove.me",false,false,true),
+        ("coffeemanga","Coffee Manga","https://coffeemanga.io",false,true,false),
+        ("darkscans","Dark Scans","https://darkscans.com",false,true,false),
+        ("decadencescans","Decadence Scans","https://reader.decadencescans.com",false,true,false),
+        ("drakescans","Drake Scans","https://drakescans.com",false,true,false),
+        ("factmanga","FactManga","https://factmanga.com",false,true,false),
+        ("freemanga","Free Manga","https://freemanga.me",false,true,false),
+        ("freemangatop","FreeMangaTop","https://freemangatop.com",false,true,false),
+        ("freewebtooncoins","FreeWebtoonCoins","https://freewebtooncoins.com",false,true,false),
+        ("galaxydegenscans","GalaxyDegenScans","https://gdscans.com",false,true,false),
+        ("girlslovemanga","Girls Love Manga","https://glmanga.com",false,true,false),
+        ("harimanga","Harimanga","https://harimanga.com",false,true,false),
+        ("hentaimanga","Hentai Manga","https://hentaimanga.me",false,true,false),
+        ("hentai3z","Hentai3z","https://hentai3z.xyz",false,true,false),
+        ("hentai4free","Hentai4Free","https://hentai4free.net",false,true,false),
+        ("hentaixdickgirl","HentaiXDickgirl","https://hentaixdickgirl.com",false,true,false),
+        ("hentaixyuri","HentaiXYuri","https://hentaixyuri.com",false,true,false),
+        ("hiperdex","Hiperdex","https://hiperdex.com",false,true,false),
+        ("hm2d","HM2D","https://mangadistrict.com/hdoujin",false,true,false),
+        ("hreads","Hreads","https://hreads.net",false,true,false),
+        ("immortalupdates","Immortal Updates","https://immortalupdates.com",false,true,false),
+        ("jimanga","Jimanga","https://s2manga.io",false,true,false),
+        ("kissmanga.in","Kissmanga.in","https://kissmanga.in",false,true,false),
+        ("komikchan","Komik Chan","https://komikchan.com",false,true,false),
+        ("ksgroupscans","KSGroupScans","https://ksgroupscans.com",false,true,false),
+        ("kunmanga","Kun Manga","https://kunmanga.com",false,true,false),
+        ("lscomic","Leviatan Scans","https://lscomic.com",false,true,false),
+        ("lhtranslation","LHTranslation","https://lhtranslation.net",false,true,false),
+        ("lilymanga","Lily Manga","https://lilymanga.net",false,true,false),
+        ("luffymanga","Luffy Manga","https://luffymanga.com",false,true,false),
+        ("madaradex","MadaraDex","https://madaradex.org",false,true,false),
+        ("manga18h","Manga 18h","https://manga18h.com",false,true,false),
+        ("manga18x","Manga 18x","https://manga18x.net",false,true,false),
+        ("mangaaction","Manga Action","https://mangaaction.com",false,true,false),
+        ("mangabee","Manga Bee","https://mangabee.net",false,true,false),
+        ("mangachill","Manga Chill","https://toonchill.com",false,true,false),
+        ("mangadistrict","Manga District","https://mangadistrict.com",false,true,false),
+        ("mangagalaxy","Manga Galaxy","https://mangagalaxy.me",false,true,false),
+        ("mangahentai","Manga Hentai","https://mangahentai.me",false,true,false),
+        ("mangakiss","Manga Kiss","https://mangakiss.org",false,true,false),
+        ("mangaonlineteam","Manga Online Team","https://mangaonlineteam.com",false,true,false),
+        ("mangaread","Manga Read","https://mangaread.co",false,true,false),
+        ("mangarockteam","Manga Rock Team","https://mangarockteam.com",false,true,false),
+        ("mangaweebs","Manga Weebs","https://mangaweebs.in",false,true,false),
+        ("manga-tx","Manga-TX","https://manga-tx.com",false,true,false),
+        ("manga68","Manga68","https://manga68.com",false,true,false),
+        ("mangabob","MangaBob","https://mangabob.com",false,true,false),
+        ("mangaclash","MangaClash","https://mangaclash.com",false,true,false),
+        ("mangaforfree.com","Mangaforfree.com","https://mangaforfree.com",false,true,false),
+        ("mangafoxfull","MangaFoxFull","https://mangafoxfull.com",false,true,false),
+        ("mangafreak.online","MangaFreak.online","https://mangafreak.online",false,true,false),
+        ("mangagg","MangaGG","https://mangagg.com",false,true,false),
+        ("mangagoyaoi","MangaGo Yaoi","https://mangagoyaoi.com",false,true,false),
+        ("mangakomi","MangaKomi","https://mangakomi.io",false,true,false),
+        ("mangamaniacs","MangaManiacs","https://mangamaniacs.org",false,true,false),
+        ("mangaread.org","MangaRead.org","https://www.mangaread.org",false,true,false),
+        ("mangarolls","MangaRolls","https://mangarolls.net",false,true,false),
+        ("mangarosie","MangaRosie","https://mangarosie.in",false,true,false),
+        ("mangaruby.com","MangaRuby.com","https://mangaruby.com",false,true,false),
+        ("mangaryu","Mangaryu","https://mangaryu.com",false,true,false),
+        ("mangasco","MangaSco","https://manhwasco.net",false,true,false),
+        ("mangastic","MangaStic","https://mangastic9.com",false,true,false),
+        ("mangasushi","Mangasushi","https://mangasushi.org",false,true,false),
+        ("mangatyrant","MangaTyrant","https://mangatyrant.com",false,true,false),
+        ("mangaus","MangaUS","https://mangaus.xyz",false,true,false),
+        ("manhuaes","Manhua ES","https://manhuaes.com",false,false,true),
+        ("manhuaplus","Manhua Plus","https://manhuaplus.com",false,true,false),
+        ("manhuazonghe","Manhua Zonghe","https://manhuazonghe.com",false,true,false),
+        ("manhuafast","ManhuaFast","https://manhuafast.com",false,true,false),
+        ("manhuaga","Manhuaga","https://manhuaga.com",false,true,false),
+        ("manhuahot","ManhuaHot","https://manhuahot.com",false,true,false),
+        ("manhuamanhwa","ManhuaManhwa","https://manhuamanhwa.com",false,true,false),
+        ("manhuaus","ManhuaUS","https://manhuaus.com",false,true,false),
+        ("manhuazone","ManhuaZone","https://manhuazone.org",false,true,false),
+        ("manhwa18.app","Manhwa18.app","https://manhwa18.app",false,false,true),
+        ("manhwa68","Manhwa68","https://manhwa68.com",false,true,false),
+        ("manhwaclan","ManhwaClan","https://manhwaclan.com",false,true,false),
+        ("manhwafull","Manhwafull","https://manhwafull.com",false,true,false),
+        ("manhwahentai.me","Manhwahentai.me","https://manhwahentai.me",false,true,false),
+        ("manhwamanhua","ManhwaManhua","https://manhwamanhua.com",false,true,false),
+        ("manhwanew","ManhwaNew","https://manhwanew.com",false,true,false),
+        ("manhwatop","Manhwatop","https://manhwatop.com",false,false,true),
+        ("manycomic","ManyComic","https://manycomic.com",false,false,true),
+        ("manytoon.me","ManyToon.me","https://manytoon.me",false,true,false),
+        ("manytoon","ManyToon","https://manytoon.com",false,true,false),
+        ("mortalsgroove","Mortals Groove","https://mortalsgroove.com",false,false,true),
+        ("bibimanga","BibiManga","https://bibimanga.com",false,true,false),
+        ("murimscan","MurimScan","https://murimscan.run",false,true,false),
+        ("newmanhua","NewManhua","https://newmanhua.com",false,true,false),
+        ("nightcomic","Night Comic","https://www.nightcomic.com",false,false,true),
+        ("nitromanga","Nitro Manga","https://nitromanga.com",false,true,false),
+        ("novelcrow","NovelCrow","https://novelcrow.com",false,true,false),
+        ("novelmic","NovelMic","https://novelmic.com",false,false,true),
+        ("onlymanhwa","OnlyManhwa","https://onlymanhwa.org",false,true,false),
+        ("paragonscans","Paragon Scans","https://paragonscans.com",false,true,false),
+        ("pawmanga","Paw Manga","https://pawmanga.com",false,true,false),
+        ("petrotechsociety","Petrotechsociety","https://www.petrotechsociety.org",false,false,true),
+        ("pianmanga","Pian Manga","https://pianmanga.me",false,true,false),
+        ("platinumscans","Platinum Crown","https://platinumscans.com",false,false,true),
+        ("pmscans","PMScans","https://rackusreads.com",false,true,false),
+        ("ponymanga","Pony Manga","https://ponymanga.com",false,true,false),
+        ("porncomix","PornComix","https://www.porncomixonline.net",false,true,false),
+        ("readfreecomics","ReadFreeComics","https://readfreecomics.com",false,true,false),
+        ("readmanhua","ReadManhua","https://readmanhua.net",false,false,true),
+        ("s2manga","S2Manga","https://www.s2manga.com",false,true,false),
+        ("shibamanga","Shiba Manga","https://shibamanga.com",false,true,false),
+        ("shootingstarscans","Shooting Star Scans","https://shootingstarscans.com",false,true,false),
+        ("summanga","Summanga","https://summanga.com",false,true,false),
+        ("teenmanhua","TeenManhua","https://teenmanhua.com",false,true,false),
+        ("theblankscanlation","The Blank Scanlation","https://theblank.net",false,true,false),
+        ("theguild","The Guild","https://theguildscans.com",false,false,true),
+        ("toonchill","ToonChill","https://toonchill.com",false,true,false),
+        ("topmanhua","Top Manhua","https://topmanhua.com",false,true,false),
+        ("topreadmanhwa","TopReadManhwa","https://topreadmanhwa.com",false,true,false),
+        ("treemanga","TreeManga","https://treemanga.com",false,true,false),
+        ("webdexscans","Webdex Scans","https://webdexscans.com",false,true,false),
+        ("yaoiscan","YaoiScan","https://yaoiscan.com",false,true,false),
+        ("zandynofansub","Zandy no Fansub","https://zandynofansub.aishiteru.org",false,true,false),
+        ("zinchanmanga","ZinChanManga","https://zinchanmanga.com",false,true,false),
+        ("zinmanga","Zinmanga","https://zinmanga.com",false,true,false),
+        ("resetscans","Reset Scans","https://reset-scans.us",false,true,false)
+    };
+
+    foreach ((string, string, string, bool,bool,bool) model in models)
+    {
+        string fileName =
+            $"{model.Item2.Replace(" ", string.Empty).Replace("-", "Dash").Replace(".", "Dot")}Source.g.cs";
+        string filePath = Host.ResolvePath(fileName);
+
+        string directoryName = Path.GetDirectoryName(filePath);
+        string generatedPath = Path.Combine(directoryName, "Generated");
+
+        if (!Directory.Exists(generatedPath))
+            Directory.CreateDirectory(generatedPath);
+
+        string generatedFilePath = Path.Combine(generatedPath, fileName);
+
+        File.WriteAllText(generatedFilePath, GenerateClass(model));
+    }
+#>
+
+<#+
+    public string GenerateClass((string, string, string, bool,bool,bool) model)
+    {
+        return $@"// Auto generated
+
+using Injectio.Attributes;
+using Mangarr.Stack.Sources.Clients;
+
+namespace Mangarr.Stack.Sources.Implementations.Madara;
+
+[RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
+internal class {model.Item2.Replace(" ", string.Empty).Replace("-", "Dash").Replace(".", "Dot")}Source : MadaraSourceBase
+{{
+    protected override string Id => ""{model.Item1}"";
+    protected override string Name => ""{model.Item2}"";
+    protected override string Url => ""{model.Item3}"";
+    protected override bool HasCloudflareProtection => {model.Item4.ToString().ToLower()};
+    protected override bool UseAjaxChapterListMethod => {model.Item5.ToString().ToLower()};
+    protected override bool UseIdChapterListMethod => {model.Item6.ToString().ToLower()};
+
+    public {model.Item2.Replace(" ", string.Empty).Replace("-", "Dash").Replace(".", "Dot")}Source(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
+    {{
+    }}
+}}
+";
+    }
+#>

@@ -1,0 +1,30 @@
+﻿.content-item {
+    position: relative;
+    max-width: 193px;
+    padding: 8px;
+    margin: 4px;
+    transition: all 150ms ease-in;
+}
+
+.content-item a {
+    position: relative;
+}
+
+.content-item:hover {
+    box-shadow: 0 0 12px #000;
+    transition: all 150ms ease-in;
+}
+
+.content-item .content-image {
+    width: 177px;
+    height: 250px;
+}
+
+.content-item .title-wrapper {
+    opacity: 0;
+    transition: all 0.15s ease-in-out;
+}
+
+.content-item:hover .title-wrapper {
+    opacity: 1;
+}

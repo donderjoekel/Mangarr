@@ -1,0 +1,28 @@
+// Auto generated
+
+using Injectio.Attributes;
+using Mangarr.Stack.Sources;
+using Mangarr.Stack.Sources.Clients;
+using Mangarr.Stack.Sources.Implementations.Madara;
+
+namespace Mangarr.Backend.Sources.Implementations.Madara;
+
+[RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
+internal class ShibaMangaSource : MadaraSourceBase
+{
+    protected override string Id => "shibamanga";
+    protected override string Name => "Shiba Manga";
+    protected override string Url => "https://shibamanga.com";
+    protected override bool HasCloudflareProtection => false;
+    protected override bool UseAjaxChapterListMethod => true;
+    protected override bool UseIdChapterListMethod => false;
+
+    public ShibaMangaSource(
+        GenericHttpClient genericHttpClient,
+        CloudflareHttpClient cloudflareHttpClient,
+        ILoggerFactory loggerFactory
+    )
+        : base(genericHttpClient, cloudflareHttpClient, loggerFactory)
+    {
+    }
+}

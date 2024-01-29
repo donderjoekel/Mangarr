@@ -1,0 +1,20 @@
+﻿@using Mangarr.Stack.Data
+
+@code {
+    [Parameter] public IEnumerable<ContentItemModel> Items { get; set; } = null!;
+    [Inject] public AniListApi AniListApi { get; set; } = null!;
+}
+
+<div id="items" class="row row-cols-auto g-0">
+    @foreach (ContentItemModel item in Items)
+    {
+        <div class="content-item col">
+            <a class="d-block" href="/manga/@item.Manga.Id">
+                <img class="content-image object-fit-cover" src="@item.Metadata.CoverUrl" alt="@AniListApi.GetPreferredTitle(item.Manga) cover">
+                <div class="title-wrapper position-absolute bottom-0 start-0 w-100 mh-100 bg-dark text-light m-0 p-2">
+                    @AniListApi.GetPreferredTitle(item.Manga)
+                </div>
+            </a>
+        </div>
+    }
+</div>

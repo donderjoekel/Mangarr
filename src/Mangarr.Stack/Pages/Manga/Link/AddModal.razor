@@ -1,0 +1,39 @@
+﻿@using Mangarr.Stack.Extensions
+<div class="modal fade" id="add-manga-modal-@SafeMangaId" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add manga</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label class="form-label" for="root-folder-select">Select root folder</label>
+                <select id="root-folder-select" @onchange="OnRootFolderSelectionChanged" class="form-select" aria-label="Select root folder">
+                    @foreach ((RootFolderDocument item, int index) in RootFolderRepository.Items.WithIndex())
+                    {
+                        if (index == 0)
+                        {
+                            <option selected value="@item.Id">@item.Path</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Path</option>
+                        }
+                    }
+                </select>
+                <br/>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="add-manga-checkbox" @onchange="ToggleMonitorNewChaptersOnly">
+                    <label class="form-check-label" for="add-manga-checkbox">
+                        Only monitor new chapters
+                    </label>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" @onclick="OnAddClick">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

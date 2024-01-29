@@ -1,0 +1,23 @@
+﻿<div id="manga-header" class="position-relative text-white">
+    <div id="manga-header-background-container" class="w-100 position-relative">
+        <img id="manga-header-background" class="w-100 h-100 object-fit-cover" src="@_metadata!.BannerUrl" alt="banner">
+        <div id="manga-header-background-cover" class="w-100 h-100 position-absolute top-0 start-0 bg-dark opacity-75"></div>
+    </div>
+    <div id="manga-header-content-wrapper" class="position-absolute top-0 start-0 w-100 h-100">
+        <div id="manga-header-content" class="w-100 h-100 p-4 d-flex flex-row">
+            <img class="flex-shrink-0" src="@_metadata!.CoverUrl" alt="cover">
+            <div class="h-100 flex-grow-1 ps-4 overflow-hidden">
+                <h1>@AniListApi.GetPreferredTitle(_manga!)</h1>
+                <p>
+                    <a href="https://anilist.co/manga/@_manga!.SearchId" target="_blank" class="btn btn-info btn-sm">AniList</a>
+                    <a href="@_sourceUrl" target="_blank" class="btn btn-primary btn-sm">@_source!.Name</a>
+                </p>
+                <p>
+                    @* TODO: Have this be more in the background *@
+                    <i>@DestinationFolder</i>
+                </p>
+                <p>@((MarkupString)_metadata!.DescriptionHtml!)</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@using Humanizer
+@using Quartz
+
+@code {
+    [Parameter] public ITrigger Item { get; set; } = null!;
+}
+
+<tr>
+    <td>
+        @Item.Description
+    </td>
+    <td>
+        @if (Item.GetPreviousFireTimeUtc().HasValue)
+        {
+            TimeSpan timeSinceLastRun = DateTimeOffset.UtcNow - Item.GetPreviousFireTimeUtc()!.Value;
+            <span>@timeSinceLastRun.Humanize() ago</span>
+        }
+        else
+        {
+            <span>-</span>
+        }
+    </td>
+    <td>
+        @if (Item.GetNextFireTimeUtc().HasValue)
+        {
+            TimeSpan timeUntilNextRun = Item.GetNextFireTimeUtc()!.Value - DateTimeOffset.UtcNow;
+            <span>in @timeUntilNextRun.Humanize()</span>
+        }
+        else
+        {
+            <span>-</span>
+        }
+    </td>
+</tr>

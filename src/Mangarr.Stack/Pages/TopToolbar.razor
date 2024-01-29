@@ -1,0 +1,7 @@
+﻿<div id="toolbar" class="d-flex justify-content-between flex-shrink-0 flex-grow-0">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

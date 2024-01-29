@@ -1,0 +1,14 @@
+﻿#header {
+    height: 60px;
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+}
+
+#logo-image {
+    width: 32px;
+    height: 32px;
+}
+
+#logo-link {
+    line-height: 0;
+}
