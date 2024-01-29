@@ -2,12 +2,12 @@
 
 using System.Text;
 using FluentResults;
-using Mangarr.Backend.Sources;
-using Mangarr.Backend.Sources.Clients;
-using Mangarr.Backend.Sources.Cloudflare;
-using Mangarr.Backend.Sources.Models.Chapter;
-using Mangarr.Backend.Sources.Models.Page;
-using Mangarr.Backend.Sources.Models.Search;
+using Mangarr.Stack.Sources;
+using Mangarr.Stack.Sources.Clients;
+using Mangarr.Stack.Sources.Cloudflare;
+using Mangarr.Stack.Sources.Models.Chapter;
+using Mangarr.Stack.Sources.Models.Page;
+using Mangarr.Stack.Sources.Models.Search;
 using Microsoft.Extensions.DependencyInjection;
 
 ServiceCollection collection = new();
@@ -19,7 +19,7 @@ collection.AddTransient<CustomClearanceHandler>(_ =>
 collection.AddHttpClient("Cloudflare")
     .AddHttpMessageHandler<CustomClearanceHandler>()
     .AddRetryPolicy();
-collection.AddMangarrBackend();
+collection.AddMangarrStack();
 ServiceProvider provider = collection.BuildServiceProvider();
 
 List<ISource> sources = provider.GetRequiredService<IEnumerable<ISource>>().ToList();

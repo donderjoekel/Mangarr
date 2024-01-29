@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mangarr.Backend\Mangarr.Backend.csproj"/>
+    <ProjectReference Include="..\Mangarr.Stack\Mangarr.Stack.csproj"/>
   </ItemGroup>
 
 </Project>
