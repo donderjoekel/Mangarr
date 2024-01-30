@@ -32,14 +32,14 @@ public class MissingMetadataInitializer : IInitializable
     {
         foreach (RequestedMangaDocument requestedMangaDocument in _requestedMangaRepository.Items)
         {
-            _logger.LogInformation("Fetching metadata for manga with id '{Id}'", requestedMangaDocument.Id);
-
             MangaMetadataDocument? mangaMetadataDocument = _mangaMetadataRepository.GetByManga(requestedMangaDocument);
 
             if (mangaMetadataDocument != null)
             {
                 continue;
             }
+
+            _logger.LogInformation("Fetching metadata for manga with id '{Id}'", requestedMangaDocument.Id);
 
             Result<Media?> result = await _aniListApi.GetMedia(requestedMangaDocument.SearchId);
 
