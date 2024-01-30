@@ -16,7 +16,7 @@ public partial class ContentListItem
     {
         get
         {
-            SourceBase.DeconstructId(Item!.Id, out string url, out _);
+            SourceBase.DeconstructId(Item!.ChapterId, out string url, out _);
             return url;
         }
     }
