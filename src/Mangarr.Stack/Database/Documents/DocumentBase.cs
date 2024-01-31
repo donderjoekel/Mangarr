@@ -12,6 +12,9 @@ public class DocumentBase<T> where T : DocumentBase<T>
 
     public required int Version { get; set; }
 
+    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+    public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
+
     public static FilterDefinitionBuilder<T> Filter => Builders<T>.Filter;
     public static UpdateDefinitionBuilder<T> Update => Builders<T>.Update;
 }
