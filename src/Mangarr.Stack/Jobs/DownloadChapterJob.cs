@@ -306,7 +306,10 @@ public class DownloadChapterJob : IJob
     private async Task MarkChapterDownloadSucceeded()
     {
         await _requestedChapterRepository.UpdateAsync(_chapter!.Id,
-            RequestedChapterDocument.Update.Set(x => x.Downloaded, true));
+            RequestedChapterDocument.Update.Combine(
+                RequestedChapterDocument.Update.Set(x => x.DateDownloaded, DateTime.UtcNow),
+                RequestedChapterDocument.Update.Set(x => x.Downloaded, true),
+                RequestedChapterDocument.Update.Set(x => x.MarkedForDownload, false)));
 
         await _chapterProgressRepository.DeleteAsync(
             ChapterProgressDocument.Filter.Eq(x => x.ChapterId, _chapter.Id));
