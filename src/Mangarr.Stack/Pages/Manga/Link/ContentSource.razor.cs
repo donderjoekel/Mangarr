@@ -99,7 +99,7 @@ public partial class ContentSource
         titlesToSearch.Add(media.Title.Romaji);
         titlesToSearch.Add(media.Title.Native);
         titlesToSearch.AddRange(media.Synonyms);
-        titlesToSearch = titlesToSearch.Distinct().ToList();
+        titlesToSearch = titlesToSearch.Distinct().Where(x => !string.IsNullOrEmpty(x)).ToList();
 
         List<SearchResultItem> allSearchResults = new();
 
