@@ -1,8 +1,14 @@
-﻿namespace Mangarr.Stack.Database.Documents;
+﻿using System.ComponentModel;
+using MongoDB.Bson.Serialization.Attributes;
 
-public class RequestedMangaDocument : DocumentBase<RequestedMangaDocument>
+namespace Mangarr.Stack.Database.Documents;
+
+public class RequestedMangaDocument : DocumentBase<RequestedMangaDocument>, ISupportInitialize
 {
     public const int CurrentVersion = 1;
+
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local
+    [BsonExtraElements] private Dictionary<string, object> _extraElements = null!;
 
     public required int SearchId { get; set; }
     public required string SourceId { get; set; } = null!;
@@ -12,5 +18,20 @@ public class RequestedMangaDocument : DocumentBase<RequestedMangaDocument>
     public required bool Monitor { get; set; }
     public DateTime? LastScanDate { get; set; }
     public bool Deleted { get; set; }
-    public required DateTime CreationDate { get; set; } = DateTime.UtcNow;
+
+    void ISupportInitialize.BeginInit()
+    {
+        // Left empty on purpose
+    }
+
+    void ISupportInitialize.EndInit()
+    {
+        if (!_extraElements.TryGetValue("CreationDate", out object? creationDate))
+        {
+            return;
+        }
+
+        DateCreated = (DateTime)creationDate;
+        _extraElements.Remove("CreationDate");
+    }
 }
