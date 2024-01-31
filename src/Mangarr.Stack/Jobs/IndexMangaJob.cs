@@ -101,11 +101,11 @@ public class IndexMangaJob : IJob
         List<ChapterListItem> chapterListItems = chapterListResult.Value.Items.OrderBy(x => x.Number).ToList();
         foreach (ChapterListItem chapterListItem in chapterListItems)
         {
-            RequestedChapterDocument? existingChapter = requestedChapterDocuments
-                .FirstOrDefault(x => x.ChapterId == chapterListItem.Id);
+            RequestedChapterDocument? existingChapter = GetExistingChapter(requestedChapterDocuments, chapterListItem);
 
             if (existingChapter != null)
             {
+                await UpdateChapterIfNeeded(existingChapter, chapterListItem);
                 continue;
             }
 
@@ -123,10 +123,10 @@ public class IndexMangaJob : IJob
                 ChapterId = chapterListItem.Id,
                 ChapterName = chapterListItem.Name,
                 ChapterNumber = chapterListItem.Number,
+                VolumeNumber = chapterListItem.Volume,
                 ReleaseDate = chapterListItem.Date,
                 MarkedForDownload = markedForDownload,
-                Downloaded = false,
-                CreationDate = DateTime.UtcNow
+                Downloaded = false
             };
 
             Result<bool> doesChapterExistResult = _exportService.DoesChapterExist(manga, requestedChapterDocument);
@@ -158,4 +158,36 @@ public class IndexMangaJob : IJob
         await _requestedMangaRepository.UpdateAsync(manga.Id,
             RequestedMangaDocument.Update.Set(x => x.LastScanDate, DateTime.UtcNow));
     }
+
+    private RequestedChapterDocument? GetExistingChapter(
+        List<RequestedChapterDocument> requestedChapterDocuments,
+        ChapterListItem chapterListItem
+    )
+    {
+        foreach (RequestedChapterDocument requestedChapterDocument in requestedChapterDocuments)
+        {
+            if (requestedChapterDocument.ChapterId == chapterListItem.Id)
+            {
+                return requestedChapterDocument;
+            }
+
+            if (Math.Abs(requestedChapterDocument.ChapterNumber - chapterListItem.Number) < 0.01 &&
+                requestedChapterDocument.VolumeNumber == chapterListItem.Volume)
+            {
+                return requestedChapterDocument;
+            }
+        }
+
+        return null;
+    }
+
+    private async Task UpdateChapterIfNeeded(RequestedChapterDocument chapter, ChapterListItem chapterListItem) =>
+        await _requestedChapterRepository.UpdateAsync(chapter.Id,
+            RequestedChapterDocument.Update.Combine(
+                RequestedChapterDocument.Update.Set(x => x.ChapterId, chapterListItem.Id),
+                RequestedChapterDocument.Update.Set(x => x.ChapterName, chapterListItem.Name),
+                RequestedChapterDocument.Update.Set(x => x.ChapterNumber, chapterListItem.Number),
+                RequestedChapterDocument.Update.Set(x => x.VolumeNumber, chapterListItem.Volume),
+                RequestedChapterDocument.Update.Set(x => x.ReleaseDate, chapterListItem.Date)
+            ));
 }
