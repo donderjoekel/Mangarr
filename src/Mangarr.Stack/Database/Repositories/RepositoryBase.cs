@@ -35,31 +35,43 @@ public class RepositoryBase<TDocument> : IRepository, IEnumerable<TDocument>
 
     public async Task<TDocument> AddAsync(TDocument document)
     {
+        document.DateCreated = document.DateUpdated = DateTime.UtcNow;
         await _collection.InsertOneAsync(document);
         _documentsById.Add(document.Id, document);
         return document;
     }
 
-    public async Task<TDocument> UpdateAsync(TDocument document)
+    public async Task<(TDocument? document, ReplaceOneResult result)> UpdateAsync(TDocument document)
     {
-        await _collection.ReplaceOneAsync(x => x.Id == document.Id, document);
+        document.DateUpdated = DateTime.UtcNow;
+        ReplaceOneResult result = await _collection.ReplaceOneAsync(x => x.Id == document.Id, document);
         _documentsById[document.Id] = document;
-        return document;
+        return (document, result);
     }
 
-    public async Task<TDocument> UpdateAsync(string id, UpdateDefinition<TDocument> update)
+    public async Task<(TDocument? document, UpdateResult result)> UpdateAsync(
+        string id,
+        UpdateDefinition<TDocument> update
+    )
     {
-        await _collection.UpdateOneAsync(x => x.Id == id, update);
+        update = DocumentBase<TDocument>.Update.Combine(update,
+            DocumentBase<TDocument>.Update.Set(x => x.DateUpdated, DateTime.UtcNow));
+        UpdateResult result = await _collection.UpdateOneAsync(x => x.Id == id, update);
         _documentsById[id] = await _collection.Find(x => x.Id == id).FirstAsync();
-        return _documentsById[id];
+        return (_documentsById[id], result);
     }
 
-    public async Task<TDocument> UpdateAsync(FilterDefinition<TDocument> filter, UpdateDefinition<TDocument> update)
+    public async Task<(TDocument? document, UpdateResult result)> UpdateAsync(
+        FilterDefinition<TDocument> filter,
+        UpdateDefinition<TDocument> update
+    )
     {
-        await _collection.UpdateOneAsync(filter, update);
+        update = DocumentBase<TDocument>.Update.Combine(update,
+            DocumentBase<TDocument>.Update.Set(x => x.DateUpdated, DateTime.UtcNow));
+        UpdateResult result = await _collection.UpdateOneAsync(filter, update);
         TDocument document = await _collection.Find(filter).FirstAsync();
         _documentsById[document.Id] = document;
-        return document;
+        return (_documentsById[document.Id], result);
     }
 
     public async Task<DeleteResult> DeleteAsync(string id)
