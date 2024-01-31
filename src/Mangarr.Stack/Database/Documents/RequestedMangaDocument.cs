@@ -8,7 +8,7 @@ public class RequestedMangaDocument : DocumentBase<RequestedMangaDocument>, ISup
     public const int CurrentVersion = 1;
 
     // ReSharper disable once FieldCanBeMadeReadOnly.Local
-    [BsonExtraElements] private Dictionary<string, object> _extraElements = null!;
+    [BsonExtraElements] private Dictionary<string, object>? _extraElements;
 
     public required int SearchId { get; set; }
     public required string SourceId { get; set; } = null!;
@@ -26,6 +26,11 @@ public class RequestedMangaDocument : DocumentBase<RequestedMangaDocument>, ISup
 
     void ISupportInitialize.EndInit()
     {
+        if (_extraElements == null)
+        {
+            return;
+        }
+
         if (!_extraElements.TryGetValue("CreationDate", out object? creationDate))
         {
             return;
