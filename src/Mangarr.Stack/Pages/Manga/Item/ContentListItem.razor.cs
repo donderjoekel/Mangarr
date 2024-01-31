@@ -28,7 +28,7 @@ public partial class ContentListItem
     private async Task SetMarkedForDownload(bool value)
     {
         Item.MarkedForDownload = value;
-        Item = await RequestedChapterRepository.UpdateAsync(Item);
+        (Item, _) = await RequestedChapterRepository.UpdateAsync(Item);
         await InvokeAsync(StateHasChanged);
     }
 }

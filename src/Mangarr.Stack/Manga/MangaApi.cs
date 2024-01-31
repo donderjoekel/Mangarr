@@ -68,8 +68,7 @@ public class MangaApi
             SearchId = searchId,
             RootFolderId = rootFolderId,
             NewChaptersOnly = monitorNewChaptersOnly,
-            Monitor = true,
-            CreationDate = DateTime.UtcNow
+            Monitor = true
         };
 
         await _requestedMangaRepository.AddAsync(requestedMangaDocument);

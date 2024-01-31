@@ -61,10 +61,10 @@ public class LibraryApi
                 orderedItems = items.OrderBy(x => _aniListApi.GetPreferredTitle(x.Manga));
                 break;
             case LibrarySortMode.Added:
-                orderedItems = items.OrderBy(x => x.Manga.CreationDate);
+                orderedItems = items.OrderBy(x => x.Manga.DateCreated);
                 break;
             case LibrarySortMode.Updated:
-                orderedItems = items.OrderBy(x => x.Chapters.OrderBy(y => y.CreationDate).Last());
+                orderedItems = items.OrderBy(x => x.Chapters.OrderBy(y => y.DateCreated).Last());
                 break;
             case LibrarySortMode.Source:
                 orderedItems = items.OrderBy(x => x.Source?.Name ?? string.Empty);

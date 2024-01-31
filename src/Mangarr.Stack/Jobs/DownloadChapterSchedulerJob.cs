@@ -34,7 +34,7 @@ public class DownloadChapterSchedulerJob : IJob
     {
         List<RequestedChapterDocument> chapters = _requestedChapterRepository
             .Where(x => x.MarkedForDownload && !x.Downloaded)
-            .OrderBy(x => x.CreationDate)
+            .OrderBy(x => x.DateCreated)
             .ToList();
 
         foreach (RequestedChapterDocument chapter in chapters)

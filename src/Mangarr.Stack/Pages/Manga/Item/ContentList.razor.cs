@@ -29,6 +29,6 @@ public partial class ContentList
     private async Task SetMonitoring(bool value)
     {
         _requestedMangaDocument.Monitor = value;
-        _requestedMangaDocument = await RequestedMangaRepository.UpdateAsync(_requestedMangaDocument);
+        (_requestedMangaDocument, _) = await RequestedMangaRepository.UpdateAsync(_requestedMangaDocument);
     }
 }

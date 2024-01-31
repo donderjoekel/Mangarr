@@ -23,7 +23,7 @@ public partial class ContentItem
     private async Task SetEnabled(bool value)
     {
         Item.Enabled = value;
-        Item = await SourceRepository.UpdateAsync(Item);
+        (Item, _) = await SourceRepository.UpdateAsync(Item);
         await InvokeAsync(StateHasChanged);
     }
 }
