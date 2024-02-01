@@ -44,6 +44,7 @@ public partial class Content
     {
         _timer.Stop();
         CustomSearchQuery = _query;
+        IsSearching = false;
         await InvokeAsync(StateHasChanged);
     }
 }
