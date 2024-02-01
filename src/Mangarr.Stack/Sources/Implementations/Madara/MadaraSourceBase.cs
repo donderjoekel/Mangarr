@@ -175,7 +175,7 @@ internal abstract class MadaraSourceBase : SourceBase
         }
     }
 
-    private async Task<Result<string>> GetPageContent(string url, CancellationToken ct)
+    private async Task<Result<string>> GetPageContent(string url, CancellationToken ct = default)
     {
         Result<string> result;
 
@@ -207,7 +207,7 @@ internal abstract class MadaraSourceBase : SourceBase
         return result;
     }
 
-    private async Task<Result<string>> GetChapterId(string url, CancellationToken ct)
+    private async Task<Result<string>> GetChapterId(string url, CancellationToken ct = default)
     {
         Result<string> result = await GetHttpClient().Get(url, ct);
 

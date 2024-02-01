@@ -32,7 +32,7 @@ internal abstract class NepNepSourceBase : SourceBase
 
     protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
 
-    private async Task<Result<string>> GetSearchHtml(CancellationToken ct)
+    private async Task<Result<string>> GetSearchHtml(CancellationToken ct = default)
     {
         string key = Id + "_search";
 
@@ -53,7 +53,7 @@ internal abstract class NepNepSourceBase : SourceBase
         return Result.Ok(result.Value);
     }
 
-    private async Task<Result<MangaData.Item[]>> GetMangaDataItems(CancellationToken ct)
+    private async Task<Result<MangaData.Item[]>> GetMangaDataItems(CancellationToken ct = default)
     {
         string key = Id + "_mangadataitems";
 
