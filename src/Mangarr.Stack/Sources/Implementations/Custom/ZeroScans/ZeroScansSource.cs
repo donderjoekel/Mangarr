@@ -34,9 +34,9 @@ internal class ZeroScansSource : SourceBase
 
     protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
 
-    protected override async Task<Result<SearchResult>> Search(string query)
+    protected override async Task<Result<SearchResult>> Search(string query, CancellationToken ct)
     {
-        Result<DirectoryResult> result = await GetHttpClient().Get<DirectoryResult>(Url + "/swordflake/comics");
+        Result<DirectoryResult> result = await GetHttpClient().Get<DirectoryResult>(Url + "/swordflake/comics", ct);
 
         if (result.IsFailed)
         {
@@ -66,7 +66,7 @@ internal class ZeroScansSource : SourceBase
         return Result.Ok(new SearchResult(items));
     }
 
-    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
+    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct)
     {
         string[] splits = mangaId.FromBase64().Split('|');
         string chapterUrl = splits[0];
@@ -82,7 +82,7 @@ internal class ZeroScansSource : SourceBase
         while (page <= maxPage)
         {
             string url = $"{Url}/swordflake/comic/{id}/chapters?sort=desc&page={page}";
-            Result<ChapterResult> result = await GetHttpClient().Get<ChapterResult>(url);
+            Result<ChapterResult> result = await GetHttpClient().Get<ChapterResult>(url, ct);
 
             if (result.IsFailed)
             {
@@ -121,9 +121,9 @@ internal class ZeroScansSource : SourceBase
         return Result.Ok(new ChapterList(items));
     }
 
-    protected override async Task<Result<PageList>> GetPageList(string chapterId)
+    protected override async Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct)
     {
-        Result<string> result = await GetHttpClient().Get(Url + "/comics/" + chapterId.FromBase64());
+        Result<string> result = await GetHttpClient().Get(Url + "/comics/" + chapterId.FromBase64(), ct);
 
         if (result.IsFailed)
         {
@@ -174,5 +174,6 @@ internal class ZeroScansSource : SourceBase
         return Result.Ok(new PageList(items));
     }
 
-    protected override Task<Result<byte[]>> GetImage(string pageId) => GetHttpClient().GetBuffer(pageId.FromBase64());
+    protected override Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct) =>
+        GetHttpClient().GetBuffer(pageId.FromBase64(), ct);
 }

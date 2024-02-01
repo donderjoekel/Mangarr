@@ -47,11 +47,11 @@ internal abstract partial class SourceBase
         }
     }
 
-    Task<Result<SearchResult>> ISource.Search(string query)
+    Task<Result<SearchResult>> ISource.Search(string query, CancellationToken ct)
     {
         try
         {
-            return Search(query);
+            return Search(query, ct);
         }
         catch (Exception e)
         {
@@ -59,11 +59,11 @@ internal abstract partial class SourceBase
         }
     }
 
-    Task<Result<ChapterList>> ISource.GetChapterList(string mangaId)
+    Task<Result<ChapterList>> ISource.GetChapterList(string mangaId, CancellationToken ct)
     {
         try
         {
-            return GetChapterList(mangaId);
+            return GetChapterList(mangaId, ct);
         }
         catch (Exception e)
         {
@@ -71,11 +71,11 @@ internal abstract partial class SourceBase
         }
     }
 
-    Task<Result<PageList>> ISource.GetPageList(string chapterId)
+    Task<Result<PageList>> ISource.GetPageList(string chapterId, CancellationToken ct)
     {
         try
         {
-            return GetPageList(chapterId);
+            return GetPageList(chapterId, ct);
         }
         catch (Exception e)
         {
@@ -83,11 +83,11 @@ internal abstract partial class SourceBase
         }
     }
 
-    Task<Result<byte[]>> ISource.GetImage(string pageId)
+    Task<Result<byte[]>> ISource.GetImage(string pageId, CancellationToken ct)
     {
         try
         {
-            return GetImage(pageId);
+            return GetImage(pageId, ct);
         }
         catch (Exception e)
         {

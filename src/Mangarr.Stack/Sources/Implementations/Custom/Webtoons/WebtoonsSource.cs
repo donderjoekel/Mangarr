@@ -33,10 +33,10 @@ internal class WebtoonsSource : SourceBase
 
     protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
 
-    protected override async Task<Result<SearchResult>> Search(string query)
+    protected override async Task<Result<SearchResult>> Search(string query, CancellationToken ct)
     {
         Result<SearchResultData> result =
-            await GetHttpClient().Get<SearchResultData>(Url + "search/immediate?keyword=" + query);
+            await GetHttpClient().Get<SearchResultData>(Url + "search/immediate?keyword=" + query, ct);
 
         if (result.IsFailed)
         {
@@ -63,10 +63,10 @@ internal class WebtoonsSource : SourceBase
         return Result.Ok(new SearchResult(items));
     }
 
-    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
+    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct)
     {
         DeconstructId(mangaId, out string url, out _);
-        Result<string> result = await GetHttpClient().Get(url);
+        Result<string> result = await GetHttpClient().Get(url, ct);
 
         if (result.IsFailed)
         {
@@ -87,7 +87,7 @@ internal class WebtoonsSource : SourceBase
 
         while (true)
         {
-            result = await GetHttpClient().Get(mangaUrl + "&page=" + page);
+            result = await GetHttpClient().Get(mangaUrl + "&page=" + page, ct);
 
             if (result.IsFailed)
             {
@@ -135,10 +135,10 @@ internal class WebtoonsSource : SourceBase
         return Result.Ok(new ChapterList(items));
     }
 
-    protected override async Task<Result<PageList>> GetPageList(string chapterId)
+    protected override async Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct)
     {
         DeconstructId(chapterId, out string chapterUrl, out _);
-        Result<string> result = await GetHttpClient().Get(chapterUrl);
+        Result<string> result = await GetHttpClient().Get(chapterUrl, ct);
 
         if (result.IsFailed)
         {
@@ -164,5 +164,6 @@ internal class WebtoonsSource : SourceBase
         return Result.Ok(new PageList(items));
     }
 
-    protected override Task<Result<byte[]>> GetImage(string pageId) => GetHttpClient().GetBuffer(pageId.FromBase64());
+    protected override Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct) =>
+        GetHttpClient().GetBuffer(pageId.FromBase64(), ct);
 }

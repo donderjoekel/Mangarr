@@ -41,11 +41,11 @@ internal class ReaperScansSource : SourceBase
         return Convert.ToBase64String(buffer);
     }
 
-    protected override async Task<Result<SearchResult>> Search(string query)
+    protected override async Task<Result<SearchResult>> Search(string query, CancellationToken ct)
     {
         CustomHttpClient httpClient = GetHttpClient();
 
-        Result<string> result = await httpClient.Get(Url);
+        Result<string> result = await httpClient.Get(Url, ct);
 
         if (result.IsFailed)
         {
@@ -92,7 +92,7 @@ internal class ReaperScansSource : SourceBase
         httpClient.AddHeader("X-CSRF-TOKEN", csrf);
 
         string fingerprintName = jsonRequestInfo["fingerprint"]["name"].Value<string>() ?? "fingerprint.was_none";
-        result = await httpClient.PostAsJson(Url + "/livewire/message/" + fingerprintName, body);
+        result = await httpClient.PostAsJson(Url + "/livewire/message/" + fingerprintName, body, ct);
 
         if (result.IsFailed)
         {
@@ -140,13 +140,13 @@ internal class ReaperScansSource : SourceBase
         return Result.Ok(new SearchResult(items));
     }
 
-    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
+    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct)
     {
         DeconstructId(mangaId, out string url, out _);
 
         CustomHttpClient httpClient = GetHttpClient();
 
-        Result<string> result = await httpClient.Get(url);
+        Result<string> result = await httpClient.Get(url, ct);
 
         if (result.IsFailed)
         {
@@ -199,7 +199,7 @@ internal class ReaperScansSource : SourceBase
             httpClient.AddHeader("X-CSRF-TOKEN", csrf);
 
             string fingerprintName = jsonRequestInfo["fingerprint"]["name"].Value<string>() ?? "fingerprint.was_none";
-            result = await httpClient.PostAsJson(Url + "/livewire/message/" + fingerprintName, body);
+            result = await httpClient.PostAsJson(Url + "/livewire/message/" + fingerprintName, body, ct);
 
             if (result.IsFailed)
             {
@@ -275,10 +275,10 @@ internal class ReaperScansSource : SourceBase
         return items;
     }
 
-    protected override async Task<Result<PageList>> GetPageList(string chapterId)
+    protected override async Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct)
     {
         DeconstructId(chapterId, out string url, out _);
-        Result<string> result = await GetHttpClient().Get(url);
+        Result<string> result = await GetHttpClient().Get(url, ct);
 
         if (result.IsFailed)
         {
@@ -297,5 +297,6 @@ internal class ReaperScansSource : SourceBase
         return Result.Ok(new PageList(items));
     }
 
-    protected override Task<Result<byte[]>> GetImage(string pageId) => GetHttpClient().GetBuffer(pageId.FromBase64());
+    protected override Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct) =>
+        GetHttpClient().GetBuffer(pageId.FromBase64(), ct);
 }

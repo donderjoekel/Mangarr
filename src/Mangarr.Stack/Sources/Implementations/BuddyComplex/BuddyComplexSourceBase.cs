@@ -28,9 +28,10 @@ internal abstract class BuddyComplexSourceBase : SourceBase
 
     protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
 
-    protected override async Task<Result<SearchResult>> Search(string query)
+    protected override async Task<Result<SearchResult>> Search(string query, CancellationToken ct)
     {
-        Result<IDocument> result = await GetHttpClient().GetDocument(Url + "/search?status=all&sort=views&q=" + query);
+        Result<IDocument> result =
+            await GetHttpClient().GetDocument(Url + "/search?status=all&sort=views&q=" + query, ct);
 
         if (result.IsFailed)
         {
@@ -60,13 +61,13 @@ internal abstract class BuddyComplexSourceBase : SourceBase
         return Result.Ok(new SearchResult(items));
     }
 
-    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
+    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct)
     {
         DeconstructId(mangaId, out string url, out string[] args);
         string id = args[0];
 
         Result<IDocument> documentResult =
-            await GetHttpClient().GetDocument(Url + "/api/manga/" + id + "/chapters?source=detail");
+            await GetHttpClient().GetDocument(Url + "/api/manga/" + id + "/chapters?source=detail", ct);
 
         if (documentResult.IsFailed)
         {
@@ -151,11 +152,11 @@ internal abstract class BuddyComplexSourceBase : SourceBase
         return group.Value;
     }
 
-    protected override async Task<Result<PageList>> GetPageList(string chapterId)
+    protected override async Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct)
     {
         DeconstructId(chapterId, out string url, out _);
 
-        Result<string> result = await GetHttpClient().Get(url);
+        Result<string> result = await GetHttpClient().Get(url, ct);
 
         if (result.IsFailed)
         {
@@ -242,5 +243,6 @@ internal abstract class BuddyComplexSourceBase : SourceBase
         }
     }
 
-    protected override Task<Result<byte[]>> GetImage(string pageId) => GetHttpClient().GetBuffer(pageId.FromBase64());
+    protected override Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct) =>
+        GetHttpClient().GetBuffer(pageId.FromBase64(), ct);
 }

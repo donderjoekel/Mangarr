@@ -32,7 +32,7 @@ internal abstract class NepNepSourceBase : SourceBase
 
     protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
 
-    private async Task<Result<string>> GetSearchHtml()
+    private async Task<Result<string>> GetSearchHtml(CancellationToken ct)
     {
         string key = Id + "_search";
 
@@ -41,7 +41,7 @@ internal abstract class NepNepSourceBase : SourceBase
             return Result.Ok(cachedHtml);
         }
 
-        Result<string> result = await GetHttpClient().Get($"{Url}/search/");
+        Result<string> result = await GetHttpClient().Get($"{Url}/search/", ct);
 
         if (result.IsFailed)
         {
@@ -53,7 +53,7 @@ internal abstract class NepNepSourceBase : SourceBase
         return Result.Ok(result.Value);
     }
 
-    private async Task<Result<MangaData.Item[]>> GetMangaDataItems()
+    private async Task<Result<MangaData.Item[]>> GetMangaDataItems(CancellationToken ct)
     {
         string key = Id + "_mangadataitems";
 
@@ -62,7 +62,7 @@ internal abstract class NepNepSourceBase : SourceBase
             return Result.Ok(cachedItems);
         }
 
-        Result<string> result = await GetSearchHtml();
+        Result<string> result = await GetSearchHtml(ct);
 
         if (result.IsFailed)
         {
@@ -101,9 +101,9 @@ internal abstract class NepNepSourceBase : SourceBase
         return Result.Ok(items);
     }
 
-    protected sealed override async Task<Result<SearchResult>> Search(string query)
+    protected sealed override async Task<Result<SearchResult>> Search(string query, CancellationToken ct)
     {
-        Result<MangaData.Item[]> itemsResult = await GetMangaDataItems();
+        Result<MangaData.Item[]> itemsResult = await GetMangaDataItems(ct);
 
         MangaData.Item[] items = itemsResult.Value
             .Where(x => x.Title.Contains(query, StringComparison.InvariantCultureIgnoreCase)).ToArray();
@@ -112,7 +112,7 @@ internal abstract class NepNepSourceBase : SourceBase
 
         try
         {
-            Result<string> htmlResult = await GetSearchHtml();
+            Result<string> htmlResult = await GetSearchHtml(ct);
 
             if (htmlResult.IsFailed)
             {
@@ -152,12 +152,12 @@ internal abstract class NepNepSourceBase : SourceBase
                     .ToList()));
     }
 
-    protected sealed override async Task<Result<ChapterList>> GetChapterList(string mangaId)
+    protected sealed override async Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct)
     {
         DeconstructId(mangaId, out string mangaUrl, out string[] args);
         string slug = args[0];
 
-        Result<string> result = await GetHttpClient().Get(mangaUrl);
+        Result<string> result = await GetHttpClient().Get(mangaUrl, ct);
 
         if (result.IsFailed)
         {
@@ -207,12 +207,12 @@ internal abstract class NepNepSourceBase : SourceBase
         return Result.Ok(new ChapterList(items));
     }
 
-    protected sealed override async Task<Result<PageList>> GetPageList(string chapterId)
+    protected sealed override async Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct)
     {
         DeconstructId(chapterId, out string chapterUrl, out string[] args);
         string slug = args[0];
 
-        Result<string> result = await GetHttpClient().Get(chapterUrl);
+        Result<string> result = await GetHttpClient().Get(chapterUrl, ct);
 
         if (result.IsFailed)
         {
@@ -258,8 +258,8 @@ internal abstract class NepNepSourceBase : SourceBase
         return Result.Ok(new PageList(items));
     }
 
-    protected sealed override Task<Result<byte[]>> GetImage(string pageId) =>
-        GetHttpClient().GetBuffer(pageId.FromBase64());
+    protected sealed override Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct) =>
+        GetHttpClient().GetBuffer(pageId.FromBase64(), ct);
 
     private static string GetChapterString(PageData data)
     {

@@ -34,9 +34,9 @@ internal abstract class MadaraSourceBase : SourceBase
 
     protected override Task<Result<string>> Status() => Task.FromResult(Result.Ok("OK"));
 
-    protected override async Task<Result<SearchResult>> Search(string query)
+    protected override async Task<Result<SearchResult>> Search(string query, CancellationToken ct)
     {
-        Result<string> result = await GetHttpClient().Get(Url + $"?s={query}&post_type=wp-manga");
+        Result<string> result = await GetHttpClient().Get(Url + $"?s={query}&post_type=wp-manga", ct);
 
         if (result.IsFailed)
         {
@@ -65,10 +65,10 @@ internal abstract class MadaraSourceBase : SourceBase
         return Result.Ok(new SearchResult(items));
     }
 
-    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId)
+    protected override async Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct)
     {
         DeconstructId(mangaId, out string url, out _);
-        Result<string> result = await GetPageContent(url);
+        Result<string> result = await GetPageContent(url, ct);
 
         if (result.IsFailed)
         {
@@ -175,13 +175,13 @@ internal abstract class MadaraSourceBase : SourceBase
         }
     }
 
-    private async Task<Result<string>> GetPageContent(string url)
+    private async Task<Result<string>> GetPageContent(string url, CancellationToken ct)
     {
         Result<string> result;
 
         if (UseIdChapterListMethod)
         {
-            Result<string> chapterIdResult = await GetChapterId(url);
+            Result<string> chapterIdResult = await GetChapterId(url, ct);
 
             if (chapterIdResult.IsFailed)
             {
@@ -189,25 +189,27 @@ internal abstract class MadaraSourceBase : SourceBase
             }
 
             result = await GetHttpClient().PostAsForm(Url + "/wp-admin/admin-ajax.php",
-                new { action = "manga_get_chapters", manga = chapterIdResult.Value });
+                new { action = "manga_get_chapters", manga = chapterIdResult.Value },
+                ct);
         }
         else if (UseAjaxChapterListMethod)
         {
             result = await GetHttpClient().Post(url.EndsWith('/')
-                ? url + "ajax/chapters/"
-                : url + "/ajax/chapters/");
+                    ? url + "ajax/chapters/"
+                    : url + "/ajax/chapters/",
+                ct);
         }
         else
         {
-            result = await GetHttpClient().Get(url);
+            result = await GetHttpClient().Get(url, ct);
         }
 
         return result;
     }
 
-    private async Task<Result<string>> GetChapterId(string url)
+    private async Task<Result<string>> GetChapterId(string url, CancellationToken ct)
     {
-        Result<string> result = await GetHttpClient().Get(url);
+        Result<string> result = await GetHttpClient().Get(url, ct);
 
         if (result.IsFailed)
         {
@@ -231,10 +233,10 @@ internal abstract class MadaraSourceBase : SourceBase
         return Result.Ok(dataId);
     }
 
-    protected override async Task<Result<PageList>> GetPageList(string chapterId)
+    protected override async Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct)
     {
         DeconstructId(chapterId, out string url, out _);
-        Result<string> result = await GetHttpClient().Get(url);
+        Result<string> result = await GetHttpClient().Get(url, ct);
 
         if (result.IsFailed)
         {
@@ -258,5 +260,6 @@ internal abstract class MadaraSourceBase : SourceBase
         return Result.Ok(new PageList(items));
     }
 
-    protected override Task<Result<byte[]>> GetImage(string pageId) => GetHttpClient().GetBuffer(pageId.FromBase64());
+    protected override Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct) =>
+        GetHttpClient().GetBuffer(pageId.FromBase64(), ct);
 }

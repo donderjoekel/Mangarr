@@ -14,8 +14,8 @@ public interface ISource
     Task<Result> Initialize();
     Task<Result> Cache();
     Task<Result<string>> Status();
-    Task<Result<SearchResult>> Search(string query);
-    Task<Result<ChapterList>> GetChapterList(string mangaId);
-    Task<Result<PageList>> GetPageList(string chapterId);
-    Task<Result<byte[]>> GetImage(string pageId);
+    Task<Result<SearchResult>> Search(string query, CancellationToken ct = default);
+    Task<Result<ChapterList>> GetChapterList(string mangaId, CancellationToken ct = default);
+    Task<Result<PageList>> GetPageList(string chapterId, CancellationToken ct = default);
+    Task<Result<byte[]>> GetImage(string pageId, CancellationToken ct = default);
 }
