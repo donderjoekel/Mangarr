@@ -11,6 +11,7 @@ namespace Mangarr.Stack.Pages.Manga.Link;
 
 public partial class ContentSource
 {
+    private static Dictionary<string, CancellationTokenSource> _cancellationTokens = new();
     private readonly List<SearchResultItem> _items = new();
     private string? _customSearchQuery = string.Empty;
     [Notify] private bool _isSearching;
@@ -31,27 +32,35 @@ public partial class ContentSource
             return;
         }
 
-        SearchAsync();
+        if (!_cancellationTokens.TryGetValue(Item.Id, out CancellationTokenSource? _cts))
+        {
+            _cts = new CancellationTokenSource();
+            _cancellationTokens.Add(Item.Id, _cts);
+        }
+
+        _cts.Cancel();
+        _cts = new CancellationTokenSource();
+        SearchAsync(_cts.Token);
         _customSearchQuery = CustomSearchQuery;
     }
 
-    private async void SearchAsync()
+    private async void SearchAsync(CancellationToken ct = default)
     {
         IsSearching = true;
 
         if (!string.IsNullOrEmpty(CustomSearchQuery))
         {
-            await SearchByCustom();
+            await SearchByCustom(ct);
         }
         else
         {
-            await SearchById();
+            await SearchById(ct);
         }
 
         IsSearching = false;
     }
 
-    private async Task SearchByCustom()
+    private async Task SearchByCustom(CancellationToken ct = default)
     {
         ISource? source = SourceProvider.GetById(Item.Id);
 
@@ -61,7 +70,12 @@ public partial class ContentSource
             return;
         }
 
-        Result<SearchResult> result = await source.Search(CustomSearchQuery!);
+        Result<SearchResult> result = await source.Search(CustomSearchQuery!, ct);
+
+        if (ct.IsCancellationRequested)
+        {
+            return;
+        }
 
         if (result.IsFailed)
         {
@@ -73,7 +87,7 @@ public partial class ContentSource
         _items.AddRange(result.Value.Items);
     }
 
-    private async Task SearchById()
+    private async Task SearchById(CancellationToken ct = default)
     {
         ISource? source = SourceProvider.GetById(Item.Id);
 
@@ -86,6 +100,11 @@ public partial class ContentSource
         List<string> titlesToSearch = new();
 
         Result<Media?> mediaResult = await AniListApi.GetMedia(SearchId);
+
+        if (ct.IsCancellationRequested)
+        {
+            return;
+        }
 
         if (mediaResult.IsFailed)
         {
@@ -105,7 +124,7 @@ public partial class ContentSource
 
         foreach (string title in titlesToSearch)
         {
-            Result<SearchResult> searchResult = await source.Search(title);
+            Result<SearchResult> searchResult = await source.Search(title, ct);
 
             if (searchResult.IsFailed)
             {
@@ -113,10 +132,15 @@ public partial class ContentSource
                 continue;
             }
 
-            allSearchResults.AddRange(searchResult.Value.Items);
-        }
+            if (ct.IsCancellationRequested)
+            {
+                break;
+            }
 
-        _items.Clear();
-        _items.AddRange(allSearchResults.Distinct());
+            allSearchResults.AddRange(searchResult.Value.Items);
+            _items.Clear();
+            _items.AddRange(allSearchResults.Distinct());
+            await InvokeAsync(StateHasChanged);
+        }
     }
 }
