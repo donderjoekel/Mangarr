@@ -108,7 +108,17 @@ public abstract partial class CustomHttpClient
     public async Task<Result<T>> Get<T>(string requestUri, CancellationToken ct = default)
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
@@ -145,7 +155,17 @@ public abstract partial class CustomHttpClient
         where TConcrete : TAbstract
     {
         HttpClient httpClient = CreateClient();
-        using HttpResponseMessage response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await httpClient.SendAsync(CreateGetRequest(requestUri), ct);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(new ExceptionalError(e))
+                .WithReason(new UrlReason(requestUri));
+        }
 
         try
         {
