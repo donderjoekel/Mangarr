@@ -12,6 +12,8 @@ using Mangarr.Stack.Jobs;
 using Mangarr.Stack.Library;
 using Mangarr.Stack.Logging;
 using Mangarr.Stack.Manga;
+using Mangarr.Stack.Messaging;
+using Mangarr.Stack.Messaging.Implementation;
 using Mangarr.Stack.Notifications;
 using Mangarr.Stack.Settings;
 using Mangarr.Stack.Sources;
@@ -37,6 +39,8 @@ builder.AddMangarrMangaApi();
 builder.AddMangarrNotifications();
 builder.AddMangarrSettings();
 builder.AddMangarrSources();
+
+builder.Services.AddSingleton<IMessageBus, BasicMessageBus>();
 
 builder.Services.AddHttpClient();
 
