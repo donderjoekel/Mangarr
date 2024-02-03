@@ -61,7 +61,7 @@ public partial class ContentHeader
             return;
         }
 
-        SourceBase.DeconstructId(_manga.Id, out _sourceUrl, out _);
+        SourceBase.DeconstructId(_manga.MangaId, out _sourceUrl, out _);
         await InvokeAsync(StateHasChanged);
     }
 }
