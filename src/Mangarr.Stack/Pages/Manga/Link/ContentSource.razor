@@ -1,28 +1,30 @@
 ﻿@using Mangarr.Stack.Sources.Models.Search
 @if (!_isSearching && _items.Count == 0)
 {
+    return;
     // Do nothing
 }
-else
-{
-    <div class="border rounded p-3 overflow-hidden mb-3 content-source">
-        <div class="d-flex align-items-center">
-            @if (_isSearching)
+
+<div class="border rounded p-3 overflow-hidden mb-3 content-source">
+    <div class="d-flex align-items-center">
+        @if (_isSearching)
+        {
+            <div class="spinner-border" role="status" style="margin-right: 1em"></div>
+        }
+        <span class="lead">@Source.Name</span>
+    </div>
+    <hr>
+    <div class="d-flex flex-row row-cols-auto overflow-auto pb-1">
+        @if (_items.Count > 0)
+        {
+            foreach (SearchResultItem item in _items)
             {
-                <div class="spinner-border" role="status" style="margin-right: 1em"></div>
+                <ContentSourceItem SearchId="@SearchId" Item="@item" SourceId="@Source.Id"/>
             }
-            <span class="lead">@Item.Name</span>
-        </div>
-        <hr>
-        <div class="d-flex flex-row row-cols-auto overflow-auto pb-1">
-            @if (_items.Count > 0)
-            {
-                foreach (SearchResultItem item in _items)
-                {
-                    <ContentSourceItem SearchId="@SearchId" Item="@item" SourceId="@Item.Id"/>
-                }
-            }
-            else if (_isSearching)
+        }
+        else
+        {
+            if (_isSearching)
             {
                 <p class="lead">Searching for items...</p>
             }
@@ -30,6 +32,6 @@ else
             {
                 <p class="lead">No items found</p>
             }
-        </div>
+        }
     </div>
-}
+</div>

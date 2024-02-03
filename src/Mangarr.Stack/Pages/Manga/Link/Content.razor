@@ -2,23 +2,20 @@
     <div class="mb-4">
         <form class="border rounded p-2">
             <p class="lead">Advanced</p>
-            <input class="form-control mt-2" type="text" @oninput="SearchQueryChanged" placeholder="Custom search query"/>
+            <input class="form-control mt-2 mb-3" type="text" @oninput="SearchQueryChanged" placeholder="Custom search query"/>
+            <a class="btn btn-primary" @onclick="SubmitCustomSearch">Submit</a>
         </form>
     </div>
 
-    @if (_isSearching)
-    {
-        <Spinner/>
-    }
-    else if (_items.Count == 0)
+    @if (_sources.Count == 0)
     {
         <p class="lead">Please enable at least one source in the settings</p>
     }
     else
     {
-        @foreach (SourceDocument item in _items)
+        foreach (SourceDocument source in _sources)
         {
-            <ContentSource Item="@item" SearchId="@SearchId" CustomSearchQuery="@CustomSearchQuery"/>
+            <ContentSource Source="@source" SearchId="@SearchId"/>
         }
     }
 </div>

@@ -2,6 +2,7 @@
 using FluentResults;
 using Mangarr.Stack.AniList;
 using Mangarr.Stack.Database.Documents;
+using Mangarr.Stack.Messaging;
 using Mangarr.Stack.Sources;
 using Mangarr.Stack.Sources.Models.Search;
 using Microsoft.AspNetCore.Components;
@@ -9,46 +10,55 @@ using PropertyChanged.SourceGenerator;
 
 namespace Mangarr.Stack.Pages.Manga.Link;
 
-public partial class ContentSource
+public sealed partial class ContentSource : IDisposable, IMessageReceiver<SubmitSearchQueryMessage>
 {
-    private static Dictionary<string, CancellationTokenSource> _cancellationTokens = new();
     private readonly List<SearchResultItem> _items = new();
+    private CancellationTokenSource? _cts;
     private string? _customSearchQuery = string.Empty;
     [Notify] private bool _isSearching;
+    private ISubscriptionToken? _subscriptionToken;
 
     [Inject] public AniListApi AniListApi { get; set; } = null!;
     [Inject] public SourceProvider SourceProvider { get; set; } = null!;
+    [Inject] public IMessageBus MessageBus { get; set; } = null!;
 
     [Parameter] public int SearchId { get; set; }
-    [Parameter] public string? CustomSearchQuery { get; set; }
-    [Parameter] public SourceDocument Item { get; set; } = null!;
+    [Parameter] public SourceDocument Source { get; set; } = null!;
 
-    protected override void OnInitialized() => SearchAsync();
-
-    protected override void OnParametersSet()
+    void IDisposable.Dispose()
     {
-        if (CustomSearchQuery == _customSearchQuery)
-        {
-            return;
-        }
-
-        if (!_cancellationTokens.TryGetValue(Item.Id, out CancellationTokenSource? _cts))
-        {
-            _cts = new CancellationTokenSource();
-            _cancellationTokens.Add(Item.Id, _cts);
-        }
-
-        _cts.Cancel();
-        _cts = new CancellationTokenSource();
-        SearchAsync(_cts.Token);
-        _customSearchQuery = CustomSearchQuery;
+        _cts?.Cancel();
+        MessageBus.Unsubscribe(_subscriptionToken!);
+        _subscriptionToken = null;
     }
 
-    private async void SearchAsync(CancellationToken ct = default)
+    void IMessageReceiver<SubmitSearchQueryMessage>.Receive(SubmitSearchQueryMessage message)
     {
+        _customSearchQuery = message.Query;
+        SearchAsync();
+    }
+
+    protected override void OnInitialized()
+    {
+        _subscriptionToken = MessageBus.Subscribe(this);
+        SearchAsync();
+    }
+
+    private async void SearchAsync()
+    {
+        _cts?.Cancel();
+        _cts = new CancellationTokenSource();
+        await SearchAsync(_cts.Token);
+    }
+
+    private async Task SearchAsync(CancellationToken ct)
+    {
+        _items.Clear();
         IsSearching = true;
 
-        if (!string.IsNullOrEmpty(CustomSearchQuery))
+        await InvokeAsync(StateHasChanged);
+
+        if (!string.IsNullOrEmpty(_customSearchQuery))
         {
             await SearchByCustom(ct);
         }
@@ -57,12 +67,17 @@ public partial class ContentSource
             await SearchById(ct);
         }
 
+        if (ct.IsCancellationRequested)
+        {
+            return;
+        }
+
         IsSearching = false;
     }
 
     private async Task SearchByCustom(CancellationToken ct = default)
     {
-        ISource? source = SourceProvider.GetById(Item.Id);
+        ISource? source = SourceProvider.GetById(Source.Id);
 
         if (source == null)
         {
@@ -70,7 +85,7 @@ public partial class ContentSource
             return;
         }
 
-        Result<SearchResult> result = await source.Search(CustomSearchQuery!, ct);
+        Result<SearchResult> result = await source.Search(_customSearchQuery!, ct);
 
         if (ct.IsCancellationRequested)
         {
@@ -89,7 +104,7 @@ public partial class ContentSource
 
     private async Task SearchById(CancellationToken ct = default)
     {
-        ISource? source = SourceProvider.GetById(Item.Id);
+        ISource? source = SourceProvider.GetById(Source.Id);
 
         if (source == null)
         {
@@ -101,7 +116,7 @@ public partial class ContentSource
 
         Result<Media?> mediaResult = await AniListApi.GetMedia(SearchId);
 
-        if (ct.IsCancellationRequested)
+        if (_cts!.IsCancellationRequested)
         {
             return;
         }
@@ -126,15 +141,15 @@ public partial class ContentSource
         {
             Result<SearchResult> searchResult = await source.Search(title, ct);
 
+            if (ct.IsCancellationRequested)
+            {
+                return;
+            }
+
             if (searchResult.IsFailed)
             {
                 // TODO: Handle
                 continue;
-            }
-
-            if (ct.IsCancellationRequested)
-            {
-                break;
             }
 
             allSearchResults.AddRange(searchResult.Value.Items);
