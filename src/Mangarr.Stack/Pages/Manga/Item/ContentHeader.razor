@@ -1,6 +1,9 @@
 ﻿<div id="manga-header" class="position-relative text-white">
     <div id="manga-header-background-container" class="w-100 position-relative">
-        <img id="manga-header-background" class="w-100 h-100 object-fit-cover" src="@_metadata!.BannerUrl" alt="banner">
+        @if (!string.IsNullOrEmpty(_metadata!.BannerUrl))
+        {
+            <img id="manga-header-background" class="w-100 h-100 object-fit-cover" src="@_metadata!.BannerUrl" alt="banner">
+        }
         <div id="manga-header-background-cover" class="w-100 h-100 position-absolute top-0 start-0 bg-dark opacity-75"></div>
     </div>
     <div id="manga-header-content-wrapper" class="position-absolute top-0 start-0 w-100 h-100">
