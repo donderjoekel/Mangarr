@@ -202,6 +202,9 @@ Please report any issues that you run into, and also feel free to suggest new fe
 # Planned
 
 - Implement of the toolbar where it is needed
+- Configuration for base url
+- Configuration for conversion options
+- Configuring root folders of manga after requesting
 - Proper mobile support
 - Migrating between sources
 - More (and working) settings
