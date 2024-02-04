@@ -15,7 +15,7 @@ public partial class Activity
     private void Refresh()
     {
         _items.Clear();
-        _items.AddRange(Repository.Items.OrderByDescending(x => x.IsActive));
+        _items.AddRange(Repository.Items.OrderByDescending(x => x.IsActive).ThenBy(x => x.DateCreated));
         InvokeAsync(StateHasChanged);
     }
 }
