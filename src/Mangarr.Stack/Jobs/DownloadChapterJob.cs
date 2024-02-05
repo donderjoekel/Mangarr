@@ -83,7 +83,7 @@ public class DownloadChapterJob : IJob
 
         try
         {
-            await NewMethod(id!);
+            await DownloadChapter(id!);
         }
         catch (Exception e)
         {
@@ -99,7 +99,7 @@ public class DownloadChapterJob : IJob
         }
     }
 
-    private async Task NewMethod(string id)
+    private async Task DownloadChapter(string id)
     {
         if (string.IsNullOrEmpty(id))
         {
@@ -210,7 +210,8 @@ public class DownloadChapterJob : IJob
 
     private async Task<bool> TryDownloadPages()
     {
-        Result<DownloadedPages> downloadPages = await _pageDownloaderService.DownloadPages(_source!, _pageList);
+        Result<DownloadedPages> downloadPages =
+            await _pageDownloaderService.DownloadPages(_chapter!.Id, _source!, _pageList);
 
         if (downloadPages.IsFailed)
         {
@@ -279,7 +280,15 @@ public class DownloadChapterJob : IJob
         return true;
     }
 
-    private Task OnPageDownloaderProgress(int progress) => SetProgress(10 + (int)Math.Round(progress * 0.8f));
+    private Task OnPageDownloaderProgress(string chapterId, int progress)
+    {
+        if (chapterId != _chapter!.Id)
+        {
+            return Task.CompletedTask;
+        }
+
+        return SetProgress(10 + (int)Math.Round(progress * 0.8f));
+    }
 
     private async Task SetProgress(int progress) =>
         await _chapterProgressRepository.UpdateAsync(

@@ -8,7 +8,7 @@ namespace Mangarr.Stack.Downloading;
 
 public class PageDownloaderService
 {
-    public delegate Task ProcessCallbackDelegate(int progress);
+    public delegate Task ProcessCallbackDelegate(string chapterId, int progress);
 
     private readonly ConversionService _conversionService;
 
@@ -16,7 +16,7 @@ public class PageDownloaderService
 
     public event ProcessCallbackDelegate? Progress;
 
-    public async Task<Result<DownloadedPages>> DownloadPages(ISource source, PageList pageList)
+    public async Task<Result<DownloadedPages>> DownloadPages(string chapterId, ISource source, PageList pageList)
     {
         List<DownloadedPage> pages = new();
 
@@ -50,11 +50,11 @@ public class PageDownloaderService
                     conversionResult.Reasons));
             }
 
-            await Task.Delay(100);
+            await Task.Delay(Random.Shared.Next(10, 1000));
 
             Progress:
             int progress = (int)Math.Round(i / total * 100);
-            Progress?.Invoke(progress);
+            Progress?.Invoke(chapterId, progress);
         }
 
         return Result.Ok(new DownloadedPages(pages));
