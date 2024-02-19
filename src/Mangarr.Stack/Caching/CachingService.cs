@@ -4,7 +4,7 @@ using StackExchange.Redis;
 
 namespace Mangarr.Stack.Caching;
 
-public class CachingService
+internal class CachingService : ICachingService
 {
     private readonly IDatabase _database;
     private readonly ILogger<CachingService> _logger;

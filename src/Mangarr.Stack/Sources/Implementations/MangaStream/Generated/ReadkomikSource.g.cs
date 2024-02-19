@@ -2,11 +2,9 @@
 
 using Injectio.Attributes;
 using Mangarr.Stack.Caching;
-using Mangarr.Stack.Sources;
 using Mangarr.Stack.Sources.Clients;
-using Mangarr.Stack.Sources.Implementations.MangaStream;
 
-namespace Mangarr.Backend.Sources.Implementations.MangaStream;
+namespace Mangarr.Stack.Sources.Implementations.MangaStream;
 
 [RegisterSingleton<ISource>(Duplicate = DuplicateStrategy.Append)]
 internal class ReadkomikSource : MangaStreamSourceBase
@@ -20,7 +18,7 @@ internal class ReadkomikSource : MangaStreamSourceBase
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
         ILoggerFactory loggerFactory,
-        CachingService cachingService
+        ICachingService cachingService
     )
         : base(genericHttpClient, cloudflareHttpClient, loggerFactory, cachingService)
     {

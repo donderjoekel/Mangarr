@@ -15,13 +15,13 @@ namespace Mangarr.Stack.Sources.Implementations.NepNep;
 
 internal abstract class NepNepSourceBase : SourceBase
 {
-    private readonly CachingService _cachingService;
+    private readonly ICachingService _cachingService;
 
     protected NepNepSourceBase(
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
         ILoggerFactory loggerFactory,
-        CachingService cachingService
+        ICachingService cachingService
     )
         : base(genericHttpClient, cloudflareHttpClient, loggerFactory) =>
         _cachingService = cachingService;

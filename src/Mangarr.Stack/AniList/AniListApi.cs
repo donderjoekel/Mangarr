@@ -10,13 +10,13 @@ namespace Mangarr.Stack.AniList;
 
 public class AniListApi
 {
-    private readonly CachingService _cachingService;
+    private readonly ICachingService _cachingService;
     private readonly Client _client;
     private readonly MangaMetadataRepository _mangaMetadataRepository;
     private readonly SettingsApi _settingsApi;
 
     public AniListApi(
-        CachingService cachingService,
+        ICachingService cachingService,
         SettingsApi settingsApi,
         MangaMetadataRepository mangaMetadataRepository,
         IHttpClientFactory httpClientFactory

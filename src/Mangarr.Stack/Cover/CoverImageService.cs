@@ -8,7 +8,7 @@ namespace Mangarr.Stack.Cover;
 
 public class CoverImageService
 {
-    private readonly CachingService _cachingService;
+    private readonly ICachingService _cachingService;
     private readonly ConversionService _conversionService;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly MangaMetadataRepository _mangaMetadataRepository;
@@ -16,7 +16,7 @@ public class CoverImageService
     public CoverImageService(
         IHttpClientFactory httpClientFactory,
         MangaMetadataRepository mangaMetadataRepository,
-        CachingService cachingService,
+        ICachingService cachingService,
         ConversionService conversionService
     )
     {

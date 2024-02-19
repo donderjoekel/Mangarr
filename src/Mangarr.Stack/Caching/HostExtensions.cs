@@ -8,7 +8,7 @@ public static class HostExtensions
     public static void AddMangarrCaching(this WebApplicationBuilder builder)
     {
         builder.Services.Configure<RedisOptions>(builder.Configuration.GetSection(RedisOptions.SECTION));
-        builder.Services.AddSingleton<CachingService>();
+        builder.Services.AddSingleton<ICachingService, CachingService>();
         builder.Services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
             RedisOptions redisOptions = provider.GetRequiredService<IOptions<RedisOptions>>().Value;

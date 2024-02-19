@@ -53,7 +53,7 @@
         return $@"// Auto generated
 
 using Injectio.Attributes;
-using Mangarr.Stack.Services;
+using Mangarr.Stack.Caching;
 using Mangarr.Stack.Sources.Clients;
 
 namespace Mangarr.Stack.Sources.Implementations.MangaStream;
@@ -70,7 +70,7 @@ internal class {model.Item2.Replace(" ", string.Empty)}Source : MangaStreamSourc
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
         ILoggerFactory loggerFactory,
-        CachingService cachingService
+        ICachingService cachingService
     )
         : base(genericHttpClient, cloudflareHttpClient, loggerFactory, cachingService)
     {{

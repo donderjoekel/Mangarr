@@ -16,7 +16,7 @@ namespace Mangarr.Stack.Sources.Implementations.MangaStream;
 
 internal abstract class MangaStreamSourceBase : SourceBase
 {
-    private readonly CachingService _cachingService;
+    private readonly ICachingService _cachingService;
 
     protected virtual bool UsePostIds => false;
 
@@ -24,7 +24,7 @@ internal abstract class MangaStreamSourceBase : SourceBase
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
         ILoggerFactory loggerFactory,
-        CachingService cachingService
+        ICachingService cachingService
     )
         : base(genericHttpClient, cloudflareHttpClient, loggerFactory) =>
         _cachingService = cachingService;

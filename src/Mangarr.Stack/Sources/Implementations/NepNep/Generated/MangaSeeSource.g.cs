@@ -18,7 +18,7 @@ internal class MangaSeeSource : NepNepSourceBase
         GenericHttpClient genericHttpClient,
         CloudflareHttpClient cloudflareHttpClient,
         ILoggerFactory loggerFactory,
-        CachingService cachingService
+        ICachingService cachingService
     )
         : base(genericHttpClient, cloudflareHttpClient, loggerFactory, cachingService)
     {
