@@ -23,7 +23,7 @@
                 <tbody>
                 @foreach ((ChapterProgressDocument? item, int index) in _items.WithIndex())
                 {
-                    <ActivityItem Item="@item" Index="@(index + 1)"/>
+                    <ActivityItem OnDelete="Refresh" Item="@item" Index="@(index + 1)"/>
                 }
                 </tbody>
             </table>
