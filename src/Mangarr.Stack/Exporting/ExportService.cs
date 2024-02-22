@@ -4,6 +4,7 @@ using Mangarr.Stack.AniList;
 using Mangarr.Stack.Archival;
 using Mangarr.Stack.Database.Documents;
 using Mangarr.Stack.Database.Repositories;
+using Mangarr.Stack.Formatting;
 using RequestedChapterDocument = Mangarr.Stack.Database.Documents.RequestedChapterDocument;
 using RequestedMangaDocument = Mangarr.Stack.Database.Documents.RequestedMangaDocument;
 
@@ -12,12 +13,18 @@ namespace Mangarr.Stack.Exporting;
 public class ExportService
 {
     private readonly AniListApi _aniListApi;
+    private readonly FormattingService _formattingService;
     private readonly RootFolderRepository _rootFolderRepository;
 
-    public ExportService(AniListApi aniListApi, RootFolderRepository rootFolderRepository)
+    public ExportService(
+        AniListApi aniListApi,
+        RootFolderRepository rootFolderRepository,
+        FormattingService formattingService
+    )
     {
         _aniListApi = aniListApi;
         _rootFolderRepository = rootFolderRepository;
+        _formattingService = formattingService;
     }
 
     public async Task<Result> Export(
@@ -35,10 +42,13 @@ public class ExportService
                 return Result.Fail("Root folder missing");
             }
 
-            string mangaTitle = _aniListApi.GetPreferredTitle(requestedMangaDocument);
-            string chapterTitle = requestedChapterDocument.ChapterNumber.ToString(CultureInfo.InvariantCulture);
-            string archiveName = $"{mangaTitle} - {chapterTitle}.cbz"; // TODO: Support archive extension
-            string archiveDirectory = Path.Combine(rootFolderDocument.Path, mangaTitle);
+            string archiveDirectory = Path.Combine(rootFolderDocument.Path,
+                _formattingService.FormatDirectory(requestedMangaDocument));
+
+            // TODO: Support archive extension
+            string archiveName = _formattingService.FormatFilename(
+                requestedMangaDocument,
+                requestedChapterDocument) + ".cbz";
 
             if (!Directory.Exists(archiveDirectory))
             {
