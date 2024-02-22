@@ -8,10 +8,18 @@ public partial class SettingsApi
 
     public ConversionSettings Conversion { get; }
 
-    public SettingsApi(AniListSettings aniListSettings, LibrarySettings librarySettings, ConversionSettings conversion)
+    public FormattingSettings Formatting { get; }
+
+    public SettingsApi(
+        AniListSettings aniListSettings,
+        LibrarySettings librarySettings,
+        ConversionSettings conversion,
+        FormattingSettings formatting
+    )
     {
         AniList = aniListSettings;
         Library = librarySettings;
         Conversion = conversion;
+        Formatting = formatting;
     }
 }

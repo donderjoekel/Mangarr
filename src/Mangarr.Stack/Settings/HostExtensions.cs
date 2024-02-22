@@ -10,5 +10,6 @@ public static class HostExtensions
         builder.Services.AddSingleton<SettingsApi.AniListSettings>();
         builder.Services.AddSingleton<SettingsApi.LibrarySettings>();
         builder.Services.AddSingleton<SettingsApi.ConversionSettings>();
+        builder.Services.AddSingleton<SettingsApi.FormattingSettings>();
     }
 }

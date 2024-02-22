@@ -37,7 +37,7 @@ public class SettingsWriter
         }
 
         jObject[section] = JObject.FromObject(options);
-        string output = JsonConvert.SerializeObject(jObject, Formatting.Indented);
+        string output = JsonConvert.SerializeObject(jObject, Newtonsoft.Json.Formatting.Indented);
         File.WriteAllText(path, output);
         _configuration.Reload();
     }

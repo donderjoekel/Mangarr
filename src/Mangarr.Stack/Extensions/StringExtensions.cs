@@ -4,6 +4,18 @@ namespace Mangarr.Stack.Extensions;
 
 public static class StringExtensions
 {
+    public static string ReplaceAll(this string input, string? newValue, IEnumerable<string> oldValues)
+    {
+        string result = input;
+
+        foreach (string oldValue in oldValues)
+        {
+            result = result.Replace(oldValue, newValue);
+        }
+
+        return result;
+    }
+
     public static string ReplaceAll(this string input, string? newValue, params string[] oldValues)
     {
         string result = input;
