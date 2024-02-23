@@ -41,7 +41,7 @@ public class FormattingService
         formatted = formatted.Replace("{chapterNumber}", requestedChapterDocument.ChapterNumber.ToString());
 
         formatted = formatted.ReplaceAll(string.Empty,
-            _settingsApi.Formatting.Strip?.Split(" ") ?? Array.Empty<string>());
+            _settingsApi.Formatting.Strip?.Split(" ", StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>());
 
         formatted = formatted.ReplaceAll(_settingsApi.Formatting.InvalidCharacterReplacement,
             Path.GetInvalidPathChars().Select(x => x.ToString()));
