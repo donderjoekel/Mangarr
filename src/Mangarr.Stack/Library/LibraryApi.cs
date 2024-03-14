@@ -64,7 +64,7 @@ public class LibraryApi
                 orderedItems = items.OrderBy(x => x.Manga.DateCreated);
                 break;
             case LibrarySortMode.Updated:
-                orderedItems = items.OrderBy(x => x.Chapters.OrderBy(y => y.DateCreated).Last());
+                orderedItems = items.OrderBy(x => x.Chapters.OrderBy(y => y.DateCreated).Last().DateCreated);
                 break;
             case LibrarySortMode.Source:
                 orderedItems = items.OrderBy(x => x.Source?.Name ?? string.Empty);
