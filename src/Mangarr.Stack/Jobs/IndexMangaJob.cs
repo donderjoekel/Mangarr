@@ -138,7 +138,7 @@ public class IndexMangaJob : IJob
             }
 
             requestedChapterDocument.Downloaded = doesChapterExistResult.Value;
-            requestedChapterDocument.MarkedForDownload = !doesChapterExistResult.Value;
+            requestedChapterDocument.MarkedForDownload = !doesChapterExistResult.Value && markedForDownload;
 
             await _requestedChapterRepository.AddAsync(requestedChapterDocument);
 
