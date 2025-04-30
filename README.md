@@ -1,4 +1,10 @@
 # Mangarr
+
+## Reason for archival
+Unfortunately I do not have enough free time to properly work on this. Seeing as there is at least some interest it is only fair to not keep giving false hope and archive this repository.
+
+---
+
 Mangarr is an *arr (sonarr, radarr) inspired approach to downloading manga. In contrast to the arr suite it does not do this by making use of newsgroups and torrents, but instead it uses a collection of sources.
 
 ![mangarr](https://github.com/tnrd-org/Mangarr/assets/5531467/8d9a72d8-8b79-4f6f-8c49-af06a7e36218)
